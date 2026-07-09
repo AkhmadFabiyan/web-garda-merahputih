@@ -1,0 +1,155 @@
+:root {
+  --color-gold: #D90429;
+  --color-purple-dark: #FFFFFF;
+  --color-bg: #FFFFFF;
+  --color-surface: #F9FAFB;
+  --color-card: #FFFFFF;
+  --color-accent: #D90429;
+  --color-text-primary: #111827;
+  --color-text-secondary: #374151;
+  --color-text-muted: #6B7280;
+  
+  --font-heading: var(--font-poppins), 'Poppins', sans-serif;
+  --font-body: var(--font-inter), 'Inter', sans-serif;
+  
+  /* Standardized Card */
+  --card-bg: var(--color-card);
+  --card-border: 1px solid #EAEAEA;
+  --card-radius: 20px;
+  --card-padding: 24px;
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.03);
+  --shadow-glow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.08);
+  
+  /* Layout Spacing Tokens */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-section: var(--space-16);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* GLOBAL MICROINTERACTIONS */
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+  position: relative;
+}
+
+/* Keyboard Focus Indicators (WCAG Focus Management) */
+*:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 4px;
+  border-radius: 4px;
+  transition: outline-offset 0.2s ease;
+}
+
+/* Button & Card Shared Transitions */
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(217, 4, 41, 0.20);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Icons */
+svg {
+  transition: transform 0.3s ease;
+}
+
+a:hover > svg, .btn:hover > svg {
+  transform: scale(1.1);
+}
+
+/* Utility classes for Cards */
+.card-interactive {
+  transition: all 0.3s ease;
+}
+
+.card-interactive:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(217, 4, 41, 0.15);
+}
+
+/* Accessibility (A11y) Modes */
+html.a11y-high-contrast,
+html.a11y-high-contrast body {
+  background-color: #000000 !important;
+}
+
+html.a11y-high-contrast * {
+  background-color: #000000 !important;
+  color: #FFFF00 !important;
+  border-color: #FFFF00 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+html.a11y-high-contrast img,
+html.a11y-high-contrast video,
+html.a11y-high-contrast canvas {
+  background-color: transparent !important;
+  border: 1px solid #FFFF00 !important;
+}
+
+html.a11y-high-contrast svg,
+html.a11y-high-contrast svg path {
+  background-color: transparent !important;
+  fill: #FFFF00 !important;
+  color: #FFFF00 !important;
+}
+
+html.a11y-high-contrast input::placeholder,
+html.a11y-high-contrast textarea::placeholder {
+  color: #CCCC00 !important;
+}
+
+html.a11y-text-large {
+  zoom: 1.15;
+}
+
+/* Talkback Highlight Outline */
+.a11y-speak-outline {
+  outline: 3px solid #F4C542 !important;
+  outline-offset: 4px !important;
+  border-radius: 4px;
+  transition: outline 0.2s ease-in-out;
+  background-color: rgba(244, 197, 66, 0.1) !important;
+}

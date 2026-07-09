@@ -1,0 +1,294 @@
+.timelineList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 760px;
+  margin: 48px auto;
+  padding-bottom: var(--space-section);
+  position: relative;
+}
+
+/* Garis vertikal kiri */
+.timelineList::before {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #D90429 0%, rgba(217, 4, 41, 0.08) 100%);
+  border-radius: 2px;
+}
+
+/* === ITEM WRAPPER === */
+.item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* === NODE === */
+.node {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #D90429;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(217, 4, 41, 0.35), 0 0 0 4px rgba(217, 4, 41, 0.12);
+  z-index: 1;
+  position: relative;
+}
+
+.nodeDone {
+  background: #16a34a;
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.3), 0 0 0 4px rgba(22, 163, 74, 0.12);
+}
+
+.nodeUpcoming {
+  background: #D1D5DB;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1), 0 0 0 4px rgba(0, 0, 0, 0.05);
+  color: #6B7280;
+}
+
+/* === CARD BASE === */
+.card {
+  flex: 1;
+  border-radius: 20px;
+  padding: 24px;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+
+  /* Default: upcoming */
+  background: #FFFFFF;
+  border: 1.5px solid #E5E7EB;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.10);
+}
+
+/* === ONGOING — merah hidup === */
+.cardOngoing {
+  background: linear-gradient(135deg, #fff8f8 0%, #fff0f0 100%);
+  border: 1.5px solid rgba(217, 4, 41, 0.35);
+  box-shadow: 0 4px 24px rgba(217, 4, 41, 0.12);
+}
+
+.cardOngoing:hover {
+  box-shadow: 0 16px 40px rgba(217, 4, 41, 0.18);
+}
+
+/* Accent bar kiri */
+.cardOngoing::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(to bottom, #D90429, #ff6b6b);
+  border-radius: 20px 0 0 20px;
+}
+
+/* === DONE — hijau muted === */
+.cardDone {
+  background: #F0FDF4;
+  border: 1.5px solid rgba(22, 163, 74, 0.25);
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.06);
+  opacity: 0.85;
+}
+
+.cardDone::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: #16a34a;
+  border-radius: 20px 0 0 20px;
+}
+
+/* === CARD HEADER === */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.date {
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 800;
+  color: #D90429;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: rgba(217, 4, 41, 0.07);
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.cardDone .date {
+  color: #16a34a;
+  background: rgba(22, 163, 74, 0.08);
+}
+
+/* === STATUS BADGE === */
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.statusDone {
+  background: rgba(22, 163, 74, 0.12);
+  color: #16a34a;
+  border: 1px solid rgba(22, 163, 74, 0.2);
+}
+
+.statusOngoing {
+  background: #D90429;
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(217, 4, 41, 0.35);
+  animation: pulseBadge 2s ease-in-out infinite;
+}
+
+@keyframes pulseBadge {
+  0%, 100% { box-shadow: 0 2px 8px rgba(217, 4, 41, 0.35); }
+  50% { box-shadow: 0 2px 16px rgba(217, 4, 41, 0.6); }
+}
+
+.statusUpcoming {
+  background: #F3F4F6;
+  color: #6B7280;
+  border: 1px solid #E5E7EB;
+}
+
+/* === TITLE === */
+.title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 14px;
+  letter-spacing: 0.3px;
+}
+
+/* === ACTIVITIES === */
+.activities {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.activities li {
+  font-size: 14px;
+  color: #374151;
+  position: relative;
+  padding-left: 20px;
+  line-height: 1.5;
+}
+
+.activities li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #D90429;
+}
+
+.cardDone .activities li::before {
+  background: #16a34a;
+}
+
+/* === INFO GRID === */
+.infoGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  margin-top: 4px;
+}
+
+.cardOngoing .infoGrid {
+  background: rgba(217, 4, 41, 0.04);
+  border-color: rgba(217, 4, 41, 0.12);
+}
+
+.cardDone .infoGrid {
+  background: rgba(22, 163, 74, 0.04);
+  border-color: rgba(22, 163, 74, 0.12);
+}
+
+.infoRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: #4B5563;
+  line-height: 1.4;
+}
+
+.infoRow span:first-child {
+  flex-shrink: 0;
+}
+
+.infoRowNote {
+  font-style: italic;
+  color: #9CA3AF;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 640px) {
+  .timelineList {
+    margin: 32px 0;
+  }
+  .timelineList::before {
+    left: 19px;
+  }
+  .node {
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+  }
+  .item {
+    gap: 14px;
+  }
+  .card {
+    padding: 18px 16px;
+  }
+  .title {
+    font-size: 16px;
+  }
+  .cardHeader {
+    flex-direction: column;
+    gap: 6px;
+  }
+}

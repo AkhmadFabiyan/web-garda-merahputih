@@ -1,0 +1,247 @@
+.message {
+  display: flex;
+  gap: 8px;
+  animation: msgIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes msgIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Bot message */
+.message.bot {
+  align-items: flex-start;
+}
+
+.message.user {
+  flex-direction: row-reverse;
+  align-items: flex-end;
+}
+
+.botAvatar {
+  width: 28px;
+  height: 28px;
+  background: #D90429;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  word-break: break-word;
+}
+
+.message.bot .bubble {
+  background: #F7F8FA;
+  border: 1px solid #EAEAEA;
+  border-radius: 4px 18px 18px 18px;
+  color: #111827;
+}
+
+.message.user .bubble {
+  background: #D90429;
+  border: 1px solid #D90429;
+  border-radius: 18px 18px 4px 18px;
+  color: #FFFFFF;
+  box-shadow: 0 2px 12px rgba(217, 4, 41, 0.1);
+}
+
+/* Markdown-like formatting in bot messages */
+.message.bot .bubble strong {
+  color: #D90429;
+  font-weight: 600;
+}
+
+.message.bot .bubble em {
+  color: #4B5563;
+}
+
+/* WhatsApp contact buttons */
+.contactsWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.waBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #D90429;
+  border: none;
+  border-radius: 10px;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(217, 4, 41, 0.15);
+}
+
+.waBtn:hover {
+  background: #B00020;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(217, 4, 41, 0.25);
+}
+
+.waIcon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.waMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.waName {
+  font-weight: 600;
+  color: #FFFFFF;
+  font-size: 13px;
+}
+
+.waPhone {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Timestamp */
+.timestamp {
+  font-size: 10px;
+  color: rgba(31, 41, 55, 0.4);
+  margin-top: 4px;
+  text-align: right;
+}
+
+.message.bot .timestamp {
+  text-align: left;
+  padding-left: 36px;
+}
+
+/* Welcome message special styling */
+.welcome {
+  background: #FFE8EC !important;
+  border-color: #F8B4C0 !important;
+}
+
+.gardaLink {
+  color: #F9A825;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color 0.2s;
+  font-weight: 500;
+}
+
+.gardaLink:hover {
+  color: #D90429;
+}
+
+/* Suggestions */
+.suggestionsWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.suggestionChip {
+  background: #F3F4F6;
+  border: 1px solid #E5E7EB;
+  color: #374151;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  text-align: left;
+}
+
+.suggestionChip:hover {
+  background: #E5E7EB;
+  border-color: #D1D5DB;
+  color: #111827;
+}
+
+.suggestionChip:active {
+  transform: scale(0.97);
+}
+
+/* Markdown Advanced Styles */
+.gardaList {
+  margin: 6px 0 6px 16px;
+  padding: 0;
+  list-style-type: disc;
+}
+
+.gardaList li {
+  margin-bottom: 4px;
+}
+
+.gardaHeader {
+  color: #D90429;
+  font-size: 14.5px;
+  font-weight: 700;
+  display: block;
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-top: 4px;
+  padding-left: 36px;
+}
+
+.message.user .metaRow {
+  padding-left: 0;
+  justify-content: flex-end;
+}
+
+.message.bot .metaRow .timestamp {
+  padding-left: 0;
+  margin-top: 0;
+}
+
+.copyBtn {
+  background: transparent;
+  border: none;
+  color: #9CA3AF;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.copyBtn:hover {
+  background: #F3F4F6;
+  color: #374151;
+}

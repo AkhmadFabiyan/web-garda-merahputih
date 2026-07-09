@@ -1,0 +1,99 @@
+.card {
+  background: #FFFFFF;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  padding: 24px 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  display: inline-block;
+  min-width: 320px;
+}
+
+.title {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: #1F2937;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.grid {
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.number {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 800;
+  color: #D90429;
+  line-height: 1;
+  text-shadow: none;
+  transition: all 0.3s ease;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: #4B5563;
+  text-transform: capitalize;
+  margin-top: 8px;
+  letter-spacing: 1px;
+}
+
+.separator {
+  width: 1px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.1);
+  align-self: center;
+}
+
+.finishedMessage {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 800;
+  color: #D90429;
+  text-align: center;
+  padding: 24px 0;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(217, 4, 41, 0.4);
+}
+
+@media (max-width: 640px) {
+  .card {
+    min-width: 100%;
+    padding: 16px;
+    width: 100%;
+  }
+  .grid {
+    gap: 12px;
+    justify-content: center;
+  }
+  .number {
+    font-size: 32px;
+  }
+  .label {
+    font-size: 10px;
+    margin-top: 4px;
+  }
+  .separator {
+    height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .number {
+    font-size: 28px;
+  }
+  .grid {
+    gap: 8px;
+  }
+}

@@ -1,0 +1,109 @@
+.container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 9999;
+}
+
+.button {
+  background: #C8102E;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(200, 16, 46, 0.4);
+}
+
+.menu {
+  position: absolute;
+  bottom: 70px;
+  left: 0;
+  background: var(--color-surface);
+  border: var(--card-border);
+  border-radius: 12px;
+  padding: 16px;
+  width: 250px;
+  box-shadow: var(--shadow-glow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transform-origin: bottom left;
+  animation: popIn 0.3s ease;
+}
+
+.menuHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.menuHeader h3 {
+  font-size: 16px;
+  color: var(--color-gold);
+  margin: 0;
+}
+
+.closeMenu {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.closeMenu:hover {
+  color: #ff4444;
+}
+
+.option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-card);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.option:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.optionActive {
+  border-color: var(--color-gold);
+  background: rgba(200, 16, 46, 0.1);
+}
+
+.icon {
+  font-size: 18px;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

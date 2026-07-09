@@ -1,0 +1,250 @@
+.section {
+  padding: var(--space-4) 0 var(--space-3) 0;
+  position: relative;
+}
+
+.grid3Col {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr 1fr;
+  gap: var(--space-6);
+  align-items: stretch;
+}
+
+@media (max-width: 1024px) {
+  .grid3Col {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid3Col {
+    gap: 32px;
+  }
+}
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.description {
+  color: #A0AEC0;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.btn {
+  display: inline-block;
+  background: #FFFFFF;
+  color: #D90429;
+  padding: 10px 24px;
+  border-radius: 8px;
+  border: 1px solid #D90429;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  align-self: flex-start;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: #D90429;
+  color: #FFFFFF;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(217, 4, 41, 0.15);
+}
+
+.videoContent {
+  display: flex;
+  align-items: center;
+}
+
+.videoCard {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #FFFFFF;
+  border: 1px solid #EAEAEA;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.videoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+}
+
+.playBtn {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  border: 2px solid var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: 24px;
+  transition: all 0.3s;
+  color: #1F2937;
+}
+
+.playButton:hover {
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-purple-dark);
+}
+
+.videoTitle h3 {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+.videoTitle p {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-gold);
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.quoteWrapper {
+  background-color: var(--color-card);
+  padding: 20px;
+  border-radius: var(--radius-md);
+  position: relative;
+  border: 1px solid rgba(200, 16, 46, 0.2);
+}
+
+.quoteMarkLeft, .quoteMarkRight {
+  font-family: serif;
+  font-size: 80px;
+  color: rgba(255, 255, 255, 0.4);
+  position: absolute;
+  line-height: 0;
+  z-index: 1;
+}
+
+.quoteMarkLeft {
+  top: 36px;
+  left: 12px;
+}
+
+.quoteMarkRight {
+  bottom: -8px;
+  right: 12px;
+}
+
+.quoteText {
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: #FFFFFF;
+  text-align: left;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+  font-weight: 500;
+}
+
+.quoteAuthor {
+  font-size: 14px;
+  color: #FFFFFF;
+  text-align: left;
+  font-weight: 600;
+}
+
+.quoteCard {
+  width: 100%;
+  background-color: #D90429;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 2px, transparent 2px);
+  background-size: 20px 20px;
+  border: none;
+  border-radius: 24px;
+  padding: 32px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(217, 4, 41, 0.2);
+}
+
+.fireWatermark {
+  position: absolute;
+  bottom: -30px;
+  right: -30px;
+  width: 160px;
+  height: 160px;
+  background-image: url('/assets/icon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.08;
+  z-index: 0;
+  transform: rotate(-15deg);
+}
+.quoteContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+}
+
+.videoOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to top, rgba(0, 0, 0,0.9) 0%, transparent 60%);
+}
+
+.videoTitle {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 800;
+  color: #C8102E;
+  margin-top: 16px;
+  text-align: center;
+}
+
+.videoSubtitle {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  color: #D8B4E2;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.carouselDots {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0,0.3);
+}
+
+.dotActive {
+  background: #D90429;
+}

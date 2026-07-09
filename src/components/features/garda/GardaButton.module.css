@@ -1,0 +1,87 @@
+.button {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+  background: #D90429;
+  box-shadow: 0 4px 20px rgba(217, 4, 41, 0.3);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: floatIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-origin: bottom right;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.button:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 10px 30px rgba(217, 4, 41, 0.4) !important;
+}
+
+.button:active {
+  transform: translateY(-1px) scale(0.98) !important;
+}
+
+.sparkle {
+  font-size: 18px;
+  display: inline-block;
+}
+
+.label {
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Notification dot */
+.pulse {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 12px;
+  height: 12px;
+  background: #ef4444;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.7; }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .button {
+    bottom: 20px;
+    right: 16px;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+}

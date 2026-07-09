@@ -1,0 +1,21 @@
+{
+  "name": "GARDA UNESA 2026",
+  "short_name": "GARDA",
+  "description": "Glory of Education - Pelopor Pendidikan, Pilar Kemajuan Bangsa. Aplikasi resmi PKKMB UNESA 2026.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0616",
+  "theme_color": "#0A0616",
+  "icons": [
+    {
+      "src": "/assets/icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

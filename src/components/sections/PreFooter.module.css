@@ -1,0 +1,56 @@
+.section {
+  padding: 24px 0 32px 0;
+  position: relative;
+}
+
+.hubWrapper {
+  background: rgba(249, 250, 251, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 24px;
+  padding: 32px;
+}
+
+/* Desktop: FAQ | Contact Person | Ikuti Kami */
+.grid3Col {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.5fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+/* Vertical dividers between columns */
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.col:not(:last-child) {
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  padding-right: 32px;
+}
+
+/* Tablet: stack vertically */
+@media (max-width: 1024px) {
+  .hubWrapper {
+    padding: 24px;
+  }
+  .grid3Col {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .col:not(:last-child) {
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-right: 0;
+    padding-bottom: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hubWrapper {
+    padding: 20px 16px;
+  }
+  .grid3Col {
+    gap: 36px;
+  }
+}

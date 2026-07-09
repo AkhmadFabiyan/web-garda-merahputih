@@ -1,0 +1,80 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding-bottom: var(--space-section);
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contactCard {
+  background: #FFFFFF;
+  border: 1px solid #EAEAEA;
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.contactCard:hover {
+  background: #FFFFFF;
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  border-color: #EAEAEA;
+}
+
+.facultyTitle {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 800;
+  color: #D90429;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+}
+
+.personsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.personItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.personName {
+  font-size: 12px;
+  color: #1F2937;
+  font-weight: 500;
+}
+
+.waLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 600;
+  background: #D90429;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 4px;
+  box-shadow: 0 4px 15px rgba(217, 4, 41, 0.2);
+}
+
+.waLink:hover {
+  background: #B20322;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(217, 4, 41, 0.2);
+}

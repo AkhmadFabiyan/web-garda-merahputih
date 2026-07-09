@@ -1,0 +1,147 @@
+.footer {
+  background: #111827;
+  padding: 48px 0 24px 0;
+  border-top: 1px solid #1F2937;
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.glowTop {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(216, 180, 226, 0.5), transparent);
+  box-shadow: 0 0 30px 2px rgba(206, 17, 38, 0.6);
+}
+
+.minimalStack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.brandGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.logoFlame {
+  display: flex;
+  align-items: center;
+}
+
+.logoText h2 {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 800;
+  color: #D90429;
+  line-height: 1;
+  letter-spacing: 1px;
+}
+
+.tagline {
+  font-size: 13px;
+  color: #9CA3AF;
+  font-family: var(--font-body);
+  letter-spacing: 0.5px;
+}
+
+.navLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.navLinks a {
+  font-size: 14px;
+  color: #F3F4F6;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-family: var(--font-heading);
+}
+
+.navLinks a:hover {
+  color: #D90429;
+}
+
+.dot {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 10px;
+}
+
+.socialRow {
+  display: flex;
+  gap: 16px;
+  margin-top: 0;
+}
+
+.socialIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #F3F4F6;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.socialIcon:hover {
+  background: #D90429;
+  border-color: #D90429;
+  color: #FFFFFF;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(217, 4, 41, 0.2);
+}
+
+.copyright {
+  font-size: 12px;
+  color: #6B7280;
+  margin-top: 8px;
+}
+
+/* Responsive Styles */
+@media (max-width: 640px) {
+  .footer {
+    padding: 32px 0 100px 0; /* extra bottom clearance for Garda floating button */
+  }
+  .minimalStack {
+    gap: 20px;
+  }
+  .navLinks {
+    gap: 8px 12px;
+    padding: 0 8px;
+  }
+  .navLinks a {
+    font-size: 13px;
+  }
+  .socialRow {
+    gap: 12px;
+    margin-top: 0;
+  }
+  .socialIcon {
+    width: 36px;
+    height: 36px;
+  }
+}
