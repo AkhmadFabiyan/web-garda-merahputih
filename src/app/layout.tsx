@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   other: {
     "author": "AkhmadFabiyan",
     "creator": "AkhmadFabiyan",
-    "build-signature": "AFAM-GARDA26"
+    "build-signature": "AFAAMM-GARDA26"
   }
 };
 
@@ -133,7 +133,7 @@ export default function RootLayout({
             __html: `
               console.log("%c🏆 GARDA UNESA 2026", "color: #F4C542; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px rgba(244,197,66,0.5); background: #0a0616; padding: 8px 16px; border-radius: 6px;");
               console.log("%cEngineered by:\\nAkhmadFabiyan -> https://www.linkedin.com/in/akhmadfabiyan/", "color: #D8B4E2; font-size: 14px; font-family: monospace; padding-left: 10px; margin-top: 5px;");
-              console.log("%cBuild:\\nAFAM-GARDA26 (v${packageJson.version})", "color: #A0AEC0; font-size: 12px; font-family: monospace; padding-left: 10px; margin-top: 5px;");
+              console.log("%cBuild:\\nAFAAMM-GARDA26 (v${packageJson.version})", "color: #A0AEC0; font-size: 12px; font-family: monospace; padding-left: 10px; margin-top: 5px;");
             `,
           }}
         />

@@ -18,14 +18,14 @@
 }
 
 .primary {
-  background-color: #C8102E;
+  background: var(--gradient-primary);
   color: #FFFFFF;
 }
 
 .primary:hover {
-  background-color: #A50F27;
+  background: var(--gradient-hover);
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(200, 16, 46, 0.20);
+  box-shadow: 0 10px 30px rgba(217, 4, 41, 0.25);
 }
 
 .secondary {

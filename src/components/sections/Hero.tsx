@@ -14,7 +14,8 @@ export const Hero = ({ children }: { children?: React.ReactNode }) => {
         alt="GARDA UNESA Emblem" 
         fill 
         priority 
-        sizes="(max-width: 768px) 100vw, 50vw"
+        quality={100}
+        sizes="100vw"
         className={styles.heroEmblem}
       />
       <div className={styles.ambientBackground}>

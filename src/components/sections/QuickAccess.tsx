@@ -6,6 +6,14 @@ import styles from './QuickAccess.module.css';
 export const QuickAccess = () => {
   return (
     <section className={styles.section} id="quick-access">
+      <svg width="0" height="0" style={{ position: 'absolute' }}>
+        <defs>
+          <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#D90429" />
+            <stop offset="100%" stopColor="#FF6B00" />
+          </linearGradient>
+        </defs>
+      </svg>
       <Container>
         <div className={styles.masterBox}>
           <h2 className={styles.title}>QUICK ACCESS</h2>
@@ -15,7 +23,7 @@ export const QuickAccess = () => {
               return (
                 <a key={item.id} href={item.href} className={styles.card}>
                   <div className={styles.iconBox}>
-                    <Icon size={28} color="#C8102E" />
+                    <Icon size={28} style={{ fill: 'url(#icon-gradient)' }} />
                   </div>
                   <span className={styles.label}>{item.title}</span>
                 </a>

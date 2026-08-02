@@ -15,7 +15,7 @@
   font-weight: 600;
   letter-spacing: 0.01em;
   color: #FFFFFF;
-  background: #D90429;
+  background: var(--gradient-primary);
   box-shadow: 0 4px 20px rgba(217, 4, 41, 0.3);
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   animation: floatIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;

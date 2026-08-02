@@ -6,7 +6,7 @@
 }
 
 .button {
-  background: #C8102E;
+  background: var(--gradient-primary);
   color: #FFFFFF;
   border: none;
   border-radius: 50%;

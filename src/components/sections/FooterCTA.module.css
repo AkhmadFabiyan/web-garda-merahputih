@@ -111,14 +111,14 @@
 }
 
 .primaryBtn {
-  background: #D90429;
+  background: var(--gradient-primary);
   color: #FFFFFF;
   box-shadow: 0 4px 14px rgba(217, 4, 41, 0.2);
   border: none;
 }
 
 .primaryBtn:hover {
-  background: #B20322;
+  background: var(--gradient-hover);
   transform: translateY(-4px);
   box-shadow: 0 10px 30px rgba(217, 4, 41, 0.2);
 }
@@ -130,9 +130,9 @@
 }
 
 .secondaryBtn:hover {
-  background: #D90429;
+  background: var(--gradient-primary);
   color: #FFFFFF;
-  border-color: #D90429;
+  border-color: transparent;
   transform: translateY(-4px);
   box-shadow: 0 10px 30px rgba(217, 4, 41, 0.15);
 }

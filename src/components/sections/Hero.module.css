@@ -9,12 +9,11 @@
 }
 
 .heroEmblem {
-  object-fit: contain;
-  object-position: right center;
-  opacity: 0.15;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.9;
   z-index: 0;
   animation: subtleFloat 6s ease-in-out infinite;
-  padding-right: 10%;
   will-change: transform;
 }
 
@@ -102,16 +101,17 @@
 }
 
 .badge {
-  background: #FFFFFF;
-  color: #D90429;
-  border: 1px solid #D90429;
+  background: rgba(200, 16, 46, 0.05);
+  color: var(--color-brand-primary);
+  border: 1px solid rgba(200, 16, 46, 0.2);
   font-family: var(--font-heading);
   font-size: 14px;
   font-weight: 700;
-  padding: 8px 20px;
-  border-radius: 24px;
-  margin-bottom: 16px;
+  padding: 8px 24px;
+  border-radius: 100px;
+  margin-bottom: 24px;
   letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(200, 16, 46, 0.05);
 }
 
 .headline {
@@ -122,30 +122,36 @@
 }
 
 .welcome {
-  color: #1F2937;
-  font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+  color: var(--color-text-primary);
+  font-size: clamp(2rem, 3vw, 2.8rem);
   font-weight: 800;
 }
 
 .highlight {
-  color: #D90429;
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
-  font-weight: 800;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: clamp(3rem, 5vw, 4.2rem);
+  font-weight: 900;
+  letter-spacing: -2px;
 }
 
 .subHeadline {
   font-family: var(--font-heading);
-  color: #D90429;
-  font-size: 18px;
+  color: var(--color-brand-primary);
+  font-size: 20px;
   font-weight: 700;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
 }
 
 .description {
-  color: #6B7280;
-  font-size: 15px;
-  margin-bottom: 32px;
+  color: var(--color-text-secondary);
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  max-width: 500px;
 }
 
 .actionWrap {
@@ -157,44 +163,43 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   font-family: var(--font-heading);
-  font-size: 14px;
-  font-weight: 700;
-  padding: 0 24px;
-  height: 48px;
-  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 0 28px;
+  height: 52px;
+  border-radius: 12px;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
 }
 
 .primaryBtn {
-  background: #D90429;
+  background: var(--gradient-primary);
   color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(217, 4, 41, 0.3);
+  box-shadow: 0 8px 20px rgba(200, 16, 46, 0.25);
   border: 1px solid transparent;
 }
 
 .primaryBtn:hover {
-  background: #B20322;
+  background: var(--gradient-hover);
   transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(217, 4, 41, 0.2);
+  box-shadow: 0 12px 28px rgba(200, 16, 46, 0.35);
 }
 
 .secondaryBtn {
   background: #FFFFFF;
-  color: #1F2937;
-  border: 1.5px solid #D1D5DB;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  color: var(--color-text-primary);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  box-shadow: var(--shadow-soft);
 }
 
 .secondaryBtn:hover {
-  background: #D90429;
-  border-color: #D90429;
-  color: #FFFFFF;
+  border-color: var(--color-brand-primary);
+  color: var(--color-brand-primary);
   transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(217, 4, 41, 0.15);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
 }
 
 /* Countdown Column */
@@ -229,9 +234,8 @@
     padding-top: var(--space-16);
   }
   .heroEmblem {
-    object-position: center 40%;
-    padding-right: 0;
-    opacity: 0.12;
+    object-position: center;
+    opacity: 0.3;
     animation: subtleFloatMobile 6s ease-in-out infinite;
   }
   .badge {
@@ -266,21 +270,29 @@
 }
 
 .countdownCard {
-  background: #FFFFFF;
-  border: 1.5px solid #E5E7EB;
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: var(--shadow-medium);
   width: 100%;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.countdownCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
 }
 
 .countdownLabel {
   font-family: var(--font-heading);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 800;
-  color: #D90429;
-  margin-bottom: 16px;
+  color: var(--color-brand-primary);
+  margin-bottom: 24px;
   text-align: center;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
 }
