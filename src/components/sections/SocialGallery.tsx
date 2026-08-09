@@ -1,13 +1,14 @@
 import React from 'react';
 import Image from 'next/image';
-import { FaInstagram, FaYoutube, FaWhatsapp, FaTiktok } from 'react-icons/fa';
+import { FaInstagram, FaYoutube, FaWhatsapp, FaTiktok, FaTelegram } from 'react-icons/fa';
 import styles from './SocialGallery.module.css';
 
 const socialData = [
-  { id: 'yt', platform: 'youtube', url: 'https://youtube.com/@username', icon: FaYoutube, color: '#FF0000' },
+  { id: 'yt', platform: 'youtube', url: 'https://youtube.com/@username', icon: FaYoutube, color: 'var(--color-brand-primary)' },
   { id: 'ig', platform: 'instagram', url: 'https://instagram.com/username', icon: FaInstagram, color: '#E1306C' },
   { id: 'tt', platform: 'tiktok', url: 'https://tiktok.com/@username', icon: FaTiktok, color: '#000000' },
   { id: 'wa', platform: 'whatsapp', url: 'https://wa.me/628000000000', icon: FaWhatsapp, color: '#25D366' },
+  { id: 'tg', platform: 'telegram', url: 'https://telegram.me/+CU1TLTL67h5iMGI1', icon: FaTelegram, color: '#0088cc' },
 ];
 
 const galleryImages = [

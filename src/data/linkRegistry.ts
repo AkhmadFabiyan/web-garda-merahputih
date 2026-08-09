@@ -18,14 +18,6 @@ export function findLinkByKeyword(message: string): LinkMatch | null {
     };
   }
 
-  // Twibbon / foto profil
-  if (/twibbon|bingkai\s+foto|frame\s+foto/.test(msg)) {
-    return {
-      name: 'Twibbon Garda 2026',
-      url: GARDA_CONFIG.LINKS.TWIBBON,
-      message: 'Download dan pasang Twibbon PKKMB di sini:'
-    };
-  }
 
   // Penugasan / tugas
   if (/penugasan|kumpul.*tugas|submit.*tugas|form.*tugas/.test(msg)) {

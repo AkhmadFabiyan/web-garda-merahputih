@@ -5,16 +5,17 @@ import { Countdown } from '../ui/Countdown';
 import { FaCalendarAlt, FaInfoCircle } from 'react-icons/fa';
 import Link from 'next/link';
 import styles from './Hero.module.css';
+import heroEmblem from '../../../public/assets/hero-emblem.png';
 
 export const Hero = ({ children }: { children?: React.ReactNode }) => {
   return (
     <section className={styles.heroSection}>
       <Image 
-        src="/assets/hero-emblem.png" 
+        src={heroEmblem}
+        placeholder="blur"
         alt="GARDA UNESA Emblem" 
         fill 
         priority 
-        quality={100}
         sizes="100vw"
         className={styles.heroEmblem}
       />

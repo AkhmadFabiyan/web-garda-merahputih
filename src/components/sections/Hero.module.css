@@ -23,7 +23,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 200px;
+  height: 12.5rem;
   background: linear-gradient(to bottom, transparent, #FFFFFF);
   z-index: 10;
   pointer-events: none;
@@ -43,7 +43,7 @@
 @keyframes floatParticle {
   0% { transform: translateY(0); opacity: 0; }
   50% { opacity: 0.3; }
-  100% { transform: translateY(-150px); opacity: 0; }
+  100% { transform: translateY(-9.375rem); opacity: 0; }
 }
 
 @keyframes breatheGlow {
@@ -52,13 +52,13 @@
 }
 
 @keyframes subtleFloat {
-  0%, 100% { transform: translateY(0px) scale(1); }
-  50% { transform: translateY(-15px) scale(1.02); }
+  0%, 100% { transform: translateY(0rem) scale(1); }
+  50% { transform: translateY(-0.938rem) scale(1.02); }
 }
 
 @keyframes subtleFloatMobile {
-  0%, 100% { transform: translateY(0px) scale(1.8); }
-  50% { transform: translateY(-15px) scale(1.85); }
+  0%, 100% { transform: translateY(0rem) scale(1.8); }
+  50% { transform: translateY(-0.938rem) scale(1.85); }
 }
 
 .particles {
@@ -89,7 +89,7 @@
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
-  gap: 32px;
+  gap: 2rem;
 }
 
 /* Text Column */
@@ -101,23 +101,23 @@
 }
 
 .badge {
-  background: rgba(200, 16, 46, 0.05);
+  background: rgba(var(--color-brand-primary-rgb), 0.05);
   color: var(--color-brand-primary);
-  border: 1px solid rgba(200, 16, 46, 0.2);
+  border: 1px solid rgba(var(--color-brand-primary-rgb), 0.2);
   font-family: var(--font-heading);
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 700;
-  padding: 8px 24px;
-  border-radius: 100px;
-  margin-bottom: 24px;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 12px rgba(200, 16, 46, 0.05);
+  padding: 0.5rem 1.5rem;
+  border-radius: 6.25rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.0313rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(var(--color-brand-primary-rgb), 0.05);
 }
 
 .headline {
   font-family: var(--font-heading);
   line-height: 1.05;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
   letter-spacing: -1px;
 }
 
@@ -125,6 +125,7 @@
   color: var(--color-text-primary);
   font-size: clamp(2rem, 3vw, 2.8rem);
   font-weight: 800;
+  text-shadow: 0px 0px 0.25rem rgba(255, 255, 255, 0.8);
 }
 
 .highlight {
@@ -133,43 +134,45 @@
   -webkit-text-fill-color: transparent;
   font-size: clamp(3rem, 5vw, 4.2rem);
   font-weight: 900;
-  letter-spacing: -2px;
+  letter-spacing: -0.125rem;
+  filter: drop-shadow(0px 0px 0.1875rem rgba(255, 255, 255, 0.8));
 }
 
 .subHeadline {
   font-family: var(--font-heading);
   color: var(--color-brand-primary);
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 700;
-  letter-spacing: 1.5px;
-  margin-bottom: 12px;
+  letter-spacing: 0.0938rem;
+  margin-bottom: 0.75rem;
   text-transform: uppercase;
+  text-shadow: 0px 0px 0.1875rem rgba(255, 255, 255, 0.8);
 }
 
 .description {
   color: var(--color-text-secondary);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
-  margin-bottom: 40px;
-  max-width: 500px;
+  margin-bottom: 2.5rem;
+  max-width: 31.25rem;
 }
 
 .actionWrap {
   display: flex;
-  gap: 16px;
+  gap: 1rem;
 }
 
 .primaryBtn, .secondaryBtn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 0.625rem;
   font-family: var(--font-heading);
-  font-size: 15px;
+  font-size: 0.938rem;
   font-weight: 600;
-  padding: 0 28px;
-  height: 52px;
-  border-radius: 12px;
+  padding: 0 1.75rem;
+  height: 3.25rem;
+  border-radius: 0.75rem;
   text-decoration: none;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
@@ -178,14 +181,14 @@
 .primaryBtn {
   background: var(--gradient-primary);
   color: #FFFFFF;
-  box-shadow: 0 8px 20px rgba(200, 16, 46, 0.25);
+  box-shadow: 0 0.5rem 1.25rem rgba(var(--color-brand-primary-rgb), 0.25);
   border: 1px solid transparent;
 }
 
 .primaryBtn:hover {
   background: var(--gradient-hover);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(200, 16, 46, 0.35);
+  transform: translateY(-0.25rem);
+  box-shadow: 0 0.75rem 1.75rem rgba(var(--color-brand-primary-rgb), 0.35);
 }
 
 .secondaryBtn {
@@ -198,8 +201,8 @@
 .secondaryBtn:hover {
   border-color: var(--color-brand-primary);
   color: var(--color-brand-primary);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  transform: translateY(-0.25rem);
+  box-shadow: 0 0.75rem 1.75rem rgba(15, 23, 42, 0.08);
 }
 
 /* Countdown Column */
@@ -209,12 +212,12 @@
   z-index: 5;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 75rem) {
   .grid {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 40px;
-    padding: 48px 0;
+    gap: 2.5rem;
+    padding: 3rem 0;
   }
   .textCol {
     align-items: center;
@@ -224,10 +227,10 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30rem) {
   .grid {
-    gap: 28px;
-    padding: 20px 0 32px;
+    gap: 1.75rem;
+    padding: 1.25rem 0 2rem;
   }
   .heroSection {
     min-height: 70vh;
@@ -239,8 +242,8 @@
     animation: subtleFloatMobile 6s ease-in-out infinite;
   }
   .badge {
-    font-size: 12px;
-    padding: 6px 16px;
+    font-size: 0.75rem;
+    padding: 0.375rem 1rem;
   }
   .welcome {
     font-size: 1.6rem;
@@ -249,50 +252,50 @@
     font-size: 1.9rem;
   }
   .subHeadline {
-    font-size: 15px;
-    letter-spacing: 1.5px;
+    font-size: 0.938rem;
+    letter-spacing: 0.0938rem;
   }
   .description {
-    font-size: 14px;
-    margin-bottom: 24px;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
   }
   .actionWrap {
     flex-direction: column;
     width: 100%;
-    gap: 12px;
+    gap: 0.75rem;
   }
   .primaryBtn, .secondaryBtn {
     width: 100%;
     justify-content: center;
-    height: 52px;
-    font-size: 15px;
+    height: 3.25rem;
+    font-size: 0.938rem;
   }
 }
 
 .countdownCard {
   background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(1.25rem);
+  -webkit-backdrop-filter: blur(1.25rem);
   border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 24px;
-  padding: 32px;
+  border-radius: 1.5rem;
+  padding: 2rem;
   box-shadow: var(--shadow-medium);
   width: 100%;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .countdownCard:hover {
-  transform: translateY(-4px);
+  transform: translateY(-0.25rem);
   box-shadow: var(--shadow-hover);
 }
 
 .countdownLabel {
   font-family: var(--font-heading);
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 800;
   color: var(--color-brand-primary);
-  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
   text-align: center;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.0938rem;
   text-transform: uppercase;
 }

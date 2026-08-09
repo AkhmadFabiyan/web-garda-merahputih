@@ -10,7 +10,6 @@ export type Intent =
   | 'SCHEDULE'
   | 'TODAY'
   | 'ANNOUNCEMENT'
-  | 'TWIBBON'
   | 'DRESSCODE'
   | 'PRESENSI'
   | 'PENUGASAN'
@@ -150,15 +149,6 @@ const PATTERNS: Record<Intent, RegExp[]> = {
     /kapan\s+(presensi|absen)\s+dibuka/i,
     /cara\s+(isi|mengisi)\s+(presensi|absen)/i,
   ],
-  TWIBBON: [
-    /twibbon/i,
-    /bingkai\s+(foto|profil)/i,
-    /frame\s+foto/i,
-    /link\s+twibbon/i,
-    /unduh\s+twibbon/i,
-    /download\s+twibbon/i,
-    /pasang\s+twibbon/i,
-  ],
   DRESSCODE: [
     /dresscode/i,
     /dress\s+code/i,
@@ -271,7 +261,6 @@ export function detectIntent(userMessage: string, history: ConversationTurn[] = 
     'TODAY',
     'CONTACT',
     'PRESENSI',
-    'TWIBBON',
     'DRESSCODE',
     'PENUGASAN',
     'PERIZINAN',

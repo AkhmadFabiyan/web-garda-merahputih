@@ -1,35 +1,43 @@
 .accordion {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1rem;
   width: 100%;
 }
 
 .item {
   background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 12px;
+  border-radius: 0.75rem;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.05);
 }
 
 .item:hover {
   border-color: #EAEAEA;
   background-color: #FFFFFF;
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transform: translateY(-0.25rem);
+  box-shadow: 0 0.625rem 1.875rem rgba(0, 0, 0, 0.05);
 }
 
 .item.open {
-  border-color: #C8102E;
+  border-color: var(--color-brand-primary);
   background-color: #FFFFFF;
-  box-shadow: 0 4px 12px rgba(200, 16, 46, 0.1);
+  box-shadow: 0 0.25rem 0.75rem rgba(var(--color-brand-primary-rgb), 0.1);
+}
+
+.item.open .header {
+  background: rgba(var(--color-brand-primary-rgb), 0.04);
+}
+
+.item.open .question {
+  color: var(--color-brand-primary);
 }
 
 .header {
   width: 100%;
-  padding: 10px 12px;
+  padding: 0.625rem 0.75rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -37,7 +45,7 @@
   border: none;
   color: #1F2937;
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 0.813rem;
   font-weight: 500;
   cursor: pointer;
   text-align: left;
@@ -50,10 +58,10 @@
 
 .question {
   font-family: var(--font-heading);
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 700;
-  letter-spacing: 0.5px;
-  padding-right: 24px;
+  letter-spacing: 0.0313rem;
+  padding-right: 1.5rem;
 }
 
 .icon {
@@ -61,20 +69,20 @@
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: flex;
   background: rgba(0, 0, 0,0.05);
-  padding: 6px;
+  padding: 0.375rem;
   border-radius: 50%;
   transform: scale(1.1);
 }
 
 .item:hover .icon {
   color: var(--color-gold);
-  background: rgba(200, 16, 46, 0.1);
+  background: rgba(var(--color-brand-primary-rgb), 0.1);
 }
 
 .open .icon {
   transform: rotate(180deg) scale(1.2);
-  color: #C8102E;
-  background: rgba(200, 16, 46, 0.15);
+  color: var(--color-brand-primary);
+  background: rgba(var(--color-brand-primary-rgb), 0.15);
 }
 
 .content {
@@ -84,13 +92,13 @@
 }
 
 .contentOpen {
-  max-height: 500px;
+  max-height: 31.25rem;
 }
 
 .answer {
-  padding: 0 12px 12px 12px;
+  padding: 0 0.75rem 0.75rem 0.75rem;
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 0.813rem;
   color: #A0AEC0;
   line-height: 1.6;
 }

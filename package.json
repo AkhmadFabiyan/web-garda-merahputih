@@ -1,5 +1,5 @@
 {
-  "name": "garda-unesa-2025",
+  "name": "garda-unesa-2026",
   "version": "1.0.1",
   "private": true,
   "scripts": {
@@ -11,6 +11,7 @@
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.9",
     "@upstash/redis": "^1.38.0",
+    "cheerio": "^1.2.0",
     "next": "16.2.9",
     "react": "19.2.4",
     "react-dom": "19.2.4",

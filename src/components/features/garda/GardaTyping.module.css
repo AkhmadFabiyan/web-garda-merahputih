@@ -1,49 +1,49 @@
 .wrap {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  gap: 0.5rem;
   animation: fadeIn 0.3s ease;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(0.5rem); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .avatar {
-  width: 28px;
-  height: 28px;
-  background: linear-gradient(135deg, #C8102E 0%, #F9A825 100%);
+  width: 1.75rem;
+  height: 1.75rem;
+  background: linear-gradient(135deg, var(--color-brand-primary) 0%, #F9A825 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 0.875rem;
   flex-shrink: 0;
-  margin-top: 2px;
-  box-shadow: 0 0 10px rgba(200, 16, 46, 0.3);
+  margin-top: 0.125rem;
+  box-shadow: 0 0 0.625rem rgba(var(--color-brand-primary-rgb), 0.3);
 }
 
 .bubble {
   background: rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 4px 18px 18px 18px;
-  padding: 12px 16px;
+  border-radius: 0.25rem 1.125rem 1.125rem 1.125rem;
+  padding: 0.75rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0.25rem;
 }
 
 .dots {
   display: flex;
-  gap: 5px;
+  gap: 0.313rem;
   align-items: center;
 }
 
 .dot {
-  width: 7px;
-  height: 7px;
-  background: rgba(200, 16, 46, 0.7);
+  width: 0.438rem;
+  height: 0.438rem;
+  background: rgba(var(--color-brand-primary-rgb), 0.7);
   border-radius: 50%;
   animation: bounce 1.2s ease-in-out infinite;
 }
@@ -55,7 +55,7 @@
 
 .dot:nth-child(3) {
   animation-delay: 0.4s;
-  background: rgba(200, 16, 46, 0.5);
+  background: rgba(var(--color-brand-primary-rgb), 0.5);
 }
 
 @keyframes bounce {
@@ -64,16 +64,16 @@
     opacity: 0.6;
   }
   30% {
-    transform: translateY(-6px);
+    transform: translateY(-0.375rem);
     opacity: 1;
   }
 }
 
 .status {
-  font-size: 11px;
+  font-size: 0.688rem;
   color: rgba(207, 207, 207, 0.5);
   font-style: italic;
-  margin-top: 2px;
+  margin-top: 0.125rem;
   animation: fadePhase 0.5s ease;
 }
 

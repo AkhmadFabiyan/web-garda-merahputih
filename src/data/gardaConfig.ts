@@ -10,10 +10,10 @@ export const GARDA_CONFIG = {
   // 🔗 LINK REGISTRY (Pusat Tautan Garda)
   // ==========================================
   LINKS: {
-    PRESENSI: 'https://presensi.garda.unesa.ac.id',
-    TWIBBON: 'https://twibbonize.com/gardaunesa2026',
-    PANDUAN: 'https://unesa.ac.id/panduan-pkkmb',
-    PENUGASAN: 'https://tugas.garda.unesa.ac.id',
+    PRESENSI: '#',
+
+    PANDUAN: 'https://drive.google.com/file/d/1Pcc50cNRgDZlsmsuyzs8sl9njBxYnhs_/view?usp=drivesdk',
+    PENUGASAN: '#',
   },
 
   // ==========================================
@@ -24,25 +24,22 @@ export const GARDA_CONFIG = {
     REGISTRASI_START: '2026-06-01T00:00:00+07:00',
     REGISTRASI_END: '2026-06-30T23:59:59+07:00',
 
-    // Twibbon
-    TWIBBON_START: '2026-07-15T00:00:00+07:00',
-    TWIBBON_END: '2026-08-10T23:59:59+07:00',
 
     // Panduan
     PANDUAN_RELEASE: '2026-07-20T00:00:00+07:00',
 
     // Rangkaian PKKMB
-    PRA_PKKMB_START: '2026-08-10T00:00:00+07:00',
-    PRA_PKKMB_END: '2026-08-15T23:59:59+07:00',
+    PRA_PKKMB_START: '2026-08-14T08:00:00+07:00',
+    PRA_PKKMB_END: '2026-08-14T16:30:00+07:00',
 
     UPACARA_START: '2026-08-17T06:00:00+07:00',
-    UPACARA_END: '2026-08-17T12:00:00+07:00',
+    UPACARA_END: '2026-08-17T16:30:00+07:00',
 
-    PKKMB_UNIV_START: '2026-08-18T06:00:00+07:00',
-    PKKMB_UNIV_END: '2026-08-20T17:00:00+07:00',
+    PKKMB_UNIV_START: '2026-08-18T07:00:00+07:00',
+    PKKMB_UNIV_END: '2026-08-18T16:30:00+07:00',
 
-    PKKMB_FAK_START: '2026-08-21T06:00:00+07:00',
-    PKKMB_FAK_END: '2026-08-22T17:00:00+07:00',
+    PKKMB_FAK_START: '2026-08-18T07:00:00+07:00',
+    PKKMB_FAK_END: '2026-08-21T16:30:00+07:00',
 
     // Penugasan & Presensi Harian (Bisa ditambahkan sesuai hari)
     PRESENSI_HARI_1_START: '2026-08-15T06:00:00+07:00',

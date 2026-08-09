@@ -1,11 +1,11 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 1.5rem;
   padding-bottom: var(--space-section);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .grid {
     grid-template-columns: 1fr;
   }
@@ -14,32 +14,32 @@
 .contactCard {
   background: #FFFFFF;
   border: 1px solid #EAEAEA;
-  border-radius: 20px;
-  padding: 32px;
+  border-radius: 1.25rem;
+  padding: 2rem;
   text-align: center;
   transition: all 0.3s ease;
 }
 
 .contactCard:hover {
   background: #FFFFFF;
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  transform: translateY(-0.25rem);
+  box-shadow: 0 1.25rem 2.5rem rgba(0, 0, 0, 0.08);
   border-color: #EAEAEA;
 }
 
 .facultyTitle {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 800;
-  color: #D90429;
-  margin-bottom: 16px;
-  letter-spacing: 0.5px;
+  color: var(--color-brand-primary);
+  margin-bottom: 1rem;
+  letter-spacing: 0.0313rem;
 }
 
 .personsList {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .personItem {
@@ -49,7 +49,7 @@
 }
 
 .personName {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #1F2937;
   font-weight: 500;
 }
@@ -58,23 +58,23 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  font-size: 13px;
+  gap: 0.5rem;
+  font-size: 0.813rem;
   color: #FFFFFF;
   text-decoration: none;
   font-weight: 600;
-  background: #D90429;
+  background: var(--color-brand-primary);
   border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
   transition: all 0.3s ease;
   width: 100%;
-  margin-top: 4px;
-  box-shadow: 0 4px 15px rgba(217, 4, 41, 0.2);
+  margin-top: 0.25rem;
+  box-shadow: 0 0.25rem 0.938rem rgba(var(--color-brand-primary-rgb), 0.2);
 }
 
 .waLink:hover {
-  background: #B20322;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(217, 4, 41, 0.2);
+  background: var(--color-brand-secondary);
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.625rem 1.875rem rgba(var(--color-brand-primary-rgb), 0.2);
 }

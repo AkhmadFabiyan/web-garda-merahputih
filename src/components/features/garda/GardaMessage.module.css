@@ -1,13 +1,13 @@
 .message {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
   animation: msgIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes msgIn {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(0.75rem);
   }
   to {
     opacity: 1;
@@ -26,23 +26,23 @@
 }
 
 .botAvatar {
-  width: 28px;
-  height: 28px;
-  background: #D90429;
+  width: 1.75rem;
+  height: 1.75rem;
+  background: var(--color-brand-primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 0.875rem;
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 0.125rem;
 }
 
 .bubble {
   max-width: 80%;
-  padding: 10px 14px;
-  border-radius: 18px;
-  font-size: 13.5px;
+  padding: 0.625rem 0.875rem;
+  border-radius: 1.125rem;
+  font-size: 0.844rem;
   line-height: 1.55;
   word-break: break-word;
 }
@@ -50,21 +50,21 @@
 .message.bot .bubble {
   background: #F7F8FA;
   border: 1px solid #EAEAEA;
-  border-radius: 4px 18px 18px 18px;
+  border-radius: 0.25rem 1.125rem 1.125rem 1.125rem;
   color: #111827;
 }
 
 .message.user .bubble {
-  background: #D90429;
-  border: 1px solid #D90429;
-  border-radius: 18px 18px 4px 18px;
+  background: var(--color-brand-primary);
+  border: 1px solid var(--color-brand-primary);
+  border-radius: 1.125rem 1.125rem 0.25rem 1.125rem;
   color: #FFFFFF;
-  box-shadow: 0 2px 12px rgba(217, 4, 41, 0.1);
+  box-shadow: 0 0.125rem 0.75rem rgba(var(--color-brand-primary-rgb), 0.1);
 }
 
 /* Markdown-like formatting in bot messages */
 .message.bot .bubble strong {
-  color: #D90429;
+  color: var(--color-brand-primary);
   font-weight: 600;
 }
 
@@ -76,36 +76,36 @@
 .contactsWrap {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-top: 10px;
+  gap: 0.375rem;
+  margin-top: 0.625rem;
 }
 
 .waBtn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  background: #D90429;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--color-brand-primary);
   border: none;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   color: #FFFFFF;
-  font-size: 13px;
+  font-size: 0.813rem;
   font-weight: 500;
   text-decoration: none;
   transition: all 0.2s ease;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(217, 4, 41, 0.15);
+  box-shadow: 0 0.25rem 0.75rem rgba(var(--color-brand-primary-rgb), 0.15);
 }
 
 .waBtn:hover {
   background: #B00020;
   color: #FFFFFF;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(217, 4, 41, 0.25);
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.375rem 1rem rgba(var(--color-brand-primary-rgb), 0.25);
 }
 
 .waIcon {
-  font-size: 16px;
+  font-size: 1rem;
   flex-shrink: 0;
 }
 
@@ -118,25 +118,25 @@
 .waName {
   font-weight: 600;
   color: #FFFFFF;
-  font-size: 13px;
+  font-size: 0.813rem;
 }
 
 .waPhone {
-  font-size: 11px;
+  font-size: 0.688rem;
   color: rgba(255, 255, 255, 0.8);
 }
 
 /* Timestamp */
 .timestamp {
-  font-size: 10px;
+  font-size: 0.625rem;
   color: rgba(31, 41, 55, 0.4);
-  margin-top: 4px;
+  margin-top: 0.25rem;
   text-align: right;
 }
 
 .message.bot .timestamp {
   text-align: left;
-  padding-left: 36px;
+  padding-left: 2.25rem;
 }
 
 /* Welcome message special styling */
@@ -148,31 +148,31 @@
 .gardaLink {
   color: #F9A825;
   text-decoration: underline;
-  text-underline-offset: 3px;
+  text-underline-offset: 0.1875rem;
   cursor: pointer;
   transition: color 0.2s;
   font-weight: 500;
 }
 
 .gardaLink:hover {
-  color: #D90429;
+  color: var(--color-brand-primary);
 }
 
 /* Suggestions */
 .suggestionsWrap {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 12px;
+  gap: 0.375rem;
+  margin-top: 0.75rem;
 }
 
 .suggestionChip {
   background: #F3F4F6;
   border: 1px solid #E5E7EB;
   color: #374151;
-  padding: 6px 12px;
-  border-radius: 16px;
-  font-size: 11px;
+  padding: 0.375rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.688rem;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
@@ -191,31 +191,31 @@
 
 /* Markdown Advanced Styles */
 .gardaList {
-  margin: 6px 0 6px 16px;
+  margin: 0.375rem 0 0.375rem 1rem;
   padding: 0;
   list-style-type: disc;
 }
 
 .gardaList li {
-  margin-bottom: 4px;
+  margin-bottom: 0.25rem;
 }
 
 .gardaHeader {
-  color: #D90429;
-  font-size: 14.5px;
+  color: var(--color-brand-primary);
+  font-size: 0.906rem;
   font-weight: 700;
   display: block;
-  margin-top: 8px;
-  margin-bottom: 2px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.125rem;
 }
 
 .metaRow {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 8px;
-  margin-top: 4px;
-  padding-left: 36px;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  padding-left: 2.25rem;
 }
 
 .message.user .metaRow {
@@ -233,8 +233,8 @@
   border: none;
   color: #9CA3AF;
   cursor: pointer;
-  padding: 4px;
-  border-radius: 4px;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
   display: flex;
   align-items: center;
   justify-content: center;

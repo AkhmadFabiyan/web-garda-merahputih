@@ -2,8 +2,13 @@ import React from 'react';
 import { Container } from '../ui/Container';
 import { FaBullhorn } from 'react-icons/fa';
 import styles from './Announcement.module.css';
+import { announcements } from '../../data/announcements';
 
 export const Announcement = () => {
+  const activeAnnouncements = announcements.filter(a => a.isActive);
+
+  if (activeAnnouncements.length === 0) return null;
+
   return (
     <section className={styles.section}>
       <Container>
@@ -15,11 +20,14 @@ export const Announcement = () => {
           <div className={styles.badge}>BARU</div>
           <div className={styles.scrollWrapper}>
             <div className={styles.textTrack}>
-              <span className={styles.textMain}>Presensi hari pertama dibuka pukul 06.00 WIB</span>
-              <span className={styles.textDivider}>•</span>
-              <span className={styles.textMain}>Besok (19/08) menggunakan pakaian PDH</span>
-              <span className={styles.textDivider}>•</span>
-              <span className={styles.textMain}>Tugas 1 dikumpulkan sebelum 23:59 WIB</span>
+              {activeAnnouncements.map((ann, idx) => (
+                <React.Fragment key={ann.id}>
+                  <span className={styles.textMain}>{ann.content}</span>
+                  {idx < activeAnnouncements.length - 1 && (
+                    <span className={styles.textDivider}>•</span>
+                  )}
+                </React.Fragment>
+              ))}
             </div>
           </div>
           <a href="/pengumuman" className={styles.linkSemua}>Lihat Semua →</a>

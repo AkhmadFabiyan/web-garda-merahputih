@@ -33,10 +33,9 @@ export const infoData = [
     icon: '/assets/icons/penugasan.svg',
     urgent: true,
     subItems: [
-      { label: 'Key Of Garda', link: '/#info-garda' },
-      { label: 'Penugasan Garda', link: '/#info-garda' },
-      { label: 'Pengumpulan Tugas', link: '/#info-garda' },
-      { label: 'Panduan Penugasan', link: '/#info-garda' }
+      { label: 'Essay', link: 'https://unesa.me/essaygardaunesa2026' },
+      { label: 'Resume Pra-PKKMB', link: 'https://unesa.me/resumeprapkkmbgardaunesa2026' },
+      { label: 'Resume PKKMB', link: 'https://unesa.me/resumepkkmbgardaunesa2026' }
     ]
   },
   {
@@ -46,9 +45,8 @@ export const infoData = [
     icon: '/assets/icons/pendataan.svg',
     urgent: true,
     subItems: [
-      { label: 'Mahasiswa Baru', link: '/#info-garda' },
-      { label: 'Kelompok', link: '/#info-garda' },
-      { label: 'Fakultas', link: '/#info-garda' }
+      { label: 'Kesehatan Mental', link: 'https://bit.ly/SurveiKondisiKesehatanMental_MahasiswaUNESA' },
+      { label: 'Seleksi Delegasi', link: 'https://unesa.me/SeleksiDelegasiPKKMBUnesa2026' }
     ]
   },
   {
@@ -59,16 +57,6 @@ export const infoData = [
     subItems: [
       { label: 'Form Perizinan', link: '/#info-garda' },
       { label: 'Panduan Perizinan', link: '/#info-garda' }
-    ]
-  },
-  {
-    id: 'twibbon',
-    title: 'Twibbon',
-    desc: 'Unduh twibbon resmi Garda UNESA 2026',
-    icon: '/assets/icons/twibbon.svg',
-    subItems: [
-      { label: 'Download Twibbon', link: '/#info-garda' },
-      { label: 'Panduan Twibbon', link: '/#info-garda' }
     ]
   }
 ];

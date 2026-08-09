@@ -2,31 +2,32 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  max-width: 28rem;
 }
 
 .sectionTitle {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 800;
-  color: #D90429;
-  margin-bottom: 4px;
+  color: var(--color-brand-primary);
+  margin-bottom: 0.25rem;
 }
 
 .sectionSubtitle {
-  font-size: 13px;
+  font-size: 0.813rem;
   color: #A0AEC0;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 }
 
 .socialGrid {
   display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .socialCard {
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -38,10 +39,10 @@
 }
 
 .socialCard:hover {
-  transform: translateY(-4px);
-  background: #D90429;
-  border-color: #D90429;
-  box-shadow: 0 10px 20px rgba(217, 4, 41, 0.2);
+  transform: translateY(-0.25rem);
+  background: var(--hover-color);
+  border-color: var(--hover-color);
+  box-shadow: 0 0.625rem 1.25rem rgba(15, 23, 42, 0.2);
 }
 
 .socialCard:hover .icon {
@@ -62,13 +63,13 @@
 .galleryGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .galleryImg {
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   display: block;
 }

@@ -71,7 +71,7 @@ const SUGGESTIONS_BY_INTENT: Record<string, string[]> = {
   PRESENSI:     ['Bagaimana cara mengisi presensi?', 'Kapan batas waktu presensi?', 'Gimana kalau telat presensi?'],
   PENUGASAN:    ['Kapan deadline penugasan?', 'Di mana link pengumpulan tugas?', 'Apa saja syarat penugasan?'],
   DRESSCODE:    ['Apa yang perlu dibawa?', 'Ada sanksi kalau salah dresscode?', 'Jadwal kegiatan besok?'],
-  TWIBBON:      ['Kapan deadline pasang twibbon?', 'Ada penugasan lain?', 'Jadwal Pra-PKKMB?'],
+
   ANNOUNCEMENT: ['Ada pengumuman tentang jadwal?', 'Siapa CP fakultasku?', 'Apa penugasan terbaru?'],
   FAQ:          ['Apa yang perlu dibawa?', 'Siapa CP untuk fakultasku?', 'Jadwal Pra-PKKMB kapan?'],
   PERIZINAN:    ['Bagaimana prosedur izin?', 'Siapa yang menerima form izin?', 'Kapan batas submit izin?'],

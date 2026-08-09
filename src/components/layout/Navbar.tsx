@@ -108,7 +108,7 @@ export const Navbar = () => {
             aria-label="Toggle mobile menu"
             aria-expanded={isMobileMenuOpen}
           >
-            {isMobileMenuOpen ? <FaTimes size={24} color="#D90429" /> : <FaBars size={24} color="#D90429" />}
+            {isMobileMenuOpen ? <FaTimes size={24} color="var(--color-brand-primary)" /> : <FaBars size={24} color="var(--color-brand-primary)" />}
           </button>
         </div>
       </Container>

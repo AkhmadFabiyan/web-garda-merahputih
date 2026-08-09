@@ -9,7 +9,7 @@ export const QuickAccess = () => {
       <svg width="0" height="0" style={{ position: 'absolute' }}>
         <defs>
           <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#D90429" />
+            <stop offset="0%" stopColor="var(--color-brand-primary)" />
             <stop offset="100%" stopColor="#FF6B00" />
           </linearGradient>
         </defs>

@@ -23,38 +23,38 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 1rem;
   animation: fadeIn 0.4s ease-out forwards;
   will-change: opacity, transform;
 }
 
 .flameWrap {
-  font-size: 64px;
+  font-size: 4rem;
 }
 
 .brandText {
   font-family: var(--font-heading);
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 800;
-  color: #D90429;
+  color: var(--color-brand-primary);
   text-align: center;
   line-height: 1.2;
-  letter-spacing: 2px;
+  letter-spacing: 0.125rem;
 }
 
 .brandYear {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #6B7280;
-  letter-spacing: 8px;
+  letter-spacing: 0.5rem;
 }
 
 .loaderLine {
-  width: 200px;
-  height: 2px;
+  width: 12.5rem;
+  height: 0.125rem;
   background: rgba(0, 0, 0, 0.05);
-  margin-top: 40px;
-  border-radius: 2px;
+  margin-top: 2.5rem;
+  border-radius: 0.125rem;
   overflow: hidden;
   position: relative;
 }
@@ -65,14 +65,14 @@
   left: 0;
   height: 100%;
   width: 40%;
-  background: #D90429;
-  border-radius: 2px;
+  background: var(--color-brand-primary);
+  border-radius: 0.125rem;
   animation: slideRight 1.2s ease-in-out infinite alternate;
   will-change: transform;
 }
 
 @keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(8px); }
+  0% { opacity: 0; transform: translateY(0.5rem); }
   100% { opacity: 1; transform: translateY(0); }
 }
 

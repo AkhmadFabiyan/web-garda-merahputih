@@ -2,12 +2,12 @@
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(0.375rem);
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 1.5rem;
   animation: fadeIn 0.25s ease;
 }
 
@@ -18,51 +18,51 @@
 
 .card {
   background: #FFFFFF;
-  border: 1px solid rgba(200, 16, 46, 0.1);
-  border-radius: 20px;
-  padding: 28px 24px;
+  border: 1px solid rgba(var(--color-brand-primary-rgb), 0.1);
+  border-radius: 1.25rem;
+  padding: 1.75rem 1.5rem;
   width: 100%;
-  max-width: 320px;
-  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.6);
+  max-width: 20rem;
+  box-shadow: 0 1rem 3.75rem rgba(0, 0, 0, 0.6);
   animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
+  from { transform: translateY(1.25rem); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
 .title {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 700;
-  color: #C8102E;
+  color: var(--color-brand-primary);
   text-align: center;
-  margin-bottom: 6px;
+  margin-bottom: 0.375rem;
 }
 
 .subtitle {
-  font-size: 13px;
+  font-size: 0.813rem;
   color: rgba(31, 41, 55, 0.6);
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   line-height: 1.5;
 }
 
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .facultyBtn {
-  padding: 10px 8px;
+  padding: 0.625rem 0.5rem;
   background: #FFFFFF;
-  border: 1px solid #C8102E;
-  border-radius: 10px;
-  color: #C8102E;
-  font-size: 13px;
+  border: 1px solid var(--color-brand-primary);
+  border-radius: 0.625rem;
+  color: var(--color-brand-primary);
+  font-size: 0.813rem;
   font-weight: 600;
   font-family: var(--font-heading);
   cursor: pointer;
@@ -71,24 +71,24 @@
 }
 
 .facultyBtn:hover {
-  background: rgba(200, 16, 46, 0.15);
-  border-color: rgba(200, 16, 46, 0.5);
-  color: #C8102E;
-  transform: translateY(-2px) scale(1.02) !important;
-  box-shadow: 0 4px 12px rgba(200, 16, 46, 0.2) !important;
+  background: rgba(var(--color-brand-primary-rgb), 0.15);
+  border-color: rgba(var(--color-brand-primary-rgb), 0.5);
+  color: var(--color-brand-primary);
+  transform: translateY(-0.125rem) scale(1.02) !important;
+  box-shadow: 0 0.25rem 0.75rem rgba(var(--color-brand-primary-rgb), 0.2) !important;
 }
 
 .skip {
   width: 100%;
-  padding: 10px;
+  padding: 0.625rem;
   background: transparent;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  border-radius: 0.625rem;
   color: #A0AEC0;
-  font-size: 12px;
+  font-size: 0.75rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-top: 4px;
+  margin-top: 0.25rem;
 }
 
 .skip:hover {

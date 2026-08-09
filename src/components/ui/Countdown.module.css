@@ -1,26 +1,26 @@
 .card {
   background: #FFFFFF;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(1.25rem);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 12px;
-  padding: 24px 32px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 0.75rem;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.05);
   display: inline-block;
-  min-width: 320px;
+  min-width: 20rem;
 }
 
 .title {
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   color: #1F2937;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   text-align: left;
 }
 
 .grid {
   display: flex;
-  gap: 24px;
+  gap: 1.5rem;
   justify-content: space-between;
 }
 
@@ -32,9 +32,9 @@
 
 .number {
   font-family: var(--font-heading);
-  font-size: 48px;
+  font-size: 3rem;
   font-weight: 800;
-  color: #D90429;
+  color: var(--color-brand-primary);
   line-height: 1;
   text-shadow: none;
   transition: all 0.3s ease;
@@ -42,58 +42,58 @@
 
 .label {
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size: 0.688rem;
   color: #4B5563;
   text-transform: capitalize;
-  margin-top: 8px;
+  margin-top: 0.5rem;
   letter-spacing: 1px;
 }
 
 .separator {
   width: 1px;
-  height: 48px;
+  height: 3rem;
   background: rgba(0, 0, 0, 0.1);
   align-self: center;
 }
 
 .finishedMessage {
   font-family: var(--font-heading);
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: 800;
-  color: #D90429;
+  color: var(--color-brand-primary);
   text-align: center;
-  padding: 24px 0;
-  letter-spacing: 2px;
-  text-shadow: 0 0 20px rgba(217, 4, 41, 0.4);
+  padding: 1.5rem 0;
+  letter-spacing: 0.125rem;
+  text-shadow: 0 0 1.25rem rgba(var(--color-brand-primary-rgb), 0.4);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 40rem) {
   .card {
     min-width: 100%;
-    padding: 16px;
+    padding: 1rem;
     width: 100%;
   }
   .grid {
-    gap: 12px;
+    gap: 0.75rem;
     justify-content: center;
   }
   .number {
-    font-size: 32px;
+    font-size: 2rem;
   }
   .label {
-    font-size: 10px;
-    margin-top: 4px;
+    font-size: 0.625rem;
+    margin-top: 0.25rem;
   }
   .separator {
-    height: 32px;
+    height: 2rem;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 30rem) {
   .number {
-    font-size: 28px;
+    font-size: 1.75rem;
   }
   .grid {
-    gap: 8px;
+    gap: 0.5rem;
   }
 }

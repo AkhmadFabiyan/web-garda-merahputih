@@ -178,7 +178,6 @@ export function searchKnowledge(
       break;
 
     case 'PRESENSI':
-    case 'TWIBBON':
     case 'DRESSCODE':
     case 'PENUGASAN':
     case 'PERIZINAN':

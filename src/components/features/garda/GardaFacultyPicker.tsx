@@ -3,7 +3,7 @@
 import React from 'react';
 import styles from './GardaFacultyPicker.module.css';
 
-const FACULTIES = ['FIP', 'FBS', 'FMIPA', 'FT', 'FEB', 'FISIPOL', 'FIKK', 'FV', 'FH', 'FPsi', 'FK', 'FKP'];
+const FACULTIES = ['FIP', 'FBS', 'FMIPA', 'FT', 'FEB', 'FISIPOL', 'FIKK', 'FV', 'FH', 'FPsi', 'FK', 'FKP', 'PSDKU'];
 
 const STORAGE_KEY = 'garda_faculty';
 

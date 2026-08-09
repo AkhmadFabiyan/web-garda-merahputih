@@ -180,13 +180,16 @@ export const GardaChat: React.FC<GardaChatProps> = ({
         }),
       });
 
-      const data: {
-        answer: string;
-        intent: string;
-        usedGemini: boolean;
-        contacts?: WaContact[];
-        suggestions?: string[];
-      } = await response.json();
+      let data: any;
+      try {
+        data = await response.json();
+      } catch (e) {
+        throw new Error('Invalid JSON response');
+      }
+
+      if (!response.ok || !data || !data.answer) {
+        throw new Error(data?.message || data?.error || 'API Request failed');
+      }
 
       // Track intent analytics
       if (data.intent === 'CONTACT' && faculty) {
@@ -302,7 +305,7 @@ export const GardaChat: React.FC<GardaChatProps> = ({
             <button
               onClick={() => setShowFacultyPicker(true)}
               style={{ 
-                background: 'none', border: 'none', color: '#D90429',
+                background: 'none', border: 'none', color: 'var(--color-brand-primary)',
                 fontSize: '11px', cursor: 'pointer', padding: '0 4px',
                 transform: 'none'
               }}
@@ -314,15 +317,15 @@ export const GardaChat: React.FC<GardaChatProps> = ({
         
         {/* AI Quick Actions (Feature 3) */}
         <div style={{ display: 'flex', overflowX: 'auto', gap: '6px', paddingBottom: '10px', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}>
-           {['Presensi', 'Twibbon', 'Jadwal', 'FAQ', 'Hari Ini', 'Contact Person', 'Pengumuman', 'Panduan'].map(act => (
+           {['Presensi', 'Jadwal', 'FAQ', 'Hari Ini', 'Contact Person', 'Pengumuman', 'Panduan'].map(act => (
              <button 
                key={act} 
                onClick={() => !isTyping && !isResetting && sendMessage(act)} 
                disabled={isTyping || isResetting}
                style={{ 
                  whiteSpace: 'nowrap', padding: '6px 12px', background: '#FFFFFF', 
-                 border: '1px solid #D90429', borderRadius: '20px', 
-                 color: '#D90429', fontSize: '11px', cursor: (isTyping || isResetting) ? 'not-allowed' : 'pointer',
+                 border: '1px solid var(--color-brand-primary)', borderRadius: '20px', 
+                 color: 'var(--color-brand-primary)', fontSize: '11px', cursor: (isTyping || isResetting) ? 'not-allowed' : 'pointer',
                  flexShrink: 0
                }}>
                ⚡ {act}

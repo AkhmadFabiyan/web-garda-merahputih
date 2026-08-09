@@ -6,6 +6,7 @@ const ALLOWED_DOMAINS = [
   'localhost:3000',
   '127.0.0.1:3000',
   'garda.unesa.ac.id',
+  'pkkmb.unesa.ac.id',
 ];
 
 export function proxy(request: NextRequest) {

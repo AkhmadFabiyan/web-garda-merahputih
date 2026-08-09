@@ -7,7 +7,6 @@ const SUGGESTIONS = [
   'Kapan presensi dibuka?',
   'Hari ini saya harus ngapain?',
   'Siapa CP FT?',
-  'Di mana link twibbon?',
   'Apa dresscode hari pertama?',
 ];
 
