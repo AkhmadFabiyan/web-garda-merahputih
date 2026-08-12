@@ -1,8 +1,3 @@
-/**
- * System Prompt Builder
- * Defines Garda's core personality and behavioral rules.
- */
-
 const UNESA_KNOWLEDGE = `
 [Fakta UNESA]
 - Rektor: Prof. Dr. Nurhasan, M.Kes. (Cak Hasan)

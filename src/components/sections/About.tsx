@@ -36,7 +36,7 @@ export const About = () => {
               <iframe 
                 width="100%" 
                 height="100%" 
-                src="https://www.youtube-nocookie.com/embed/LjJCJ4vQTcI" 
+                src="https://www.youtube-nocookie.com/embed/ipn9ORMABkw" 
                 title="YouTube video player" 
                 frameBorder="0" 
                 loading="lazy"

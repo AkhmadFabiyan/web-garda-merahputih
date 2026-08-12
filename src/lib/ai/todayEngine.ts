@@ -1,8 +1,3 @@
-/**
- * Today Engine
- * Reads current date, matches schedule, generates agenda — zero Gemini calls.
- */
-
 import { timelineData } from '../../data/schedule';
 import { announcements } from '../../data/announcements';
 

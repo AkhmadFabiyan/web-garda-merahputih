@@ -1,9 +1,3 @@
-/**
- * Knowledge Search
- * Ranked local search across FAQ, contacts, schedule, announcements.
- * Returns relevant text chunks — never full datasets.
- */
-
 import { faqData } from '../../data/faq';
 import { contacts } from '../../data/contacts';
 import { timelineData } from '../../data/schedule';
@@ -28,7 +22,7 @@ const STOP_WORDS = new Set([
   'dengan', 'ini', 'itu', 'adalah', 'apakah', 'siapa'
 ]);
 
-// --- FAQ Search ---
+// FAQ Search
 function searchFaq(query: string): KnowledgeChunk[] {
   const queryLower = query.toLowerCase();
   const results: KnowledgeChunk[] = [];
@@ -59,7 +53,7 @@ function searchFaq(query: string): KnowledgeChunk[] {
   return results.sort((a, b) => b.score - a.score).slice(0, 3);
 }
 
-// --- Contact Search ---
+// Contact Search
 function searchContacts(query: string, faculty?: string): KnowledgeChunk[] {
   if (faculty) {
     const contact = contacts.find(
@@ -91,7 +85,7 @@ function searchContacts(query: string, faculty?: string): KnowledgeChunk[] {
   return results.slice(0, 2);
 }
 
-// --- Schedule Search ---
+// Schedule Search
 function searchSchedule(query: string): KnowledgeChunk[] {
   const queryLower = query.toLowerCase();
   const results: KnowledgeChunk[] = [];
@@ -118,7 +112,7 @@ function searchSchedule(query: string): KnowledgeChunk[] {
   return results.sort((a, b) => b.score - a.score).slice(0, 2);
 }
 
-// --- Announcement Search ---
+// Announcement Search
 function searchAnnouncements(query: string): KnowledgeChunk[] {
   const queryLower = query.toLowerCase();
   const active = announcements.filter((a) => a.isActive);
@@ -146,7 +140,7 @@ function searchAnnouncements(query: string): KnowledgeChunk[] {
   return results.sort((a, b) => b.score - a.score).slice(0, 2);
 }
 
-// --- Main Search ---
+// Main Search
 export function searchKnowledge(
   query: string,
   intent: Intent,

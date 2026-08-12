@@ -28,7 +28,7 @@ export interface GardaResponse {
 }
 
 
-// ─── Small Talk Responses ────────────────────────────────────
+// Small Talk Responses
 // Rotated to avoid monotony
 const GREET_REPLIES = [
   'Halo! Ada yang bisa Gara bantu seputar PKKMB Garda UNESA 2026?',
@@ -54,7 +54,7 @@ function pickRotating(arr: string[]): string {
   return arr[smallTalkIndex++ % arr.length];
 }
 
-// ─── Creative Request Detection ──────────────────────────────
+// Creative Request Detection
 const CREATIVE_PATTERNS = [
   /pantun/i, /puisi/i, /tebak.?tebakan/i, /jokes?/i,
   /\blucu\b/i, /humor/i, /bercanda/i, /candaan/i,
@@ -65,7 +65,7 @@ function isCreativeRequest(msg: string): boolean {
   return CREATIVE_PATTERNS.some((p) => p.test(msg));
 }
 
-// ─── Follow-up Suggestions ───────────────────────────────────
+// Follow-up Suggestions
 const SUGGESTIONS_BY_INTENT: Record<string, string[]> = {
   SCHEDULE:     ['Apa dresscode kegiatan ini?', 'Siapa CP untuk fakultasku?', 'Jadwal hari ini?'],
   PRESENSI:     ['Bagaimana cara mengisi presensi?', 'Kapan batas waktu presensi?', 'Gimana kalau telat presensi?'],
@@ -85,7 +85,7 @@ function getSuggestions(intent: string, faculty?: string): string[] | undefined 
   return suggs.map(s => s.replace('fakultasku', faculty).replace('Fakultasku', faculty));
 }
 
-// ─── Helpers ─────────────────────────────────────────────────
+// Helpers
 function getIP(request: NextRequest): string {
   return (
     request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
@@ -136,7 +136,7 @@ async function callGeminiWithFallback(
   }
 }
 
-// ─── Main Handler ─────────────────────────────────────────────
+// Main Handler
 export async function POST(request: NextRequest): Promise<NextResponse> {
   // 1. Rate limit
   const ip = getIP(request);
@@ -257,7 +257,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     });
   }
 
-  // ─── Final Fallback helper ───────────────────────────────────
+  // Final Fallback helper
   function getFinalFallback(): GardaResponse {
     const resolvedFaculty = detected.faculty ?? faculty;
     const contactData = resolvedFaculty

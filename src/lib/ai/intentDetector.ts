@@ -1,8 +1,3 @@
-/**
- * Intent Detector
- * Rule-based first, fast classification before any AI call.
- */
-
 export type Intent =
   | 'SMALL_TALK'
   | 'FAQ'
@@ -79,7 +74,7 @@ const SECURITY_PATTERNS: RegExp[] = [
 ];
 
 const PATTERNS: Record<Intent, RegExp[]> = {
-  // ── Small Talk: greetings, thanks, confirmations ──────
+  // Small Talk
   SMALL_TALK: [
     /^(halo|hai|hi|hello|hey|p+|hei)\b/i,
     /^(makasih|terima\s*kasih|thanks?|thx|tks|mksh)\b/i,
@@ -93,7 +88,7 @@ const PATTERNS: Record<Intent, RegExp[]> = {
     /^(😊|🙏|👍|✅|🎉|😄|😃)\s*$/,
   ],
 
-  // ── Off-topic: non-PKKMB topics ───────────
+  // Off-topic
   OFF_TOPIC: [
     /\b(cuaca|prakiraan\s+cuaca|hujan\s+ga|mendung)\b/i,
     /\b(resep|masak|makanan\s+enak|kuliner|resto|warung)\b/i,

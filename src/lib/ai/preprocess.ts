@@ -1,9 +1,3 @@
-/**
- * Input Preprocessor
- * Normalizes typos, abbreviations, and common misspellings
- * before intent detection and knowledge search.
- */
-
 // Singkatan & typo umum mahasiswa Indonesia
 const NORMALIZATIONS: Array<[RegExp, string]> = [
   // PKKMB-specific

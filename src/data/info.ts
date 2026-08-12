@@ -1,4 +1,19 @@
-export const infoData = [
+interface InfoSubItem {
+  label: string;
+  link?: string;
+  subLinks?: { label: string; link: string }[];
+}
+
+interface InfoItem {
+  id: string;
+  title: string;
+  desc: string;
+  icon: string;
+  urgent?: boolean;
+  subItems: InfoSubItem[];
+}
+
+export const infoData: InfoItem[] = [
   {
     id: 'presensi',
     title: 'Presensi',
@@ -6,24 +21,10 @@ export const infoData = [
     icon: '/assets/icons/presensi.svg',
     urgent: true,
     subItems: [
-      { label: 'Pra PKKMB', link: '/#info-garda' },
-      { label: 'PKKMB Pagi', link: '/#info-garda' },
-      { label: 'PKKMB Siang', link: '/#info-garda' },
-      { 
-        label: 'Fakultas', 
-        subLinks: [
-          { label: 'Fakultas Ilmu Pendidikan (FIP)', link: '/#info-garda' },
-          { label: 'Fakultas Bahasa dan Seni (FBS)', link: '/#info-garda' },
-          { label: 'Fakultas Matematika dan Ilmu Pengetahuan Alam (FMIPA)', link: '/#info-garda' },
-          { label: 'Fakultas Ilmu Sosial dan Hukum (FISH)', link: '/#info-garda' },
-          { label: 'Fakultas Teknik (FT)', link: '/#info-garda' },
-          { label: 'Fakultas Ilmu Keolahragaan dan Kesehatan (FIKK)', link: '/#info-garda' },
-          { label: 'Fakultas Ekonomika dan Bisnis (FEB)', link: '/#info-garda' },
-          { label: 'Fakultas Vokasi', link: '/#info-garda' },
-          { label: 'Fakultas Kedokteran (FK)', link: '/#info-garda' }
-        ]
-      },
-      { label: 'Universitas', link: '/#info-garda' }
+      { label: 'Pra-PKKMB – Awal', link: 'https://forms.gle/WUk9ngfev3vmJMpQ8' },
+      { label: 'Pra-PKKMB – Akhir', link: 'https://forms.gle/E76PkGAR5HHDxboF7' },
+      { label: 'PKKMB – Awal', link: 'https://forms.gle/Wyb2v8qrXtq9HXJn8' },
+      { label: 'PKKMB – Akhir', link: 'https://forms.gle/PqSy3hyNz24gyMiV9' }
     ]
   },
   {
@@ -45,8 +46,7 @@ export const infoData = [
     icon: '/assets/icons/pendataan.svg',
     urgent: true,
     subItems: [
-      { label: 'Kesehatan Mental', link: 'https://bit.ly/SurveiKondisiKesehatanMental_MahasiswaUNESA' },
-      { label: 'Seleksi Delegasi', link: 'https://unesa.me/SeleksiDelegasiPKKMBUnesa2026' }
+      { label: 'Kesehatan Mental', link: 'https://bit.ly/SurveiKondisiKesehatanMental_MahasiswaUNESA' }
     ]
   },
   {

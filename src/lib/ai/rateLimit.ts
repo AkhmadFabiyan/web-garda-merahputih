@@ -1,9 +1,3 @@
-/**
- * Rate Limiter
- * 20 requests per minute per IP. In-memory Map.
- * Works in Node.js runtime (API routes).
- */
-
 interface RateLimitEntry {
   count: number;
   windowStart: number;

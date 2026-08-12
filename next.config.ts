@@ -13,6 +13,7 @@ const withPWA = withPWAInit({
 });
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   images: {
     qualities: [75, 90, 100],
     remotePatterns: [

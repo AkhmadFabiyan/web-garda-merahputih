@@ -1,8 +1,3 @@
-/**
- * Simple In-Memory LRU Cache for AI Responses.
- * Reduces redundant API calls for duplicate questions.
- */
-
 interface CacheEntry {
   answer: string;
   expires: number;
@@ -13,7 +8,7 @@ const CACHE_TTL = 1000 * 60 * 60 * 6; // 6 hours
 
 const responseCache = new Map<string, CacheEntry>();
 
-/** Normalize cache key: lowercase, strip punctuation, collapse spaces */
+// Normalize cache key
 function normalizeKey(message: string): string {
   return message
     .toLowerCase()

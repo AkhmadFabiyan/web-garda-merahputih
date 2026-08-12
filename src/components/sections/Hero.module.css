@@ -182,7 +182,7 @@
   background: var(--gradient-primary);
   color: #FFFFFF;
   box-shadow: 0 0.5rem 1.25rem rgba(var(--color-brand-primary-rgb), 0.25);
-  border: 1px solid transparent;
+  border: none;
 }
 
 .primaryBtn:hover {

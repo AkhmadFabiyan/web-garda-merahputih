@@ -1,24 +1,13 @@
-/**
- * GARDA UNESA 2026 - MASTER CONFIGURATION
- * 
- * Atur semua Link, Tanggal, dan Deadline di sini.
- * Sistem AI dan Website akan otomatis menyesuaikan diri.
- */
-
 export const GARDA_CONFIG = {
-  // ==========================================
-  // 🔗 LINK REGISTRY (Pusat Tautan Garda)
-  // ==========================================
+  // Link Registry
   LINKS: {
     PRESENSI: '#',
 
-    PANDUAN: 'https://drive.google.com/file/d/1Pcc50cNRgDZlsmsuyzs8sl9njBxYnhs_/view?usp=drivesdk',
-    PENUGASAN: '#',
+    PANDUAN: 'https://drive.google.com/drive/folders/1bPsW-UtYFtoamRheJB_0KWwaYvUScGHL',
+    PENUGASAN: 'https://drive.google.com/drive/folders/1Gg0Qjd6t4jmIAEghD43KTCCF_nrvCO5e',
   },
 
-  // ==========================================
-  // 📅 TIMELINE & DEADLINE (Format ISO 8601)
-  // ==========================================
+  // Timeline & Deadline (ISO 8601)
   DATES: {
     // Registrasi
     REGISTRASI_START: '2026-06-01T00:00:00+07:00',

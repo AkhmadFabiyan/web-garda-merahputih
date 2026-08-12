@@ -1,8 +1,3 @@
-/**
- * Output Filter
- * Post-process Gemini output to block accidental secret leaks.
- */
-
 export interface FilterResult {
   safe: boolean;
   filtered: string;

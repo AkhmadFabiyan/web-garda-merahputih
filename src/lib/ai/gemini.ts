@@ -1,11 +1,3 @@
-/**
- * OpenRouter + Gemini Direct Client
- * Auto-detects available API key and routes accordingly.
- * - OPENROUTER_API_KEY → OpenRouter (multi-model, load-balanced)
- * - GEMINI_API_KEY     → Gemini Direct via OpenAI-compatible endpoint
- * Both can coexist; OpenRouter is tried first, Gemini as fallback.
- */
-
 export const GEMINI_RATE_LIMIT_RESPONSE = 'Antrean sedang penuh nih! Coba beberapa detik lagi ya.';
 
 export interface GeminiResponse {
@@ -18,7 +10,7 @@ export interface ConversationTurn {
   text: string;
 }
 
-// ─── Circuit Breaker ──────────────────────────────────────────
+// Circuit Breaker
 let circuitBreakerFailures = 0;
 let circuitBreakerUntil = 0;
 const MAX_FAILURES = 3;
@@ -28,7 +20,7 @@ export function isCircuitBreakerTripped(): boolean {
   return Date.now() < circuitBreakerUntil;
 }
 
-// ─── OpenRouter ───────────────────────────────────────────────
+// OpenRouter
 let currentOpenRouterKeyIndex = 0;
 
 export function getGeminiKeys(): string[] {
@@ -49,7 +41,7 @@ function getNextOpenRouterKey(): string | null {
   return key;
 }
 
-// ─── Gemini Direct ────────────────────────────────────────────
+// Gemini Direct
 export function hasDirectGeminiKey(): boolean {
   return !!process.env.GEMINI_API_KEY;
 }
@@ -89,7 +81,7 @@ async function callGeminiDirect(
   throw new Error('Gemini direct: all models failed');
 }
 
-// ─── OpenRouter ───────────────────────────────────────────────
+// OpenRouter Models
 const OPENROUTER_MODELS = [
   'openai/gpt-oss-120b:free',
   'qwen/qwen3-next-80b-a3b-instruct:free',
@@ -131,7 +123,7 @@ async function callOpenRouter(
   throw new Error('Invalid response from OpenRouter');
 }
 
-// ─── Unified Entry Point ──────────────────────────────────────
+// Unified Entry Point
 export async function callGemini(
   prompt: string,
   abortSignal?: AbortSignal,

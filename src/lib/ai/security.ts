@@ -1,8 +1,3 @@
-/**
- * Security Module
- * Input sanitization and threat detection.
- */
-
 export interface SecurityResult {
   safe: boolean;
   reason?: string;
