@@ -67,6 +67,6 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const local = answerLocally(rawMessage, faculty, history);
   if (local.kind === 'answer') return sendResponse(local.response);
 
-  // 5. AI (Gemini/OpenRouter) with local fallback
+  // 5. AI (Gemini) with local fallback
   return sendResponse(await answerWithAI(local, history));
 }

@@ -1,4 +1,4 @@
-// Jalur AI Gara (Gemini/OpenRouter) untuk pertanyaan yang tidak bisa dijawab lokal.
+// Jalur AI Gara (Gemini) untuk pertanyaan yang tidak bisa dijawab lokal.
 import { buildContext, type KnowledgeChunk } from './knowledgeSearch';
 import { getTodayInfo } from './todayEngine';
 import { buildGeminiPrompt } from './systemPrompt';

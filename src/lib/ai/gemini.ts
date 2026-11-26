@@ -20,35 +20,16 @@ export function isCircuitBreakerTripped(): boolean {
   return Date.now() < circuitBreakerUntil;
 }
 
-// OpenRouter
-let currentOpenRouterKeyIndex = 0;
-
-export function getOpenRouterKeys(): string[] {
-  const keysString = process.env.OPENROUTER_API_KEY;
-  if (!keysString) return [];
-  return keysString.split(',').map((k) => k.trim()).filter(Boolean);
-}
-
 export function hasGeminiKey(): boolean {
-  return getOpenRouterKeys().length > 0 || hasDirectGeminiKey();
-}
-
-function getNextOpenRouterKey(): string | null {
-  const keys = getOpenRouterKeys();
-  if (keys.length === 0) return null;
-  const key = keys[currentOpenRouterKeyIndex % keys.length];
-  currentOpenRouterKeyIndex = (currentOpenRouterKeyIndex + 1) % keys.length;
-  return key;
-}
-
-// Gemini Direct
-export function hasDirectGeminiKey(): boolean {
   return !!process.env.GEMINI_API_KEY;
 }
 
 const GEMINI_OPENAI_BASE = 'https://generativelanguage.googleapis.com/v1beta/openai';
-// gemini-1.5-flash sudah dipensiunkan Google (selalu gagal dan membuang satu request).
-const GEMINI_DIRECT_MODELS = ['gemini-2.5-flash', 'gemini-2.0-flash'];
+// Alias "-latest" selalu menunjuk model Flash terbaru, jadi tidak rusak saat Google mempensiunkan versi lama
+// (gemini-1.5/2.0/2.5-flash sudah ditolak untuk key baru). Lite = cadangan saat Flash sedang penuh (503).
+const GEMINI_DIRECT_MODELS = ['gemini-flash-latest', 'gemini-flash-lite-latest'];
+// aiAnswer gives the whole AI call 12s; half per model leaves Lite time to answer.
+const PER_MODEL_TIMEOUT_MS = 6000;
 
 async function callGeminiDirect(
   messages: Array<{ role: string; content: string }>,
@@ -57,17 +38,26 @@ async function callGeminiDirect(
   abortSignal?: AbortSignal
 ): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY!;
-  // Try models in order
+  // Try models in order. Each gets its own time cap: a busy Flash can hang instead of
+  // answering 503, and must not use up the caller's whole budget before Lite is tried.
   for (const model of GEMINI_DIRECT_MODELS) {
-    const response = await fetch(`${GEMINI_OPENAI_BASE}/chat/completions`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({ model, messages, temperature, max_tokens: maxTokens }),
-      signal: abortSignal,
-    });
+    const signals = [AbortSignal.timeout(PER_MODEL_TIMEOUT_MS), ...(abortSignal ? [abortSignal] : [])];
+    let response: Response;
+    try {
+      response = await fetch(`${GEMINI_OPENAI_BASE}/chat/completions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({ model, messages, temperature, max_tokens: maxTokens }),
+        signal: AbortSignal.any(signals),
+      });
+    } catch (err) {
+      if (abortSignal?.aborted) throw err; // caller gave up: stop
+      console.warn(`[Gemini Direct] Model ${model} timed out after ${PER_MODEL_TIMEOUT_MS}ms`);
+      continue;
+    }
     if (response.ok) {
       const data = await response.json();
       if (data.choices?.[0]?.message?.content) {
@@ -80,48 +70,6 @@ async function callGeminiDirect(
     }
   }
   throw new Error('Gemini direct: all models failed');
-}
-
-// OpenRouter Models
-const OPENROUTER_MODELS = [
-  'openai/gpt-oss-120b:free',
-  'qwen/qwen3-next-80b-a3b-instruct:free',
-  'nvidia/nemotron-3-nano-30b-a3b:free',
-];
-
-async function callOpenRouter(
-  messages: Array<{ role: string; content: string }>,
-  temperature: number,
-  maxTokens: number,
-  abortSignal?: AbortSignal
-): Promise<string> {
-  const apiKey = getNextOpenRouterKey();
-  if (!apiKey) throw new Error('OPENROUTER_API_KEY not configured');
-
-  // Shuffle models for load balancing
-  const models = [...OPENROUTER_MODELS].sort(() => Math.random() - 0.5);
-
-  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-      'HTTP-Referer': process.env.NEXT_PUBLIC_SITE_URL ?? 'https://garda.unesa.ac.id',
-      'X-Title': 'Garda UNESA Chatbot',
-    },
-    body: JSON.stringify({ models, messages, temperature, top_p: temperature > 0.3 ? 0.95 : 0.85, max_tokens: maxTokens }),
-    signal: abortSignal,
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text().catch(() => 'unknown error');
-    if (response.status === 429) throw new Error('RATE_LIMIT_EXCEEDED');
-    throw new Error(`OpenRouter error ${response.status}: ${errorText}`);
-  }
-
-  const data = await response.json();
-  if (data.choices?.[0]?.message?.content) return data.choices[0].message.content;
-  throw new Error('Invalid response from OpenRouter');
 }
 
 // Unified Entry Point
@@ -137,53 +85,25 @@ export async function callGemini(
 
   const maxTokens = temperature > 0.3 ? 800 : 600;
 
-  // Build messages array (shared format for both providers)
+  // OpenAI-compatible messages format (Gemini's /openai endpoint)
   const messages: Array<{ role: string; content: string }> = history.map((turn) => ({
     role: turn.role === 'model' ? 'assistant' : 'user',
     content: turn.text,
   }));
   messages.push({ role: 'user', content: prompt });
 
-  // Strategy: OpenRouter first, then Gemini Direct as fallback (or vice versa)
-  const hasOR = getOpenRouterKeys().length > 0;
-  const hasGD = hasDirectGeminiKey();
+  if (!hasGeminiKey()) throw new Error('No AI API key configured');
 
-  if (!hasOR && !hasGD) throw new Error('No AI API key configured');
-
-  // Try OpenRouter first (if available)
-  if (hasOR) {
-    try {
-      const text = await callOpenRouter(messages, temperature, maxTokens, abortSignal);
-      circuitBreakerFailures = 0; // Reset on success
-      return { text };
-    } catch (err) {
-      if (!hasGD) {
-        circuitBreakerFailures++;
-        if (circuitBreakerFailures >= MAX_FAILURES) {
-          circuitBreakerUntil = Date.now() + COOLDOWN_MS;
-        }
-        throw err; // No fallback available
-      }
-      // Fall through to Gemini Direct for any OpenRouter error (rate limit, timeout, 5xx)
-      console.warn('[AI] OpenRouter failed, falling back to Gemini Direct. Error:', err instanceof Error ? err.message : 'Unknown error');
+  try {
+    const text = await callGeminiDirect(messages, temperature, maxTokens, abortSignal);
+    circuitBreakerFailures = 0; // Reset on success
+    return { text };
+  } catch (err) {
+    circuitBreakerFailures++;
+    if (circuitBreakerFailures >= MAX_FAILURES) {
+      circuitBreakerUntil = Date.now() + COOLDOWN_MS;
     }
+    throw err;
   }
-
-  // Try Gemini Direct
-  if (hasGD) {
-    try {
-      const text = await callGeminiDirect(messages, temperature, maxTokens, abortSignal);
-      circuitBreakerFailures = 0; // Reset on success
-      return { text };
-    } catch (err) {
-      circuitBreakerFailures++;
-      if (circuitBreakerFailures >= MAX_FAILURES) {
-        circuitBreakerUntil = Date.now() + COOLDOWN_MS;
-      }
-      throw err;
-    }
-  }
-
-  throw new Error('All AI providers failed');
 }
 

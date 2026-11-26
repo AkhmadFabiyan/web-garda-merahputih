@@ -1,5 +1,5 @@
 // Self-check chatbot Gara: jalankan pertanyaan di scripts/garda-eval.json ke logika lokal
-// (sanitizeInput -> answerLocally: intent + knowledgeSearch), tanpa memanggil Gemini/OpenRouter.
+// (sanitizeInput -> answerLocally: intent + knowledgeSearch), tanpa memanggil Gemini.
 // Pakai: node scripts/garda-eval.mjs [set.json] [--verbose] [--min=<skor%>]
 //   set.json  default scripts/garda-eval.json; scripts/garda-eval-holdout.json = set uji yang
 //             TIDAK dipakai saat menyetel pola/kata kunci (cek overfitting).
