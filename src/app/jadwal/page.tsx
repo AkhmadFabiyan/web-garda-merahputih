@@ -1,40 +1,11 @@
-"use client";
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Navbar } from '../../components/layout/Navbar';
 import { Footer } from '../../components/layout/Footer';
 import { PageHeader } from '../../components/layout/PageHeader';
-import { Container } from '../../components/ui/Container';
-import { timelineData, type TimelineItem } from '../../data/schedule';
-import { stageStatus } from '../../lib/schedule';
-import styles from './page.module.css';
-import { FaCheck, FaExclamationTriangle, FaMapMarkerAlt, FaPlay, FaRegCircle, FaTshirt } from 'react-icons/fa';
+import { Schedule } from '../../components/sections/Schedule';
 
-function getNodeIcon(status: string) {
-  if (status === 'statusDone') return <FaCheck aria-hidden="true" />;
-  if (status === 'statusOngoing') return <FaPlay aria-hidden="true" />;
-  return <FaRegCircle aria-hidden="true" />;
-}
-
-function getStatusLabel(status: string) {
-  if (status === 'statusDone') return '✓ Selesai';
-  if (status === 'statusOngoing') return '● Sedang Berlangsung';
-  return 'Akan Datang';
-}
-
+// Same Peta Perjalanan component as the home page, in full mode: every stage's details listed.
 export default function JadwalPage() {
-  const [now, setNow] = useState(0);
-
-  useEffect(() => {
-    const t = setTimeout(() => setNow(new Date().getTime()), 0);
-    const interval = setInterval(() => setNow(new Date().getTime()), 1000 * 60);
-    return () => {
-      clearTimeout(t);
-      clearInterval(interval);
-    };
-  }, []);
-
-  const getStatus = (stage: TimelineItem) => (now === 0 ? 'statusUpcoming' : `status${stageStatus(stage, now)}`);
-
   return (
     <>
       <Navbar />
@@ -43,68 +14,7 @@ export default function JadwalPage() {
           title="Jadwal Lengkap"
           subtitle="Rangkaian kegiatan PKKMB UNESA 2026 dari awal hingga akhir."
         />
-        <Container>
-          <div className={styles.timelineList}>
-            {timelineData.map((item, idx) => {
-              const status = getStatus(item);
-              const nodeClass = status === 'statusDone' ? styles.nodeDone : status === 'statusUpcoming' ? styles.nodeUpcoming : '';
-              const cardClass = status === 'statusOngoing' ? styles.cardOngoing : status === 'statusDone' ? styles.cardDone : '';
-              const hasInfo = item.details?.location || item.details?.dresscode || item.details?.notes;
-
-              return (
-                <div key={idx} className={styles.item} data-reveal>
-                  {/* Node */}
-                  <div className={`${styles.node} ${nodeClass}`} aria-hidden="true">
-                    {getNodeIcon(status)}
-                  </div>
-
-                  {/* Card */}
-                  <div className={`${styles.card} ${cardClass}`}>
-                    <div className={styles.cardHeader}>
-                      <div className={styles.date}>{item.date}</div>
-                      <span className={`${styles.statusBadge} ${styles[status]}`}>
-                        {getStatusLabel(status)}
-                      </span>
-                    </div>
-
-                    <h3 className={styles.title}>{item.title}</h3>
-
-                    {item.details?.activities && item.details.activities.length > 0 && (
-                      <ul className={styles.activities}>
-                        {item.details.activities.map((act, i) => (
-                          <li key={i}>{act}</li>
-                        ))}
-                      </ul>
-                    )}
-
-                    {hasInfo && (
-                      <div className={styles.infoGrid}>
-                        {item.details?.location && (
-                          <div className={styles.infoRow}>
-                            <span><FaMapMarkerAlt aria-hidden="true" /></span>
-                            <span><strong>Lokasi:</strong> {item.details.location}</span>
-                          </div>
-                        )}
-                        {item.details?.dresscode && (
-                          <div className={styles.infoRow}>
-                            <span><FaTshirt aria-hidden="true" /></span>
-                            <span><strong>Dresscode:</strong> {item.details.dresscode}</span>
-                          </div>
-                        )}
-                        {item.details?.notes && (
-                          <div className={`${styles.infoRow} ${styles.infoRowNote}`}>
-                            <span><FaExclamationTriangle aria-hidden="true" /></span>
-                            <span>{item.details.notes}</span>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </Container>
+        <Schedule full />
       </main>
       <Footer />
     </>

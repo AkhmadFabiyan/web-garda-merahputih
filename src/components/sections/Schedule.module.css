@@ -432,3 +432,21 @@
     justify-content: center;
   }
 }
+
+/* ---------- Full mode (/jadwal): every stage's panel listed ---------- */
+.full {
+  padding-top: var(--space-8);
+}
+
+.full .isSelected::after {
+  display: none;
+}
+
+.panelList {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.panelList .panel {
+  scroll-margin-top: 6rem; /* clears the fixed navbar when a station jumps here */
+}

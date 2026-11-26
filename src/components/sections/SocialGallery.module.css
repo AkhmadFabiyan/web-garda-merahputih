@@ -14,8 +14,10 @@
 }
 
 .sectionSubtitle {
+  font-family: var(--font-body);
+  font-weight: 500;
   font-size: var(--step--1);
-  color: #A0AEC0;
+  color: #6B7280;
   margin-bottom: var(--space-4);
 }
 

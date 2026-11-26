@@ -1,0 +1,158 @@
+/* Regular card (/kontak) */
+.card {
+  background: #FFFFFF;
+  border: thin solid #EAEAEA;
+  border-radius: 1.25rem;
+  padding: var(--space-8);
+  text-align: center;
+  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.03);
+  transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+}
+
+.card:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: 0 1.25rem 2.5rem rgba(0, 0, 0, 0.08);
+}
+
+.faculty {
+  display: block;
+  inline-size: 100%;
+  font-family: var(--font-heading);
+  font-size: var(--step-1);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: var(--color-brand-primary);
+  margin-bottom: var(--space-4);
+  background: none;
+  border: none;
+  text-align: inherit;
+}
+
+.people {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.name {
+  font-family: var(--font-heading);
+  font-size: var(--step--1);
+  font-weight: 700;
+  color: #1F2937;
+}
+
+.wa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  inline-size: 100%;
+  min-block-size: 2.75rem;
+  padding: var(--space-2) var(--space-3);
+  border-radius: 0.5rem;
+  background: var(--gradient-primary);
+  color: #FFFFFF;
+  font-size: var(--step--1);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 0.25rem 0.938rem rgba(var(--color-brand-primary-rgb), 0.2);
+  transition: transform var(--dur-fast) ease, box-shadow var(--dur-fast) ease;
+}
+
+.wa:hover {
+  background: var(--gradient-hover);
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.625rem 1.875rem rgba(var(--color-brand-primary-rgb), 0.2);
+}
+
+/* Compact card (home page) */
+.compact {
+  border-radius: 1rem;
+  padding: var(--space-3);
+}
+
+.compact .faculty {
+  font-size: var(--step--1);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: thin solid rgba(0, 0, 0, 0.1);
+}
+
+/* Collapsible: accordion rows on screens up to 64em. The parent grid stacks them with no gap. */
+@media (width <= 64em) {
+  .collapsible {
+    border-radius: 0;
+    border-inline: none;
+    border-block-end: none;
+    padding: 0;
+    text-align: start;
+    box-shadow: none;
+  }
+
+  .collapsible:first-child {
+    border-radius: 0.75rem 0.75rem 0 0;
+  }
+
+  .collapsible:last-child {
+    border-block-end: var(--card-border);
+    border-radius: 0 0 0.75rem 0.75rem;
+  }
+
+  .collapsible:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .collapsible .faculty {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-block-size: 2.75rem;
+    margin: 0;
+    padding: var(--space-4);
+    border-bottom: thin solid rgba(0, 0, 0, 0.07);
+    font-size: var(--step--1);
+    color: #1F2937;
+    cursor: pointer;
+  }
+
+  .collapsible .faculty::after {
+    content: '›';
+    font-size: var(--step-1);
+    opacity: 0.5;
+    rotate: 90deg;
+    transition: rotate var(--dur-fast) ease;
+  }
+
+  .collapsible .people {
+    display: none;
+    padding: var(--space-3) var(--space-4) var(--space-4);
+  }
+
+  .collapsible .person {
+    align-items: flex-start;
+  }
+
+  .open .people {
+    display: flex;
+  }
+
+  .open .faculty {
+    border-bottom-color: rgba(var(--color-brand-primary-rgb), 0.2);
+    border-inline-start: 0.25rem solid var(--color-brand-primary);
+    background: rgba(var(--color-brand-primary-rgb), 0.08);
+    color: var(--color-brand-primary);
+    padding-inline-start: var(--space-3);
+  }
+
+  .open .faculty::after {
+    rotate: 270deg;
+  }
+}

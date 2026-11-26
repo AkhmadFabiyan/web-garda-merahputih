@@ -5,9 +5,8 @@ import { Footer } from '../../components/layout/Footer';
 import { PageHeader } from '../../components/layout/PageHeader';
 import { Container } from '../../components/ui/Container';
 import { contacts } from '../../data/contacts';
-import { FaWhatsapp } from 'react-icons/fa';
-import { waLink } from '../../lib/links';
 import { sortByPopularity } from '../../lib/popularity';
+import { ContactCard } from '../../components/ui/ContactCard';
 import styles from './page.module.css';
 
 export const revalidate = 3600;
@@ -26,26 +25,8 @@ export default async function KontakPage() {
         />
         <Container>
           <div className={styles.grid}>
-            {sortedContacts.map((contact, idx) => (
-              <div key={idx} className={styles.contactCard} data-reveal>
-                <h4 className={styles.facultyTitle}>{contact.faculty}</h4>
-                <div className={styles.personsList}>
-                  {/* CP 1 */}
-                  <div className={styles.personItem}>
-                    <span className={styles.personName}>{contact.cp1.name}</span>
-                    <a href={waLink(contact.cp1.phone)} target="_blank" rel="noopener noreferrer" className={styles.waLink}>
-                      <FaWhatsapp size={16} /> {contact.cp1.phone}
-                    </a>
-                  </div>
-                  {/* CP 2 */}
-                  <div className={styles.personItem}>
-                    <span className={styles.personName}>{contact.cp2.name}</span>
-                    <a href={waLink(contact.cp2.phone)} target="_blank" rel="noopener noreferrer" className={styles.waLink}>
-                      <FaWhatsapp size={16} /> {contact.cp2.phone}
-                    </a>
-                  </div>
-                </div>
-              </div>
+            {sortedContacts.map((contact) => (
+              <ContactCard key={contact.faculty} contact={contact} />
             ))}
           </div>
         </Container>

@@ -4,7 +4,7 @@ import { Navbar } from '../../components/layout/Navbar';
 import { Footer } from '../../components/layout/Footer';
 import { PageHeader } from '../../components/layout/PageHeader';
 import { Container } from '../../components/ui/Container';
-import { Accordion } from '../../components/ui/Accordion';
+import { FaqList } from '../../components/ui/FaqList';
 import { faqData } from '../../data/faq';
 import { sortByPopularity } from '../../lib/popularity';
 import styles from './page.module.css';
@@ -25,7 +25,7 @@ export default async function FAQPage() {
         />
         <Container>
           <div className={styles.contentWrap}>
-            <Accordion items={sortedFaqData} />
+            <FaqList items={sortedFaqData} />
           </div>
         </Container>
       </main>
