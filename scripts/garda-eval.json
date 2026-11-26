@@ -29,6 +29,12 @@
   { "q": "welcoming party dimana?", "intent": "SCHEDULE", "expect": ["graha sawunggaling"] },
   { "q": "pra pkkmb online atau offline?", "intent": "SCHEDULE", "expect": ["daring"] },
   { "q": "jadwal", "intent": "SCHEDULE", "expect": ["agustus"] },
+  { "q": "kapan pra pkkmb?", "intent": "SCHEDULE", "expect": ["14 agustus"] },
+  { "q": "pra pkkmb tanggal berapa", "intent": "SCHEDULE", "expect": ["14 agustus"] },
+  { "q": "kapan d-day pkkmb?", "intent": "SCHEDULE", "expect": ["17 agustus"] },
+  { "q": "Bagaimana cara membagi waktu antara tugas PKKMB dan istirahat?", "intent": "PENUGASAN", "ai": true },
+  { "q": "Apa makna tema Jayantara Nuswantara bagi mahasiswa baru?", "intent": "FAQ", "ai": true },
+  { "q": "tips biar ga gugup pas hari pertama", "intent": "GENERAL", "ai": true },
 
   { "q": "hari ini ngapain?", "intent": "TODAY" },
   { "q": "kegiatan besok apa aja", "intent": "TODAY" },

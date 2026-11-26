@@ -2,7 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaInstagram, FaTiktok, FaYoutube, FaWhatsapp, FaTelegram } from 'react-icons/fa';
+import { socialLinks } from '../../data/social';
 import { Container } from '../ui/Container';
 import styles from './Footer.module.css';
 
@@ -39,11 +39,9 @@ export const Footer = () => {
           </nav>
 
           <div className={styles.socialRow}>
-            <a href="https://www.youtube.com/@pkkmbgardaunesa" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="YouTube"><FaYoutube size={18} /></a>
-            <a href="https://www.instagram.com/gardaunesa.26/" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Instagram"><FaInstagram size={18} /></a>
-            <a href="https://www.tiktok.com/@pkkmbgardaunesa" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="TikTok"><FaTiktok size={18} /></a>
-            <a href="https://whatsapp.com/channel/0029Vb8CO8wDTkK2jfGtxq37" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="WhatsApp"><FaWhatsapp size={18} /></a>
-            <a href="https://telegram.me/+CU1TLTL67h5iMGI1" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Telegram"><FaTelegram size={18} /></a>
+            {socialLinks.map(({ id, label, url, icon: Icon }) => (
+              <a key={id} href={url} target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label={label}><Icon size={18} /></a>
+            ))}
           </div>
 
           <div className={styles.partnersSection}>

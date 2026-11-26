@@ -65,6 +65,18 @@ function isCreativeRequest(msg: string): boolean {
   return CREATIVE_PATTERNS.some((p) => p.test(msg));
 }
 
+// Advice / meaning questions ("tips biar ga gugup", "apa makna tema...") have no local answer;
+// a keyword like "tugas" would otherwise pull an unrelated document. Send them to the AI with context.
+const ADVICE_PATTERNS = [
+  /\b(tips|saran|makna|filosofi)\b/i, /\barti(nya)?\s+(tema|nama|logo)\b/i,
+  /\bcara\s+(agar|supaya|biar|membagi|mengatur|menjaga|mengatasi|menghadapi|tetap|cepat)\b/i,
+  /\b(gugup|cemas|minder|grogi|akrab|adaptasi)\b/i,
+];
+
+function isAdviceRequest(msg: string): boolean {
+  return ADVICE_PATTERNS.some((p) => p.test(msg));
+}
+
 // Follow-up Suggestions — hanya pertanyaan yang bisa dijawab dari data lokal (ikut dicek di scripts/garda-eval.mjs)
 export const SUGGESTIONS_BY_INTENT: Record<string, string[]> = {
   SCHEDULE:     ['Apa dresscode Opening Ceremony?', 'Siapa CP untuk fakultasku?', 'Jadwal hari ini?'],
@@ -161,6 +173,13 @@ export function answerLocally(
     return done({ answer: OFF_TOPIC_RESPONSE, intent: 'OFF_TOPIC', usedGemini: false });
   }
 
+  // Advice / meaning questions go to the AI before keyword matching (link navigator, search)
+  // can answer them with an unrelated document.
+  if (isAdviceRequest(message)) {
+    const ctx = searchKnowledge(message, 'GENERAL', faculty);
+    return { kind: 'needs_ai', message, detected: { ...detected, intent: 'GENERAL' }, faculty, chunks: ctx.chunks, creative: false };
+  }
+
   // SMART LINK NAVIGATOR
   const linkMatch = findLinkByKeyword(message);
   if (linkMatch) {
@@ -199,7 +218,7 @@ export function answerLocally(
   const creative = isCreativeRequest(message);
   const needsAI: LocalResult = { kind: 'needs_ai', message, detected, faculty, chunks: searchResult.chunks, creative };
 
-  // Pantun/humor selalu ke AI (tidak ada jawaban lokalnya)
+  // Pantun/humor always go to the AI (no local answer for them)
   if (creative) return needsAI;
 
   // Relevant local answer (chunks are already filtered by MIN_RELEVANT_SCORE), non-GENERAL

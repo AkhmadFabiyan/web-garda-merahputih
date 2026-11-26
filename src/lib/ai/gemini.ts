@@ -25,10 +25,11 @@ export function hasGeminiKey(): boolean {
 }
 
 const GEMINI_OPENAI_BASE = 'https://generativelanguage.googleapis.com/v1beta/openai';
-// Alias "-latest" selalu menunjuk model Flash terbaru, jadi tidak rusak saat Google mempensiunkan versi lama
-// (gemini-1.5/2.0/2.5-flash sudah ditolak untuk key baru). Lite = cadangan saat Flash sedang penuh (503).
-const GEMINI_DIRECT_MODELS = ['gemini-flash-latest', 'gemini-flash-lite-latest'];
-// aiAnswer gives the whole AI call 12s; half per model leaves Lite time to answer.
+// Alias "-latest" selalu menunjuk model terbaru, jadi tidak rusak saat Google mempensiunkan versi lama
+// (gemini-1.5/2.0/2.5-flash sudah ditolak untuk key baru). Gara hanya merangkum DATA LOKAL, jadi Lite
+// cukup dan jauh lebih cepat (~2 dtk); Flash jadi cadangan. Tukar urutannya bila butuh jawaban lebih kaya.
+const GEMINI_DIRECT_MODELS = ['gemini-flash-lite-latest', 'gemini-flash-latest'];
+// aiAnswer gives the whole AI call 12s; half per model leaves the backup model time to answer.
 const PER_MODEL_TIMEOUT_MS = 6000;
 
 async function callGeminiDirect(

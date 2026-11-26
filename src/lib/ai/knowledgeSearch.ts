@@ -140,8 +140,11 @@ const EVENT_KEYWORDS: [RegExp, string][] = [
   [/pelaksanaan|blended|hybrid/i, 'pkkmb fakultas pelaksanaan blended hybrid'],
 ];
 
+// Every stage answers "when" questions, so "kapan pra pkkmb" lands on the stage, not on a FAQ that also says "kapan".
+const WHEN_WORDS = 'kapan tanggal jam waktu';
+
 function eventKeywords(title: string): string {
-  return EVENT_KEYWORDS.filter(([re]) => re.test(title)).map(([, words]) => words).join(' ');
+  return [WHEN_WORDS, ...EVENT_KEYWORDS.filter(([re]) => re.test(title)).map(([, words]) => words)].join(' ');
 }
 
 function formatEvent(e: typeof timelineData[number]): string {
