@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: var(--step-3);
   cursor: pointer;
   box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
@@ -33,12 +33,12 @@
   background: var(--color-surface);
   border: var(--card-border);
   border-radius: 0.75rem;
-  padding: 1rem;
+  padding: var(--space-4);
   width: 15.625rem;
   box-shadow: var(--shadow-glow);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--space-3);
   transform-origin: bottom left;
   animation: popIn 0.3s ease;
 }
@@ -47,13 +47,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 0.5rem;
-  margin-bottom: 0.5rem;
+  border-bottom: thin solid rgba(0, 0, 0, 0.1);
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-2);
 }
 
 .menuHeader h3 {
-  font-size: 1rem;
+  font-size: var(--step-0);
   color: var(--color-gold);
   margin: 0;
 }
@@ -62,7 +62,7 @@
   background: none;
   border: none;
   color: var(--color-text-secondary);
-  font-size: 1.125rem;
+  font-size: var(--step-1);
   cursor: pointer;
 }
 
@@ -75,12 +75,12 @@
   justify-content: space-between;
   align-items: center;
   background: var(--color-card);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  padding: 0.625rem;
+  border: thin solid rgba(0, 0, 0, 0.05);
+  padding: var(--space-3);
   border-radius: 0.5rem;
   cursor: pointer;
   color: var(--color-text-primary);
-  font-size: 0.875rem;
+  font-size: var(--step--1);
   transition: background 0.2s;
 }
 
@@ -94,7 +94,7 @@
 }
 
 .icon {
-  font-size: 1.125rem;
+  font-size: var(--step-1);
 }
 
 @keyframes popIn {

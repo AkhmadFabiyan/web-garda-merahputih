@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { GardaMessage, Message, WaContact } from './GardaMessage';
 import { GardaTyping } from './GardaTyping';
 import { FaBolt, FaGraduationCap } from 'react-icons/fa';
+import styles from './GardaChat.module.css';
 import { GardaSuggestions } from './GardaSuggestions';
 import { GardaFacultyPicker, getSavedFaculty } from './GardaFacultyPicker';
 import { trackQuestion, trackContactLookup, trackTopicView } from '../../../lib/services/analytics';
@@ -293,23 +294,12 @@ export const GardaChat: React.FC<GardaChatProps> = ({
       {/* Footer */}
       <div className={footerClassName}>
         {faculty && (
-          <div style={{ 
-            fontSize: '11px', 
-            color: '#1F2937', 
-            marginBottom: '6px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '4px'
-          }}>
+          <div className={styles.facultyBar}>
             <FaGraduationCap aria-hidden="true" />
             <span>{faculty}</span>
             <button
               onClick={() => setShowFacultyPicker(true)}
-              style={{ 
-                background: 'none', border: 'none', color: 'var(--color-brand-primary)',
-                fontSize: '11px', cursor: 'pointer', padding: '0 4px',
-                transform: 'none'
-              }}
+              className={styles.changeFacultyBtn}
             >
               (ubah)
             </button>
@@ -317,19 +307,14 @@ export const GardaChat: React.FC<GardaChatProps> = ({
         )}
         
         {/* AI Quick Actions (Feature 3) */}
-        <div style={{ display: 'flex', overflowX: 'auto', gap: '6px', paddingBottom: '10px', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}>
+        <div className={styles.quickActions}>
            {['Presensi', 'Jadwal', 'FAQ', 'Hari Ini', 'Contact Person', 'Pengumuman', 'Panduan'].map(act => (
              <button 
                key={act} 
                onClick={() => !isTyping && !isResetting && sendMessage(act)} 
                disabled={isTyping || isResetting}
-               style={{ 
-                 whiteSpace: 'nowrap', padding: '6px 12px', background: '#FFFFFF', 
-                 border: '1px solid var(--color-brand-primary)', borderRadius: '20px', 
-                 color: 'var(--color-brand-primary)', fontSize: '11px', cursor: (isTyping || isResetting) ? 'not-allowed' : 'pointer',
-                 flexShrink: 0
-               }}>
-               <FaBolt aria-hidden="true" style={{ verticalAlign: '-0.125em' }} /> {act}
+               className={styles.quickActionBtn}>
+               <FaBolt aria-hidden="true" /> {act}
              </button>
            ))}
         </div>

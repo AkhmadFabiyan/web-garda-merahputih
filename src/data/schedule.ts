@@ -1,33 +1,76 @@
 import { GARDA_CONFIG } from './gardaConfig';
 
-export const timelineData = [
+export interface TimelineItem {
+  date: string;
+  startDate: string;
+  endDate: string;
+  title: string;
+  details: {
+    activities: string[];
+    location: string;
+    dresscode: string;
+    notes?: string;
+  };
+}
+
+export const timelineData: TimelineItem[] = [
   {
     date: '14 Agustus 2026',
     startDate: GARDA_CONFIG.DATES.PRA_PKKMB_START,
     endDate: GARDA_CONFIG.DATES.PRA_PKKMB_END,
-    title: 'Pra-PKKMB (Online)',
+    title: 'Pra-PKKMB',
     details: {
       activities: [
-        '08.00–Selesai WIB: Pelaksanaan Pra-PKKMB'
+        '08.00 WIB - Selesai'
       ],
-      location: 'Online (YouTube dan Zoom)',
+      location: 'Daring melalui Live YouTube Mawal UNESA & Zoom Meeting',
       dresscode: 'Bebas Rapi',
-      notes: 'Pastikan koneksi internet stabil dan perangkat siap.'
     }
   },
   {
     date: '17 Agustus 2026',
     startDate: GARDA_CONFIG.DATES.UPACARA_START,
     endDate: GARDA_CONFIG.DATES.UPACARA_END,
-    title: 'Pembukaan PKKMB (Blended/Hybrid)',
+    title: 'D-Day PKKMB (Opening Ceremony)',
     details: {
       activities: [
-        '06.00–08.30 WIB: Opening Ceremony di Lapangan Rektorat UNESA',
-        '08.00–Selesai WIB: Welcoming Party di Graha Sawunggaling UNESA'
+        '06.00 - 08.30 WIB: Opening Ceremony'
       ],
-      location: 'Halaman Rektorat & Graha Sawunggaling',
-      dresscode: 'Sesuai ketentuan',
-      notes: 'Bagi peserta offline, harap datang tepat waktu.'
+      location: 'Lapangan Rektorat UNESA',
+      dresscode: `Dresscode Putra:
+- Kemeja putih lengan panjang (berkerah & bersaku), celana kain formal warna hitam, ikat pinggang hitam, dan dasi resmi UNESA.
+- Sepatu pantofel hitam dengan kaos kaki hitam polos.
+- Topi Hitam (dari panitia GARDA), tas punggung/ransel rapi, scarf/slayer penanda fakultas, serta wajib membawa Jas Almamater UNESA.
+- Rambut rapi, pendek, dan tidak diwarnai.
+
+Dresscode Putri:
+- Kemeja putih lengan panjang (berkerah & bersaku), rok kain formal warna hitam (model A-Line), ikat pinggang hitam, dan dasi resmi UNESA.
+- Sepatu pantofel hitam dengan kaos kaki putih polos.
+- Hijab memakai segi empat warna hitam polos. Bagi yang non-hijab, rambut hitam rapi dan wajib memakai hair-net.
+- Topi Hitam (dari panitia GARDA), tas punggung/ransel rapi, scarf/slayer penanda fakultas, serta wajib membawa Jas Almamater UNESA.`,
+    }
+  },
+  {
+    date: '17 Agustus 2026',
+    startDate: GARDA_CONFIG.DATES.UPACARA_START,
+    endDate: GARDA_CONFIG.DATES.UPACARA_END,
+    title: 'D-Day PKKMB (Welcoming Party)',
+    details: {
+      activities: [
+        '08.00 WIB - Selesai'
+      ],
+      location: 'Graha Sawunggaling UNESA',
+      dresscode: `Dresscode Putra:
+- Kemeja putih lengan panjang (berkerah & bersaku), celana blue jeans rapi, dan ikat pinggang warna hitam.
+- Sepatu pantofel hitam dengan kaos kaki putih polos.
+- Wajib memakai Jas Almamater UNESA, menggunakan scarf penanda dari panitia, dan tas punggung/ransel rapi.
+- Rambut rapi, pendek, dan tidak diwarnai.
+
+Dresscode Putri:
+- Kemeja putih lengan panjang (berkerah & bersaku), celana blue jeans rapi, dan ikat pinggang warna hitam.
+- Sepatu pantofel hitam dengan kaos kaki putih polos.
+- Hijab memakai segi empat warna hitam polos. Bagi yang non-hijab, rambut hitam rapi dan menggunakan hair-net.
+- Wajib memakai Jas Almamater UNESA, menggunakan scarf penanda dari panitia, dan tas punggung/ransel rapi.`,
     }
   },
   {

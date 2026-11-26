@@ -27,7 +27,7 @@ export const Hero = ({ children }: { children?: React.ReactNode }) => {
         <Container>
           <div className={styles.grid}>
             <div className={styles.textCol}>
-              <div className={styles.badge}>PKKMB UNESA 2026</div>
+              <div className={styles.badge}><span className={styles.stars} aria-hidden="true"><span>✦</span><span>✦</span><span>✦</span></span> PKKMB UNESA 2026</div>
               <h1 className={styles.headline}>
                 <span className={styles.welcome}>WELCOME TO</span>
                 <br />
@@ -36,7 +36,7 @@ export const Hero = ({ children }: { children?: React.ReactNode }) => {
               <h2 className={styles.subHeadline}>JAYANTARA NUSWANTARA</h2>
               <p className={styles.description}>Pelopor Pendidikan, Pilar Kemajuan Bangsa</p>
               <div className={styles.actionWrap}>
-                <Link href="/jadwal" className={styles.primaryBtn}>
+                <Link href="/jadwal" className={`${styles.primaryBtn} ${styles.sheen}`}>
                   Lihat Jadwal <FaCalendarAlt />
                 </Link>
                 <Link href="/#info-garda" className={styles.secondaryBtn}>
@@ -47,8 +47,7 @@ export const Hero = ({ children }: { children?: React.ReactNode }) => {
 
             <div className={styles.countdownCol}>
               <div className={styles.countdownCard}>
-                <p className={styles.countdownLabel}>Countdown Pra-PKKMB</p>
-                <Countdown targetDate="2026-08-15T00:00:00+07:00" />
+                <Countdown />
               </div>
             </div>
           </div>

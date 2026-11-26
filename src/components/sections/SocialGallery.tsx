@@ -20,7 +20,7 @@ const galleryImages = [
 export const SocialGallery = () => {
   return (
     <div className={styles.wrapper} id="galeri">
-      <h2 className={styles.sectionTitle}>IKUTI KAMI</h2>
+      <h2 className={styles.sectionTitle} data-reveal>IKUTI KAMI</h2>
       <h3 className={styles.sectionSubtitle}>Follow Social Media Garda</h3>
       <div className={styles.socialGrid}>
         {socialData.map(item => (
@@ -42,7 +42,7 @@ export const SocialGallery = () => {
       <div className={styles.galleryGrid}>
         {galleryImages.map((src, index) => (
           <div key={index} style={{ position: 'relative', width: '100%', aspectRatio: '1' }}>
-            <Image src={src} alt={`Galeri PKKMB ${index + 1}`} fill className={styles.galleryImg} sizes="(max-width: 768px) 33vw, 20vw" />
+            <Image src={src} alt={`Galeri PKKMB ${index + 1}`} fill className={styles.galleryImg} sizes="(max-width: 48em) 33vw, 20vw" />
           </div>
         ))}
       </div>

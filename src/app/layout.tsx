@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { SplashScreen } from '../components/ui/SplashScreen';
 import { DelayedMount } from '../components/ui/DelayedMount';
@@ -12,13 +12,9 @@ const A11yWidget = dynamic(() => import('../components/ui/A11yWidget').then(mod 
 const DeveloperChamber = dynamic(() => import('../components/ui/DeveloperChamber').then(mod => mod.DeveloperChamber));
 const OfflineBanner = dynamic(() => import('../components/ui/OfflineBanner').then(mod => mod.OfflineBanner));
 
-const inter = Inter({ subsets: ["latin"], variable: '--font-inter', display: 'swap' });
-const poppins = Poppins({ 
-  weight: ['400', '500', '600', '700', '800', '900'],
-  subsets: ["latin"],
-  variable: '--font-poppins',
-  display: 'swap'
-});
+// Fraunces for titles, Plus Jakarta Sans for UI and body (UI_UX_RULES.md 3.6)
+const fraunces = Fraunces({ subsets: ["latin"], variable: '--font-fraunces', display: 'swap', axes: ['opsz'] });
+const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: '--font-jakarta', display: 'swap' });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://garda.unesa.ac.id"),
@@ -84,7 +80,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" suppressHydrationWarning>
+    <html lang="id" className={`${fraunces.variable} ${jakarta.variable}`} suppressHydrationWarning>
       <head>
         {/* Font preconnect — reduces render-blocking */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -127,7 +123,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${poppins.variable}`} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <script
           dangerouslySetInnerHTML={{
             __html: `

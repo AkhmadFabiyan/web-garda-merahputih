@@ -1,174 +1,161 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { FaCheck, FaClock, FaCalendarAlt, FaMapMarkedAlt } from 'react-icons/fa';
+import { FaCheck, FaMapMarkedAlt, FaMapMarkerAlt, FaTshirt, FaExclamationTriangle } from 'react-icons/fa';
 import { Container } from '../ui/Container';
 import { timelineData } from '../../data/schedule';
 import styles from './Schedule.module.css';
 
+type Status = 'Done' | 'Ongoing' | 'Upcoming';
+
+const STATUS_TEXT: Record<Status, string> = {
+  Done: 'Selesai',
+  Ongoing: 'Sedang berlangsung',
+  Upcoming: 'Akan datang',
+};
+
+function getStatus(now: number, startStr: string, endStr: string): Status {
+  if (now === 0) return 'Upcoming';
+  if (now > new Date(endStr).getTime()) return 'Done';
+  if (now >= new Date(startStr).getTime()) return 'Ongoing';
+  return 'Upcoming';
+}
+
+// Index of the stage the journey is currently at: the last one that has started (0 before anything starts).
+function currentIndex(now: number): number {
+  if (now === 0) return 0;
+  for (let i = timelineData.length - 1; i >= 0; i--) {
+    if (now >= new Date(timelineData[i].startDate).getTime()) return i;
+  }
+  return 0;
+}
+
 export const Schedule = () => {
   const [now, setNow] = useState(0);
-  const [expandedCards, setExpandedCards] = useState<number[]>([]);
+  const [selected, setSelected] = useState<number | null>(null);
 
   useEffect(() => {
-    const t = setTimeout(() => setNow(new Date().getTime()), 0);
-    const interval = setInterval(() => setNow(new Date().getTime()), 1000 * 60);
+    const t = setTimeout(() => setNow(Date.now()), 0);
+    const interval = setInterval(() => setNow(Date.now()), 60 * 1000);
     return () => {
       clearTimeout(t);
       clearInterval(interval);
     };
   }, []);
 
-  const getStatus = (startStr: string, endStr: string) => {
-    if (now === 0) return { text: 'MEMUAT...', status: 'Upcoming', icon: <FaCalendarAlt /> };
-    const start = new Date(startStr).getTime();
-    const end = new Date(endStr).getTime();
+  const current = currentIndex(now);
+  const active = selected ?? current;
+  const lastEnd = new Date(timelineData[timelineData.length - 1].endDate).getTime();
+  const allDone = now !== 0 && now > lastEnd;
+  // Share of the rail between the first and last station that is already travelled.
+  const progress = now === 0 ? 0 : allDone ? 1 : current / (timelineData.length - 1);
+  const item = timelineData[active];
+  const details = item.details;
 
-    if (now > end) return { text: 'SELESAI', status: 'Done', icon: <FaCheck /> };
-    if (now >= start && now <= end) return { text: 'SEDANG BERLANGSUNG', status: 'Ongoing', icon: <FaClock /> };
-    return { text: 'AKAN DATANG', status: 'Upcoming', icon: <FaCalendarAlt /> };
-  };
-
-  const calculateProgress = () => {
-    if (now === 0) return 0;
-    
-    let activeIndex = -1;
-    for (let i = timelineData.length - 1; i >= 0; i--) {
-      const start = new Date(timelineData[i].startDate).getTime();
-      if (now >= start) {
-        activeIndex = i;
-        break;
-      }
-    }
-    
-    if (activeIndex === -1) return 0;
-    
-    const endOfLast = new Date(timelineData[timelineData.length - 1].endDate).getTime();
-    if (now > endOfLast) return 100;
-    
-    const stepSize = 100 / (timelineData.length - 1);
-    return activeIndex * stepSize;
-  };
-
-  const toggleCard = (idx: number) => {
-    setExpandedCards(prev => 
-      prev.includes(idx) ? prev.filter(i => i !== idx) : [...prev, idx]
-    );
+  const onKeyDown = (e: React.KeyboardEvent, idx: number) => {
+    const step = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+    if (!step) return;
+    e.preventDefault();
+    const next = (idx + step + timelineData.length) % timelineData.length;
+    setSelected(next);
+    document.getElementById(`stage-tab-${next}`)?.focus();
   };
 
   return (
     <section className={styles.section} id="jadwal">
       <Container>
-        <div className={styles.masterBox}>
-          <div className={styles.centeredHeader}>
-            <h2 className={styles.sectionTitle}>PETA PERJALANAN PKKMB</h2>
+        <div className={styles.centeredHeader}>
+          <h2 className={styles.sectionTitle} data-reveal>PETA PERJALANAN PKKMB</h2>
+          <p className={styles.hint}>Pilih tahap untuk melihat detailnya.</p>
+        </div>
+
+        <div className={styles.route} style={{ '--progress': progress } as React.CSSProperties}>
+          <div className={styles.rail} aria-hidden="true">
+            <div className={styles.railFill} />
           </div>
 
-          <div className={styles.timelineJourney}>
-            <div className={styles.verticalLine}>
-              <div className={styles.progressLine} style={{ height: `${calculateProgress()}%` }}></div>
-            </div>
-
-            {timelineData.map((item, idx) => {
-              const statusObj = getStatus(item.startDate, item.endDate);
-              const isLeft = idx % 2 === 0;
-              const sideClass = isLeft ? styles.leftSide : styles.rightSide;
-              
-              const nodeClass = styles[`node${statusObj.status}`];
-              const cardClass = styles[`card${statusObj.status}`];
-              const statusWrapClass = styles[`status${statusObj.status}`];
-              
-              const isExpanded = expandedCards.includes(idx);
-              const hasDetails = item.details && (
-                (item.details.activities && item.details.activities.length > 0) || 
-                item.details.location || 
-                item.details.dresscode || 
-                item.details.notes
-              );
-
+          <div className={styles.stations} role="tablist" aria-label="Tahapan PKKMB">
+            {timelineData.map((stage, idx) => {
+              const status = getStatus(now, stage.startDate, stage.endDate);
+              const isActive = idx === active;
               return (
-                <div key={idx} className={`${styles.checkpoint} ${sideClass} ${statusWrapClass}`} style={{ animationDelay: `${idx * 0.2}s` }}>
-                  <div className={`${styles.node} ${nodeClass}`}>
-                    {statusObj.icon}
-                  </div>
-                  
-                  <div 
-                    id={`schedule-btn-${idx}`}
-                    className={`${styles.card} ${cardClass} ${hasDetails ? styles.clickableCard : ''}`}
-                    onClick={() => hasDetails && toggleCard(idx)}
-                    role={hasDetails ? "button" : undefined}
-                    tabIndex={hasDetails ? 0 : undefined}
-                    aria-expanded={hasDetails ? isExpanded : undefined}
-                    aria-controls={hasDetails ? `schedule-details-${idx}` : undefined}
-                    onKeyDown={(e) => {
-                      if (hasDetails && (e.key === 'Enter' || e.key === ' ')) {
-                        e.preventDefault();
-                        toggleCard(idx);
-                      }
-                    }}
-                  >
-                    <div className={styles.date}>{item.date}</div>
-                    <h3 className={styles.title}>{item.title}</h3>
-                    
-                    <div className={styles.statusBadge}>
-                      {statusObj.text}
-                    </div>
-
-                    {hasDetails && (
-                      <div 
-                        className={styles.expandBtn} 
-                        aria-expanded={isExpanded}
-                      >
-                        {isExpanded ? 'Tutup Detail' : 'Lihat Detail'} <span aria-hidden="true">▼</span>
-                      </div>
-                    )}
-
-                    {hasDetails && isExpanded && (
-                      <div id={`schedule-details-${idx}`} className={styles.detailsWrap} role="region" aria-labelledby={`schedule-btn-${idx}`}>
-                        {item.details?.activities && item.details.activities.length > 0 && (
-                          <div className={styles.infoBlock}>
-                            <div className={styles.infoLabel}>Kegiatan Utama</div>
-                            <ul className={styles.activities}>
-                              {item.details.activities.map((act, i) => (
-                                <li key={i}>{act}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                        
-                        {item.details?.location && (
-                          <div className={styles.infoBlock}>
-                            <div className={styles.infoLabel}>Lokasi</div>
-                            <div className={styles.infoText}>{item.details.location}</div>
-                          </div>
-                        )}
-
-                        {item.details?.dresscode && (
-                          <div className={styles.infoBlock}>
-                            <div className={styles.infoLabel}>Dresscode</div>
-                            <div className={styles.infoText}>{item.details.dresscode}</div>
-                          </div>
-                        )}
-
-                        {item.details?.notes && (
-                          <div className={styles.infoBlock}>
-                            <div className={styles.infoLabel}>Catatan Khusus</div>
-                            <div className={styles.infoText}>{item.details.notes}</div>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
+                <button
+                  key={idx}
+                  id={`stage-tab-${idx}`}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls="stage-panel"
+                  tabIndex={isActive ? 0 : -1}
+                  className={`${styles.station} ${styles[`is${status}`]} ${isActive ? styles.isSelected : ''}`}
+                  style={{ '--i': idx } as React.CSSProperties}
+                  onClick={() => setSelected(idx)}
+                  onKeyDown={(e) => onKeyDown(e, idx)}
+                >
+                  <span className={styles.marker} aria-hidden="true">
+                    {status === 'Done' ? <FaCheck /> : String(idx + 1).padStart(2, '0')}
+                  </span>
+                  <span className={styles.stationText}>
+                    <span className={styles.date}>{stage.date}</span>
+                    <span className={styles.title}>{stage.title}</span>
+                    <span className={styles.status}>{STATUS_TEXT[status]}</span>
+                  </span>
+                </button>
               );
             })}
           </div>
-          
-          <div className={styles.actionWrap}>
-            <Link href="/jadwal" className={styles.linkFull}>
-              <FaMapMarkedAlt /> Lihat Jadwal Lengkap
-            </Link>
+        </div>
+
+        <div
+          id="stage-panel"
+          role="tabpanel"
+          aria-labelledby={`stage-tab-${active}`}
+          className={styles.panel}
+          key={active}
+        >
+          <div className={styles.panelHead}>
+            <span className={styles.panelStep}>Tahap {String(active + 1).padStart(2, '0')}</span>
+            <h3 className={styles.panelTitle}>{item.title}</h3>
+            <span className={styles.panelDate}>{item.date}</span>
           </div>
+
+          <div className={styles.panelBody}>
+            {details.activities.length > 0 && (
+              <div className={styles.block}>
+                <h4 className={styles.blockLabel}>Kegiatan utama</h4>
+                <ul className={styles.activities}>
+                  {details.activities.map((act, i) => <li key={i}>{act}</li>)}
+                </ul>
+              </div>
+            )}
+
+            <div className={styles.facts}>
+              {details.location && (
+                <div className={styles.fact}>
+                  <FaMapMarkerAlt aria-hidden="true" />
+                  <div><span className={styles.blockLabel}>Lokasi</span>{details.location}</div>
+                </div>
+              )}
+              {details.dresscode && (
+                <div className={styles.fact}>
+                  <FaTshirt aria-hidden="true" />
+                  <div><span className={styles.blockLabel}>Dresscode</span>{details.dresscode}</div>
+                </div>
+              )}
+              {details.notes && (
+                <div className={`${styles.fact} ${styles.factNote}`}>
+                  <FaExclamationTriangle aria-hidden="true" />
+                  <div><span className={styles.blockLabel}>Catatan khusus</span>{details.notes}</div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.actionWrap}>
+          <Link href="/jadwal" className={styles.linkFull}>
+            <FaMapMarkedAlt /> Lihat Jadwal Lengkap
+          </Link>
         </div>
       </Container>
     </section>

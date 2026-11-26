@@ -7,7 +7,7 @@ export const FooterCTA = () => {
   return (
     <section className={styles.section}>
       <Container>
-        <div className={styles.card}>
+        <div className={styles.card} data-reveal>
           <div className={styles.flagBackgroundWrap}>
             <div className={styles.flagBackground} />
           </div>

@@ -58,7 +58,7 @@ export default function JadwalPage() {
               const hasInfo = item.details?.location || item.details?.dresscode || item.details?.notes;
 
               return (
-                <div key={idx} className={styles.item}>
+                <div key={idx} className={styles.item} data-reveal>
                   {/* Node */}
                   <div className={`${styles.node} ${nodeClass}`} aria-hidden="true">
                     {getNodeIcon(status)}

@@ -23,14 +23,25 @@
   --gradient-gold: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 100%);
   --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.3) 100%);
   
-  /* Fonts */
-  --font-heading: var(--font-poppins), 'Poppins', sans-serif;
-  --font-body: var(--font-inter), 'Inter', sans-serif;
+  /* Fonts: display = titles (Fraunces), heading = bold UI labels, body = text (Plus Jakarta Sans) */
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-heading: var(--font-jakarta), system-ui, sans-serif;
+  --font-body: var(--font-jakarta), system-ui, sans-serif;
+
+  /* Motion (UI_UX_RULES.md 3.6) */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 0.2s;
+  --dur: 0.45s;
+  --dur-slow: 0.8s;
+  /* 1 = full motion; 0 when the user asks the OS for reduced motion.
+     New animations multiply their movement by this, so fades still play. */
+  --motion: 1;
   
   /* Standardized Premium Card */
   --card-bg: rgba(255, 255, 255, 0.85);
-  --card-border: 1px solid rgba(255, 255, 255, 0.6);
-  --card-border-hover: 1px solid rgba(200, 16, 46, 0.3);
+  --card-border: thin solid rgba(255, 255, 255, 0.6);
+  --card-border-hover: thin solid rgba(200, 16, 46, 0.3);
   --card-radius: 1.5rem;
   --card-padding: 2rem;
   
@@ -47,12 +58,24 @@
   --space-4: 1rem;
   --space-5: 1.25rem;
   --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-10: 2.5rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  --space-20: 5rem;
-  --space-section: 7.5rem;
+  /* Large spacing is fluid: 75% on a 20rem screen up to full size at 90rem (UI_UX_RULES.md 3.3) */
+  --space-8: clamp(1.5rem, 1.3571rem + 0.7143vw, 2rem);
+  --space-10: clamp(1.875rem, 1.6964rem + 0.8929vw, 2.5rem);
+  --space-12: clamp(2.25rem, 2.0357rem + 1.0714vw, 3rem);
+  --space-16: clamp(3rem, 2.7143rem + 1.4286vw, 4rem);
+  --space-20: clamp(3.75rem, 3.3929rem + 1.7857vw, 5rem);
+  --space-section: clamp(3.5rem, 2.3571rem + 5.7143vw, 7.5rem);
+  --gutter: clamp(1rem, 0.5714rem + 2.1429vw, 2.5rem);
+
+  /* Compact type scale (UI_UX_RULES.md 3.1): UI text is fixed, only headings grow 20rem -> 90rem */
+  --step--1: 0.875rem;  /* 14  labels, meta, badges: the smallest text allowed */
+  --step-0: 1rem;       /* 16  body text */
+  --step-1: 1.125rem;   /* 18  lead, card titles */
+  --step-2: 1.25rem;    /* 20 */
+  --step-3: clamp(1.375rem, 1.3393rem + 0.1786vw, 1.5rem);   /* 22→24 */
+  --step-4: clamp(1.625rem, 1.5179rem + 0.5357vw, 2rem);     /* 26→32 */
+  --step-5: clamp(2rem, 1.8571rem + 0.7143vw, 2.5rem);       /* 32→40 */
+  --step-6: clamp(2.25rem, 2.0357rem + 1.0714vw, 3rem);      /* 36→48 */
 }
 
 * {
@@ -61,22 +84,45 @@
   margin: 0;
 }
 
+/* Form controls default to a smaller system font; make them follow the type scale */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+html {
+  /* Removed clamp to avoid double-shrinking text on mobile */
+}
+
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip; /* clip, not hidden: hidden would make body a scroll container and break view() timelines and position: sticky */
   background-color: var(--color-bg);
   color: var(--color-text-primary);
   font-family: var(--font-body);
+  overflow-wrap: break-word;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1 { font-size: var(--step-6); }
+h2 { font-size: var(--step-5); }
+h3 { font-size: var(--step-4); }
+h4 { font-size: var(--step-3); }
+h5 { font-size: var(--step-2); }
+h6 { font-size: var(--step-1); }
+
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-weight: 700;
+  line-height: 1.2;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 /* Glassmorphism Utilities */
@@ -125,12 +171,12 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.625rem;
-  padding: 0.875rem 1.75rem;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-8);
   border-radius: 0.75rem;
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: 0.938rem;
+  font-size: var(--step-0);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1;
 }
@@ -163,13 +209,13 @@ a {
 }
 
 .btn-primary:active {
-  transform: translateY(-1px);
+  transform: translateY(-0.0625rem);
 }
 
 .btn-secondary {
   background: #FFFFFF;
   color: var(--color-text-primary);
-  border: 1px solid rgba(15, 23, 42, 0.1);
+  border: thin solid rgba(15, 23, 42, 0.1);
   box-shadow: var(--shadow-soft);
 }
 
@@ -207,7 +253,7 @@ html.a11y-high-contrast img,
 html.a11y-high-contrast video,
 html.a11y-high-contrast canvas {
   background-color: transparent !important;
-  border: 1px solid #FFFF00 !important;
+  border: thin solid #FFFF00 !important;
 }
 
 html.a11y-high-contrast svg,
@@ -232,4 +278,35 @@ html.a11y-text-large {
   border-radius: 0.25rem;
   transition: outline 0.2s ease-in-out;
   background-color: rgba(244, 197, 66, 0.1) !important;
+}
+
+/* =========================================================
+   MOTION SYSTEM (UI_UX_RULES.md 3.6)
+   - Scroll reveal: add data-reveal to an element. Uses CSS
+     scroll-driven animations; browsers without support just
+     show the element (no JS, no layout shift).
+   - Animates `translate`/`scale`/`opacity` only, so existing
+     hover `transform` effects keep working.
+   ========================================================= */
+@keyframes reveal-up {
+  from { opacity: 0; translate: 0 calc(1.5rem * var(--motion)); scale: calc(1 - 0.02 * var(--motion)); }
+  to   { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+@supports (animation-timeline: view()) {
+  [data-reveal] {
+    animation: reveal-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 90%;
+  }
+}
+
+/* Reduced motion: keep fades and colour, drop movement (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion: 0;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }

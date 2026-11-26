@@ -1,7 +1,7 @@
 .footer {
   background: #111827;
-  padding: 3rem 0 1.5rem 0;
-  border-top: 1px solid #1F2937;
+  padding: var(--space-12) 0 var(--space-6) 0;
+  border-top: thin solid #1F2937;
   position: relative;
   overflow: hidden;
   z-index: 10;
@@ -13,7 +13,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 60%;
-  height: 1px;
+  height: 0.0625rem;
   background: linear-gradient(90deg, transparent, rgba(216, 180, 226, 0.5), transparent);
   box-shadow: 0 0 1.875rem 0.125rem rgba(206, 17, 38, 0.6);
 }
@@ -22,7 +22,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: var(--space-4);
   max-width: 68.75rem;
   margin: 0 auto;
 }
@@ -31,13 +31,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.25rem;
+  gap: var(--space-1);
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--space-2);
   text-decoration: none;
 }
 
@@ -47,18 +47,18 @@
 }
 
 .logoText h2 {
-  font-family: var(--font-heading);
-  font-size: 1rem;
+  font-family: var(--font-display);
+  font-size: var(--step-0);
   font-weight: 800;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1;
-  letter-spacing: 1px;
+  letter-spacing: 0.0625em;
 }
 
 .tagline {
-  font-size: 0.813rem;
+  font-size: var(--step--1);
   color: #9CA3AF;
   font-family: var(--font-body);
   letter-spacing: 0.0313rem;
@@ -69,11 +69,11 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .navLinks a {
-  font-size: 0.875rem;
+  font-size: var(--step--1);
   color: #F3F4F6;
   text-decoration: none;
   transition: color 0.3s;
@@ -86,14 +86,14 @@
 
 .dot {
   color: rgba(255, 255, 255, 0.2);
-  font-size: 0.625rem;
+  font-size: var(--step--1);
 }
 
 .socialRow {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
+  gap: var(--space-4);
   margin-top: 0;
 }
 
@@ -102,7 +102,7 @@
   height: 2.5rem;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: thin solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -120,28 +120,64 @@
 }
 
 .copyright {
-  font-size: 0.75rem;
+  font-size: var(--step--1);
   color: #6B7280;
-  margin-top: 0.5rem;
+  margin-top: var(--space-2);
+}
+
+.partnersSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.partnersLabel {
+  font-size: var(--step--1);
+  color: #9CA3AF;
+  text-transform: uppercase;
+  letter-spacing: 0.0908em;
+}
+
+.partnersGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.partnerLogo {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  transition: transform 0.3s ease;
+  filter: grayscale(100%) brightness(150%) opacity(70%);
+}
+
+.partnerLogo:hover {
+  transform: scale(1.1);
+  filter: grayscale(0%) brightness(100%) opacity(100%);
 }
 
 /* Responsive Styles */
-@media (max-width: 40rem) {
+@media (width <= 40em) {
   .footer {
-    padding: 2rem 0 6.25rem 0; /* extra bottom clearance for Garda floating button */
+    padding: var(--space-8) 0 6.25rem 0; /* extra bottom clearance for Garda floating button */
   }
   .minimalStack {
-    gap: 1.25rem;
+    gap: var(--space-5);
   }
   .navLinks {
-    gap: 0.5rem 0.75rem;
-    padding: 0 0.5rem;
+    gap: var(--space-2) var(--space-3);
+    padding: 0 var(--space-2);
   }
   .navLinks a {
-    font-size: 0.813rem;
+    font-size: var(--step--1);
   }
   .socialRow {
-    gap: 0.75rem;
+    gap: var(--space-3);
     margin-top: 0;
   }
   .socialIcon {

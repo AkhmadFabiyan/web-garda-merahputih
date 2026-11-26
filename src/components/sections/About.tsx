@@ -20,7 +20,7 @@ export const About = () => {
       <Container>
         <div className={styles.grid3Col}>
           {/* Col 1: Text */}
-          <div className={styles.textContent}>
+          <div className={styles.textContent} data-reveal>
             <SectionTitle title="Apa Itu Garda UNESA?" subtitle="TENTANG GARDA" />
             {paragraphs.map((text, idx) => (
               <p key={idx} className={styles.description}>{text}</p>
@@ -31,7 +31,7 @@ export const About = () => {
           </div>
           
           {/* Col 2: Video */}
-          <div className={styles.videoContent}>
+          <div className={styles.videoContent} data-reveal>
             <div className={styles.videoCard}>
               <iframe 
                 width="100%" 
@@ -42,13 +42,13 @@ export const About = () => {
                 loading="lazy"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowFullScreen
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', borderRadius: '16px' }}
+                className={styles.videoFrame}
               ></iframe>
             </div>
           </div>
 
           {/* Col 3: Quote */}
-          <div className={styles.quoteContent}>
+          <div className={styles.quoteContent} data-reveal>
             <div className={styles.quoteCard}>
               <div className={styles.fireWatermark} />
               <span className={styles.quoteMarkLeft}>“</span>

@@ -46,6 +46,20 @@ export const Footer = () => {
             <a href="https://telegram.me/+CU1TLTL67h5iMGI1" target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Telegram"><FaTelegram size={18} /></a>
           </div>
 
+          <div className={styles.partnersSection}>
+            <div className={styles.partnersLabel}>Supported By</div>
+            <div className={styles.partnersGrid}>
+              <div className={styles.partnerLogo} title="Jayantara Media">
+                <Image 
+                  src="/logos/jayantara.jpg" 
+                  alt="Jayantara Media" 
+                  fill 
+                  style={{ objectFit: 'contain' }}
+                />
+              </div>
+            </div>
+          </div>
+
           <p className={styles.copyright}>&copy; 2026 Garda UNESA. All rights reserved.</p>
         </div>
       </Container>

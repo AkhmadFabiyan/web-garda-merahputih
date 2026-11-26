@@ -25,7 +25,7 @@ export const InfoGarda = () => {
       <Container>
         <div className={styles.masterBox}>
           <div className={styles.headerRow}>
-            <h2 className={styles.sectionTitle}>INFO GARDA</h2>
+            <h2 className={styles.sectionTitle} data-reveal>INFO GARDA</h2>
           </div>
 
           <div className={styles.grid}>
@@ -33,7 +33,7 @@ export const InfoGarda = () => {
               <button 
                 key={info.id} 
                 onClick={() => setSelectedInfo(info)} 
-                className={`${styles.card} ${info.urgent ? styles.cardWajib : ''}`}
+                className={`${styles.card} ${info.urgent ? styles.cardWajib : ''}`} data-reveal
               >
                 {info.urgent && <span className={styles.badge}>WAJIB</span>}
                 <div className={styles.iconBox}>

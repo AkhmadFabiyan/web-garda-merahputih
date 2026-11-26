@@ -34,7 +34,7 @@ export const FAQSection = ({ faqOrder = [] }: { faqOrder?: string[] }) => {
 
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.sectionTitle}>FAQ</h2>
+      <h2 className={styles.sectionTitle} data-reveal>FAQ</h2>
       <h3 className={styles.sectionSubtitle}>Pertanyaan yang Sering Diajukan</h3>
       
       <div className={styles.searchWrap}>

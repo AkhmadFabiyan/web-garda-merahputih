@@ -16,12 +16,12 @@ export const QuickAccess = () => {
       </svg>
       <Container>
         <div className={styles.masterBox}>
-          <h2 className={styles.title}>QUICK ACCESS</h2>
+          <h2 className={styles.title} data-reveal>QUICK ACCESS</h2>
           <div className={styles.grid}>
             {quickAccessData.map(item => {
               const Icon = item.icon;
               return (
-                <a key={item.id} href={item.href} className={styles.card}>
+                <a key={item.id} href={item.href} className={styles.card} data-reveal>
                   <div className={styles.iconBox}>
                     <Icon size={28} style={{ fill: 'url(#icon-gradient)' }} />
                   </div>

@@ -6,7 +6,7 @@ import { FaRobot } from 'react-icons/fa';
 import dynamic from 'next/dynamic';
 
 const GardaChat = dynamic(() => import('./GardaChat').then(mod => mod.GardaChat), {
-  loading: () => <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#6B7280', fontSize: '14px' }}>Memuat Gara AI...</div>
+  loading: () => <div className={styles.loading}>Memuat Gara AI...</div>
 });
 
 interface GardaModalProps {

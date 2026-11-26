@@ -37,7 +37,7 @@ export default async function KontakPage() {
         <Container>
           <div className={styles.grid}>
             {sortedContacts.map((contact, idx) => (
-              <div key={idx} className={styles.contactCard}>
+              <div key={idx} className={styles.contactCard} data-reveal>
                 <h4 className={styles.facultyTitle}>{contact.faculty}</h4>
                 <div className={styles.personsList}>
                   {/* CP 1 */}

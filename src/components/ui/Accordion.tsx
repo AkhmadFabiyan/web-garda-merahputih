@@ -29,7 +29,7 @@ export const Accordion: React.FC<AccordionProps> = ({ items, onToggle }) => {
       {items.map((item) => {
         const isOpen = openId === item.id;
         return (
-          <div key={item.id} className={`${styles.item} ${isOpen ? styles.open : ''}`}>
+          <div key={item.id} className={`${styles.item} ${isOpen ? styles.open : ''}`} data-reveal>
             <button 
               id={`accordion-btn-${item.id}`}
               className={styles.header} 

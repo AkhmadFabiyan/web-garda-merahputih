@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arah Visual — Garda UNESA 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,600;12..96,75..100,800&display=swap" rel="stylesheet">
+<style>
+  /* Style tiles. All sizes in rem/em per UI_UX_RULES.md. */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: #E7E5E4; color: #1C1917; }
+  .page { inline-size: min(100% - 2rem, 75rem); margin-inline: auto; padding-block: 2rem 4rem; display: grid; gap: 2rem; }
+  .intro { padding: 1.5rem; background: #fff; border-radius: 0.5rem; }
+  .intro h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .intro p { line-height: 1.6; max-inline-size: 65ch; color: #44403C; }
+
+  .tile { background: var(--bg); color: var(--ink); border-radius: 0.5rem; overflow: hidden; border: thin solid #D6D3D1; }
+  .head { padding: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: baseline; justify-content: space-between; border-block-end: thin solid var(--line); }
+  .head h2 { font-family: var(--display); font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem); font-weight: var(--display-weight); letter-spacing: var(--display-track); }
+  .words { font-size: 0.875rem; color: var(--muted); }
+  .rec { font-size: 0.75em; font-weight: 700; padding: 0.25em 0.75em; border-radius: 999em; background: var(--accent); color: var(--on-accent); vertical-align: middle; margin-inline-start: 0.5rem; letter-spacing: 0.02em; }
+
+  .body { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 0; }
+  .cell { padding: 1.5rem; border-block-end: thin solid var(--line); border-inline-end: thin solid var(--line); display: grid; gap: 1rem; align-content: start; }
+  .label { font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+
+  .hero-title { font-family: var(--display); font-weight: var(--display-weight); letter-spacing: var(--display-track); line-height: 1.05; font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem); text-transform: var(--display-case); }
+  .hero-title em { font-style: var(--em-style); color: var(--brand); }
+  .eyebrow { font-size: 0.875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand); display: flex; align-items: center; gap: 0.5rem; }
+  .lead { font-size: 1.125rem; line-height: 1.6; color: var(--muted); max-inline-size: 40ch; }
+  p.body-text { line-height: 1.6; max-inline-size: 60ch; }
+  h3.sec { font-family: var(--display); font-weight: var(--display-weight); font-size: clamp(1.625rem, 1.5rem + 0.5vw, 2rem); letter-spacing: var(--display-track); line-height: 1.15; }
+
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 7rem), 1fr)); gap: 0.5rem; }
+  .sw { border-radius: var(--r-s); overflow: hidden; border: thin solid var(--line); font-size: 0.875rem; }
+  .sw div { block-size: 3.5rem; }
+  .sw span { display: block; padding: 0.375rem 0.5rem; background: #fff; color: #1C1917; line-height: 1.3; }
+  .sw small { color: #57534E; }
+
+  .row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+  .btn { font: inherit; font-weight: 700; min-block-size: 2.75rem; padding: 0 1.25em; border-radius: var(--r-s); border: medium solid var(--brand); cursor: pointer; display: inline-flex; align-items: center; gap: 0.5em; }
+  .btn.primary { background: var(--brand); color: var(--on-brand); }
+  .btn.secondary { background: transparent; color: var(--brand); }
+  .badge { font-size: 0.875rem; font-weight: 700; padding: 0.25em 0.75em; border-radius: var(--r-badge); background: var(--soft); color: var(--brand-dark); }
+
+  .event { display: grid; grid-template-columns: auto 1fr; gap: 0 1rem; align-items: start; padding: 1rem; border: thin solid var(--line); border-radius: var(--r-m); background: var(--surface); }
+  .event .date { font-family: var(--display); font-weight: var(--display-weight); font-size: 2.25rem; line-height: 1; color: var(--brand); text-align: center; }
+  .event .date small { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 0.25rem; }
+  .event h4 { font-size: 1.125rem; margin-bottom: 0.25rem; }
+  .event p { font-size: 0.875rem; color: var(--muted); line-height: 1.5; }
+
+  .qa { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 5.75rem), 1fr)); gap: 0.5rem; }
+  .qa a { text-decoration: none; color: var(--ink); font-weight: 700; font-size: 0.875rem; display: grid; justify-items: center; gap: 0.5rem; padding: 0.75rem 0.25rem; border-radius: var(--r-m); border: thin solid var(--line); background: var(--surface); }
+  .qa svg { inline-size: 1.5rem; block-size: 1.5rem; color: var(--brand); }
+
+  .sig { min-block-size: 9rem; border-radius: var(--r-m); position: relative; overflow: hidden; display: grid; place-items: center; padding: 1rem; }
+  .stars { color: var(--gold); letter-spacing: 0.25em; }
+  ul.drop { list-style: none; display: grid; gap: 0.375rem; font-size: 0.875rem; line-height: 1.5; }
+  ul.drop li::before { content: '— '; color: var(--muted); }
+  .why { font-size: 0.875rem; line-height: 1.6; color: var(--muted); }
+  .why b { color: var(--ink); }
+
+  /* 1. Prasasti Nuswantara */
+  .t1 { --bg: #FBF7F0; --surface: #FFFFFF; --ink: #1C1917; --muted: #57534E; --line: #E7DFD3;
+        --brand: #A3122A; --brand-dark: #7A0D1F; --on-brand: #FFFFFF; --gold: #B7832F; --soft: #F6E7E1;
+        --accent: #A3122A; --on-accent: #fff;
+        --display: 'Fraunces', serif; --display-weight: 700; --display-track: -0.01em; --display-case: none; --em-style: italic;
+        --r-s: 0.25rem; --r-m: 0.5rem; --r-badge: 0.25rem; }
+  .t1 .sig { background: #FFFFFF; border: thin solid var(--line); }
+  .t1 .event { border-inline-start: medium solid var(--gold); }
+
+  /* 2. Poster Merah Putih */
+  .t2 { --bg: #FFFFFF; --surface: #FFFFFF; --ink: #111111; --muted: #4B4B4B; --line: #111111;
+        --brand: #D7141A; --brand-dark: #9E0E12; --on-brand: #FFFFFF; --gold: #FFC72C; --soft: #FFE9E9;
+        --accent: #111; --on-accent: #fff;
+        --display: 'Bricolage Grotesque', sans-serif; --display-weight: 800; --display-track: -0.02em; --display-case: uppercase; --em-style: normal;
+        --r-s: 0; --r-m: 0; --r-badge: 0; }
+  .t2 .head { background: var(--brand); color: #fff; border-color: var(--line); }
+  .t2 .head .words { color: #FFE9E9; }
+  .t2 .hero-title { font-variation-settings: 'wdth' 80; }
+  .t2 .event { border: medium solid var(--line); }
+  .t2 .qa a { border: medium solid var(--line); }
+  .t2 .sig { background: var(--brand); color: #fff; }
+
+  /* 3. Almamater Bersih */
+  .t3 { --bg: #F8FAFC; --surface: #FFFFFF; --ink: #0F172A; --muted: #475569; --line: #E2E8F0;
+        --brand: #B91C1C; --brand-dark: #991B1B; --on-brand: #FFFFFF; --gold: #CA8A04; --soft: #FEF2F2;
+        --accent: #0F172A; --on-accent: #fff;
+        --display: 'Plus Jakarta Sans', sans-serif; --display-weight: 800; --display-track: -0.02em; --display-case: none; --em-style: normal;
+        --r-s: 0.5rem; --r-m: 0.75rem; --r-badge: 999em; }
+  .t3 .sig { background: var(--surface); border: thin solid var(--line); }
+</style>
+</head>
+<body>
+<main class="page">
+
+<section class="intro">
+  <h1>Arah visual Garda UNESA 2026 — tiga pilihan</h1>
+  <p>Ketiganya diturunkan dari aset yang sudah ada: logo Jayantara (garuda-api di dalam bola dunia bergaris meridian, tiga bintang, merah–emas), tema "Jayantara Nuswantara", dan nama proyek "merah putih". Semuanya membuang ciri template AI: tanpa teks bergradasi, tanpa blur kaca, tanpa glow, satu skala radius, maksimal satu tingkat bayangan. Contoh isi memakai konten asli situs.</p>
+</section>
+
+<!-- 1 -->
+<section class="tile t1">
+  <div class="head">
+    <h2>1. Prasasti Nuswantara <span class="rec">Disarankan</span></h2>
+    <span class="words">khidmat · berakar · bangga</span>
+  </div>
+  <div class="body">
+    <div class="cell">
+      <span class="label">Judul &amp; teks</span>
+      <span class="eyebrow"><span class="stars">✦✦✦</span> PKKMB UNESA 2026</span>
+      <div class="hero-title">Jayantara <em>Nuswantara</em></div>
+      <p class="lead">Pelopor Pendidikan, Pilar Kemajuan Bangsa.</p>
+      <h3 class="sec">Peta Perjalanan PKKMB</h3>
+      <p class="body-text">Garda Unesa merupakan acara Pengenalan Kehidupan Kampus Mahasiswa Baru Universitas Negeri Surabaya. Garda Unesa 2026 mengusung tema "Jayantara Nuswantara".</p>
+    </div>
+    <div class="cell">
+      <span class="label">Warna</span>
+      <div class="swatches">
+        <div class="sw"><div style="background:#A3122A"></div><span>Merah bata<br><small>#A3122A · aksi</small></span></div>
+        <div class="sw"><div style="background:#B7832F"></div><span>Emas<br><small>#B7832F · ornamen</small></span></div>
+        <div class="sw"><div style="background:#FBF7F0"></div><span>Kertas<br><small>#FBF7F0 · latar</small></span></div>
+        <div class="sw"><div style="background:#1C1917"></div><span>Tinta<br><small>#1C1917 · teks</small></span></div>
+      </div>
+      <span class="label">Komponen</span>
+      <div class="row">
+        <button class="btn primary">Lihat Jadwal</button>
+        <button class="btn secondary">Info Garda</button>
+        <span class="badge">Selesai</span>
+      </div>
+      <div class="event">
+        <div class="date">14<small>Agu</small></div>
+        <div><h4>Pra-PKKMB</h4><p>08.00 WIB · Daring melalui Live YouTube Mawal UNESA &amp; Zoom</p></div>
+      </div>
+    </div>
+    <div class="cell">
+      <span class="label">Elemen khas: garis meridian</span>
+      <div class="sig">
+        <svg viewBox="0 0 200 120" style="inline-size:100%;block-size:auto;color:#B7832F" fill="none" stroke="currentColor" stroke-width="1">
+          <ellipse cx="100" cy="60" rx="56" ry="56"/><ellipse cx="100" cy="60" rx="28" ry="56"/><line x1="100" y1="4" x2="100" y2="116"/>
+          <line x1="44" y1="60" x2="156" y2="60"/><path d="M50 32 Q100 44 150 32"/><path d="M50 88 Q100 76 150 88"/>
+          <text x="100" y="66" text-anchor="middle" font-family="Fraunces" font-size="16" font-weight="700" fill="#A3122A" stroke="none">✦ ✦ ✦</text>
+        </svg>
+      </div>
+      <p class="why">Garis bola dunia dari logo dipakai sebagai <b>pembatas section, tulang timeline, dan latar tipis hero</b>. Tiga bintang menjadi penanda eyebrow.</p>
+      <p class="why"><b>Font:</b> Fraunces untuk judul (serif hangat, terasa seperti piagam/prasasti; kebetulan situs selama ini memang tampil serif). Plus Jakarta Sans untuk isi: dirancang di Indonesia (Tokotype), terbaca jelas di HP.</p>
+      <p class="why"><b>Alasan:</b> PKKMB adalah upacara penyambutan, dan tema "Nuswantara" berakar pada sejarah. Nada khidmat lebih cocok daripada startup.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="tile t2">
+  <div class="head">
+    <h2>2. Poster Merah Putih</h2>
+    <span class="words">berani · muda · lugas</span>
+  </div>
+  <div class="body">
+    <div class="cell">
+      <span class="label">Judul &amp; teks</span>
+      <span class="eyebrow" style="color:#111">★ PKKMB UNESA 2026</span>
+      <div class="hero-title">Jayantara <em>Nuswantara</em></div>
+      <p class="lead">Pelopor Pendidikan, Pilar Kemajuan Bangsa.</p>
+      <h3 class="sec">Peta Perjalanan PKKMB</h3>
+      <p class="body-text">Garda Unesa merupakan acara Pengenalan Kehidupan Kampus Mahasiswa Baru Universitas Negeri Surabaya. Garda Unesa 2026 mengusung tema "Jayantara Nuswantara".</p>
+    </div>
+    <div class="cell">
+      <span class="label">Warna</span>
+      <div class="swatches">
+        <div class="sw"><div style="background:#D7141A"></div><span>Merah<br><small>#D7141A · blok &amp; aksi</small></span></div>
+        <div class="sw"><div style="background:#FFFFFF"></div><span>Putih<br><small>#FFFFFF · latar</small></span></div>
+        <div class="sw"><div style="background:#111111"></div><span>Hitam<br><small>#111111 · teks, garis</small></span></div>
+        <div class="sw"><div style="background:#FFC72C"></div><span>Kuning bintang<br><small>#FFC72C · sorotan</small></span></div>
+      </div>
+      <span class="label">Komponen</span>
+      <div class="row">
+        <button class="btn primary">Lihat Jadwal</button>
+        <button class="btn secondary">Info Garda</button>
+        <span class="badge">Selesai</span>
+      </div>
+      <div class="event">
+        <div class="date">14<small>Agu</small></div>
+        <div><h4>Pra-PKKMB</h4><p>08.00 WIB · Daring melalui Live YouTube Mawal UNESA &amp; Zoom</p></div>
+      </div>
+    </div>
+    <div class="cell">
+      <span class="label">Elemen khas: blok merah &amp; angka besar</span>
+      <div class="sig">
+        <div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:clamp(3rem,2rem + 4vw,5rem);line-height:.9;letter-spacing:-.03em;font-variation-settings:'wdth' 75">14.08<br><span style="color:#FFC72C">2026</span></div>
+      </div>
+      <p class="why">Section bergantian merah penuh dan putih, garis hitam tebal, sudut tajam, tanpa bayangan. Tanggal ditulis besar seperti poster acara.</p>
+      <p class="why"><b>Font:</b> Bricolage Grotesque (sempit, tebal, berkarakter) untuk judul, Plus Jakarta Sans untuk isi.</p>
+      <p class="why"><b>Alasan:</b> terasa seperti acara mahasiswa dan langsung "merah putih". <b>Risiko:</b> paling jauh dari tampilan sekarang, jadi butuh penyesuaian di semua section.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="tile t3">
+  <div class="head">
+    <h2>3. Almamater Bersih</h2>
+    <span class="words">jelas · tenang · terpercaya</span>
+  </div>
+  <div class="body">
+    <div class="cell">
+      <span class="label">Judul &amp; teks</span>
+      <span class="eyebrow">PKKMB UNESA 2026</span>
+      <div class="hero-title">Jayantara Nuswantara</div>
+      <p class="lead">Pelopor Pendidikan, Pilar Kemajuan Bangsa.</p>
+      <h3 class="sec">Peta Perjalanan PKKMB</h3>
+      <p class="body-text">Garda Unesa merupakan acara Pengenalan Kehidupan Kampus Mahasiswa Baru Universitas Negeri Surabaya. Garda Unesa 2026 mengusung tema "Jayantara Nuswantara".</p>
+    </div>
+    <div class="cell">
+      <span class="label">Warna</span>
+      <div class="swatches">
+        <div class="sw"><div style="background:#B91C1C"></div><span>Merah<br><small>#B91C1C · aksi saja</small></span></div>
+        <div class="sw"><div style="background:#0F172A"></div><span>Slate<br><small>#0F172A · teks</small></span></div>
+        <div class="sw"><div style="background:#F8FAFC"></div><span>Abu terang<br><small>#F8FAFC · latar</small></span></div>
+        <div class="sw"><div style="background:#CA8A04"></div><span>Emas<br><small>#CA8A04 · status</small></span></div>
+      </div>
+      <span class="label">Komponen</span>
+      <div class="row">
+        <button class="btn primary">Lihat Jadwal</button>
+        <button class="btn secondary">Info Garda</button>
+        <span class="badge">Selesai</span>
+      </div>
+      <div class="event">
+        <div class="date">14<small>Agu</small></div>
+        <div><h4>Pra-PKKMB</h4><p>08.00 WIB · Daring melalui Live YouTube Mawal UNESA &amp; Zoom</p></div>
+      </div>
+    </div>
+    <div class="cell">
+      <span class="label">Elemen khas: logo saja</span>
+      <div class="sig"><span style="font-size:0.875rem;color:#475569;text-align:center">Tanpa ornamen. Karakter hanya dari logo Jayantara dan foto kegiatan asli.</span></div>
+      <p class="why"><b>Font:</b> Plus Jakarta Sans untuk semua (satu keluarga, berat 400–800).</p>
+      <p class="why"><b>Alasan:</b> paling cepat diterapkan dan paling fokus pada informasi (jadwal, presensi, kontak). <b>Risiko:</b> tanpa elemen khas, tetap bisa terasa generik (gagal "uji ganti logo" kit 12.5).</p>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <h1>Berlaku untuk semua arah</h1>
+  <ul class="drop">
+    <li>Hapus: teks judul bergradasi, glow, blur kaca (kecuali navbar), efek kartu terangkat saat hover, animasi masuk di setiap section.</li>
+    <li>Ganti gambar hero (burung, pita mengkilap, langit; terlihat buatan AI) dengan foto kegiatan PKKMB/kampus asli, atau logo Jayantara di latar polos.</li>
+    <li>Satu skala radius dan maksimal satu tingkat bayangan.</li>
+    <li>Perbaiki ikon Info Garda (keempatnya placeholder yang sama) dan galeri yang gambarnya rusak.</li>
+    <li>Ukuran tetap mengikuti UI_UX_RULES.md (tanpa px, skala padat 14/16/18…, responsif 280px–4K).</li>
+  </ul>
+</section>
+
+</main>
+</body>
+</html>

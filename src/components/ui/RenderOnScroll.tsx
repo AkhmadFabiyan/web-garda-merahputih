@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 
-export const RenderOnScroll = ({ children, id, minHeight = '100vh' }: { children: React.ReactNode, id?: string, minHeight?: string }) => {
+export const RenderOnScroll = ({ children, id, minHeight = '100svh' }: { children: React.ReactNode, id?: string, minHeight?: string }) => {
   // Lazy initialiser: called once during mount on the client.
   // This avoids both the refs-during-render and set-state-in-effect lint rules.
   const [shouldRender, setShouldRender] = useState(false);

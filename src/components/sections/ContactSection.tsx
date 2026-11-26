@@ -40,11 +40,11 @@ export const ContactSection = ({ contactOrder = [] }: { contactOrder?: string[] 
 
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.sectionTitle}>CONTACT PERSON</h2>
+      <h2 className={styles.sectionTitle} data-reveal>CONTACT PERSON</h2>
       <h3 className={styles.sectionSubtitle}>Hubungi Narahubung Fakultasmu</h3>
       <div className={styles.grid}>
         {sortedContacts.slice(0, 6).map((contact, idx) => (
-          <div key={idx} className={styles.contactCard}>
+          <div key={idx} className={styles.contactCard} data-reveal>
             <input 
               type="checkbox" 
               id={`faculty-${idx}`} 

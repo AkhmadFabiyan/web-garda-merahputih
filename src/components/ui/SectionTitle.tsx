@@ -15,8 +15,13 @@ export const SectionTitle: React.FC<SectionTitleProps> = ({
   className = ''
 }) => {
   return (
-    <div className={`${styles.wrapper} ${styles[align]} ${className}`}>
-      {subtitle && <span className={styles.subtitle}>{subtitle}</span>}
+    <div className={`${styles.wrapper} ${styles[align]} ${className}`} data-reveal>
+      {subtitle && (
+        <span className={styles.subtitle}>
+          <span className={styles.stars} aria-hidden="true"><span>✦</span><span>✦</span><span>✦</span></span>
+          {subtitle}
+        </span>
+      )}
       <h2 className={styles.title}>{title}</h2>
     </div>
   );

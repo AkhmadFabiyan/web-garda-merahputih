@@ -1,21 +1,21 @@
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
   padding-bottom: var(--space-section);
 }
 
-@media (max-width: 48rem) {
+@media (width <= 48em) {
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
 .contactCard {
   background: #FFFFFF;
-  border: 1px solid #EAEAEA;
+  border: thin solid #EAEAEA;
   border-radius: 1.25rem;
-  padding: 2rem;
+  padding: var(--space-8);
   text-align: center;
   transition: all 0.3s ease;
 }
@@ -29,17 +29,17 @@
 
 .facultyTitle {
   font-family: var(--font-heading);
-  font-size: 1.125rem;
+  font-size: var(--step-1);
   font-weight: 800;
   color: var(--color-brand-primary);
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-4);
   letter-spacing: 0.0313rem;
 }
 
 .personsList {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-2);
 }
 
 .personItem {
@@ -49,7 +49,7 @@
 }
 
 .personName {
-  font-size: 0.75rem;
+  font-size: var(--step--1);
   color: #1F2937;
   font-weight: 500;
 }
@@ -58,18 +58,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  font-size: 0.813rem;
+  gap: var(--space-2);
+  font-size: var(--step--1);
   color: #FFFFFF;
   text-decoration: none;
   font-weight: 600;
   background: var(--color-brand-primary);
   border: none;
-  padding: 0.625rem 1rem;
+  padding: var(--space-3) var(--space-4);
   border-radius: 0.5rem;
   transition: all 0.3s ease;
   width: 100%;
-  margin-top: 0.25rem;
+  margin-top: var(--space-1);
   box-shadow: 0 0.25rem 0.938rem rgba(var(--color-brand-primary-rgb), 0.2);
 }
 

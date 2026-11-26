@@ -12,35 +12,32 @@
 .title {
   color: #1F2937;
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: var(--step-1);
   font-weight: 800;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-6);
 }
 
 .grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
   gap: var(--space-4);
 }
 
-@media (max-width: 64rem) {
+@media (width <= 64em) {
   .grid {
-    gap: 0.75rem;
-  }
-  .card {
-    width: calc((100% - 3 * 0.75rem) / 4);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-3);
   }
 }
 
 .card {
-  width: calc((100% - 6 * var(--space-4)) / 7);
+  min-width: 0;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(1.25rem);
   -webkit-backdrop-filter: blur(1.25rem);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: thin solid rgba(255, 255, 255, 0.6);
   border-radius: 1rem;
-  padding: 0.75rem 0.5rem;
+  padding: var(--space-3) var(--space-2);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,7 +62,7 @@
   width: 4rem;
   height: 4rem;
   border-radius: 1rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: var(--space-3);
   transition: all 0.3s ease;
 }
 
@@ -83,46 +80,61 @@
   color: var(--color-text-primary);
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 0.813rem;
+  font-size: var(--step--1);
   text-align: center;
   letter-spacing: 0.0313rem;
 }
 
 .cardTitle {
   font-family: var(--font-body);
-  font-size: 0.875rem;
+  font-size: var(--step--1);
   color: var(--color-text-primary);
   text-align: center;
 }
 
-@media (max-width: 40rem) {
+@media (width <= 40em) {
   .masterBox {
-    padding: 1.25rem 0.75rem;
+    padding: var(--space-5) var(--space-3);
   }
   .grid {
-    gap: 0.5rem;
+    gap: var(--space-2);
+  }
+  .title {
+    font-size: var(--step-1);
   }
 }
 
-@media (max-width: 30rem) {
-  .masterBox {
-    padding: 1rem 0.5rem;
-  }
+@media (width <= 40em) {
+  /* Intrinsic grid: as many columns as fit a --step--1 label, at most 4 (2 on the narrowest phones, 3 on common ones) */
   .grid {
-    gap: 0.375rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, max(5.75rem, calc((100% - 3 * var(--space-2)) / 4))), 1fr));
+  }
+}
+
+@media (width <= 30em) {
+  .masterBox {
+    padding: var(--space-4) 0;
   }
   .card {
-    width: calc((100% - 3 * 0.375rem) / 4);
-    padding: 0.5rem 0.125rem;
-    border-radius: 0.625rem;
+    padding: var(--space-2) var(--space-1);
+    border-radius: 0.75rem;
   }
   .iconBox {
     width: 2.75rem;
     height: 2.75rem;
-    margin-bottom: 0.25rem;
+    margin-bottom: var(--space-1);
   }
-  .label {
-    font-size: 0.594rem;
-    letter-spacing: -0.0187rem;
+}
+
+/* Icon gives a small playful wiggle on hover (uses `rotate`, so the iconBox transform still applies) */
+@keyframes wiggle {
+  0%, 100% { rotate: 0deg; }
+  30%      { rotate: calc(-10deg * var(--motion)); }
+  60%      { rotate: calc(8deg * var(--motion)); }
+}
+
+@media (hover: hover) {
+  .card:hover .iconBox svg {
+    animation: wiggle 0.6s var(--ease-spring);
   }
 }

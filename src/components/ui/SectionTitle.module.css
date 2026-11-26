@@ -1,5 +1,5 @@
 .wrapper {
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-8);
 }
 
 .left {
@@ -14,23 +14,44 @@
   display: block;
   font-family: var(--font-body);
   color: var(--color-gold);
-  font-size: 0.875rem;
+  font-size: var(--step--1);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 0.5rem;
+  letter-spacing: 0.0714em;
+  margin-bottom: var(--space-2);
 }
 
 .title {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   color: var(--color-text-primary);
-  font-size: 1.75rem;
+  font-size: var(--step-3);
   font-weight: 700;
   line-height: 1.3;
 }
 
-@media (min-width: 48rem) {
+@media (width >= 48em) {
   .title {
-    font-size: 2.25rem;
+    font-size: var(--step-4);
   }
 }
+
+/* Three stars from the Jayantara logo, twinkling one after another */
+@keyframes twinkle {
+  0%, 100% { opacity: 1; scale: 1; }
+  50%      { opacity: 0.45; scale: calc(1 - 0.15 * var(--motion)); }
+}
+
+.stars {
+  display: inline-flex;
+  gap: 0.15em;
+  margin-inline-end: var(--space-2);
+  color: var(--color-brand-primary);
+}
+
+.stars span {
+  display: inline-block;
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+
+.stars span:nth-child(2) { animation-delay: 0.4s; }
+.stars span:nth-child(3) { animation-delay: 0.8s; }

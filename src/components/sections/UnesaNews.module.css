@@ -1,24 +1,24 @@
 .section {
-  padding: 4rem 0;
+  padding: var(--space-16) 0;
   background-color: var(--surface-color, #ffffff);
 }
 
 .masterBox {
   background: var(--surface-color, #ffffff);
   border-radius: 1rem;
-  padding: 2rem;
+  padding: var(--space-8);
   box-shadow: 0 0.25rem 1.25rem rgba(0,0,0,0.05);
 }
 
 .headerRow {
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-8);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .sectionTitle {
-  font-size: 1.5rem;
+  font-size: var(--step-3);
   font-weight: 700;
   color: var(--text-primary, #111827);
   letter-spacing: -0.025em;
@@ -28,8 +28,8 @@
 .grid {
   display: flex;
   overflow-x: auto;
-  gap: 1.5rem;
-  padding-bottom: 1rem;
+  gap: var(--space-6);
+  padding-bottom: var(--space-4);
   /* Styling Scrollbar */
   scrollbar-width: thin;
   scrollbar-color: #cbd5e1 transparent;
@@ -56,7 +56,7 @@
   display: flex;
   flex-direction: column;
   background: var(--background-color, #f9fafb);
-  border: 1px solid var(--border-color, #e5e7eb);
+  border: thin solid var(--border-color, #e5e7eb);
   border-radius: 0.75rem;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -102,17 +102,17 @@
 }
 
 .content {
-  padding: 1.5rem;
+  padding: var(--space-6);
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
 .title {
-  font-size: 1.125rem;
+  font-size: var(--step-1);
   font-weight: 600;
   color: var(--text-primary, #111827);
-  margin-bottom: 0.75rem;
+  margin-bottom: var(--space-3);
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -125,24 +125,24 @@
 }
 
 .description {
-  font-size: 0.875rem;
+  font-size: var(--step--1);
   color: var(--text-secondary, #4b5563);
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-4);
   flex-grow: 1;
 }
 
 .readMore {
-  font-size: 0.875rem;
+  font-size: var(--step--1);
   font-weight: 600;
   color: var(--primary-color, #2563eb);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--space-2);
   margin-top: auto;
 }
 

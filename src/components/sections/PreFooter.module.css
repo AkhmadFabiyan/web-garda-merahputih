@@ -1,20 +1,20 @@
 .section {
-  padding: 1.5rem 0 2rem 0;
+  padding: var(--space-6) 0 var(--space-8) 0;
   position: relative;
 }
 
 .hubWrapper {
   background: rgba(249, 250, 251, 0.5);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: thin solid rgba(0, 0, 0, 0.05);
   border-radius: 1.5rem;
-  padding: 2rem;
+  padding: var(--space-8);
 }
 
 /* Desktop: FAQ | Contact Person | Ikuti Kami */
 .grid3Col {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 2.5fr) minmax(0, 1fr);
-  gap: 2rem;
+  gap: var(--space-8);
   align-items: start;
 }
 
@@ -25,32 +25,32 @@
 }
 
 .col:not(:last-child) {
-  border-right: 1px solid rgba(0, 0, 0, 0.05);
-  padding-right: 2rem;
+  border-right: thin solid rgba(0, 0, 0, 0.05);
+  padding-right: var(--space-8);
 }
 
 /* Tablet: stack vertically */
-@media (max-width: 64rem) {
+@media (width <= 64em) {
   .hubWrapper {
-    padding: 1.5rem;
+    padding: var(--space-6);
   }
   .grid3Col {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-10);
   }
   .col:not(:last-child) {
     border-right: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: thin solid rgba(0, 0, 0, 0.05);
     padding-right: 0;
-    padding-bottom: 2.5rem;
+    padding-bottom: var(--space-10);
   }
 }
 
-@media (max-width: 30rem) {
+@media (width <= 30em) {
   .hubWrapper {
-    padding: 1.25rem 1rem;
+    padding: var(--space-5) var(--space-4);
   }
   .grid3Col {
-    gap: 2.25rem;
+    gap: var(--space-10);
   }
 }

@@ -52,3 +52,6 @@ public/workbox-*.js
 public/workbox-*.js.map
 public/fallback-*.js
 public/swe-worker-*.js
+
+# Playwright MCP logs from local testing
+.playwright-mcp/

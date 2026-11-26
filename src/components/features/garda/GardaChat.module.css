@@ -1,0 +1,49 @@
+.facultyBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+  font-size: var(--step--1);
+  color: #1F2937;
+}
+
+.changeFacultyBtn {
+  min-height: 2.75rem;
+  padding: 0 var(--space-2);
+  background: none;
+  border: none;
+  color: var(--color-brand-primary);
+  font-size: var(--step--1);
+  cursor: pointer;
+}
+
+/* Horizontal chip row: scrolls inside itself, never widens the page */
+.quickActions {
+  display: flex;
+  gap: var(--space-2);
+  padding-bottom: var(--space-3);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.quickActionBtn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375em;
+  min-height: 2.75rem;
+  padding: 0 0.875em;
+  white-space: nowrap;
+  background: #FFFFFF;
+  border: thin solid var(--color-brand-primary);
+  border-radius: 999em;
+  color: var(--color-brand-primary);
+  font-size: var(--step--1);
+  cursor: pointer;
+}
+
+.quickActionBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}

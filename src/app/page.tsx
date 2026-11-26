@@ -27,19 +27,19 @@ export default function Home() {
         </Hero>
         <Announcement />
         <About />
-        <RenderOnScroll id="jadwal" minHeight="800px">
+        <RenderOnScroll id="jadwal" minHeight="50rem">
           <Schedule />
         </RenderOnScroll>
-        <RenderOnScroll id="info-garda" minHeight="600px">
+        <RenderOnScroll id="info-garda" minHeight="37.5rem">
           <InfoGarda />
         </RenderOnScroll>
-        <RenderOnScroll id="unesa-news" minHeight="600px">
+        <RenderOnScroll id="unesa-news" minHeight="37.5rem">
           <Suspense fallback={<UnesaNewsSkeleton />}>
             <UnesaNews />
           </Suspense>
         </RenderOnScroll>
-        <RenderOnScroll minHeight="1200px">
-          <Suspense fallback={<div style={{ minHeight: '400px' }} />}>
+        <RenderOnScroll minHeight="75rem">
+          <Suspense fallback={<div style={{ minHeight: '25rem' }} />}>
             <PreFooter />
           </Suspense>
           <FooterCTA />

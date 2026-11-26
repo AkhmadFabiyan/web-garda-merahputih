@@ -1,17 +1,6 @@
 .container {
-  width: clamp(20rem, 100%, 80rem);
+  width: 100%;
   margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-@media (min-width: 48rem) {
-  .container {
-    padding: 0 3rem;
-  }
-}
-
-@media (min-width: 64rem) {
-  .container {
-    padding: 0 5rem;
-  }
+  /* Fluid padding: scales smoothly from 1.5rem on mobile to 5rem on large desktops */
+  padding: 0 clamp(1.5rem, 5vw, 5rem);
 }

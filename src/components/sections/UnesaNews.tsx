@@ -16,8 +16,8 @@ type NewsItem = {
 async function getLatestNews(): Promise<NewsItem[]> {
   try {
     const res = await fetch('https://www.unesa.ac.id/category/berita-unesa', {
-      cache: 'no-store',
-      signal: AbortSignal.timeout(8000) // Timeout 8 detik agar tidak membuat website loading lama
+      next: { revalidate: 3600 }, // Cache hasil scrape selama 1 jam, halaman utama akan jadi sangat cepat!
+      signal: AbortSignal.timeout(8000) // Timeout 8 detik
     });
     
     if (!res.ok) {
@@ -66,7 +66,7 @@ export const UnesaNews = async () => {
       <Container>
         <div className={styles.masterBox}>
           <div className={styles.headerRow}>
-            <h2 className={styles.sectionTitle}>Berita Terbaru Unesa</h2>
+            <h2 className={styles.sectionTitle} data-reveal>Berita Terbaru Unesa</h2>
           </div>
 
           <div className={styles.grid}>
@@ -76,7 +76,7 @@ export const UnesaNews = async () => {
                 href={item.link} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className={styles.card}
+                className={styles.card} data-reveal
               >
                 {item.image && (
                   <div className={styles.imageWrapper}>
@@ -86,7 +86,7 @@ export const UnesaNews = async () => {
                       fill
                       style={{ objectFit: 'cover' }}
                       className={styles.image}
-                      sizes="(max-width: 768px) 100vw, 320px"
+                      sizes="(max-width: 48em) 100vw, 20rem"
                     />
                   </div>
                 )}

@@ -10,16 +10,16 @@
   align-items: stretch;
 }
 
-@media (max-width: 64rem) {
+@media (width <= 64em) {
   .grid3Col {
-    grid-template-columns: 1fr;
-    gap: 3rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-12);
   }
 }
 
-@media (max-width: 30rem) {
+@media (width <= 30em) {
   .grid3Col {
-    gap: 2rem;
+    gap: var(--space-8);
   }
 }
 
@@ -31,21 +31,21 @@
 
 .description {
   color: var(--color-text-secondary);
-  font-size: 1rem;
+  font-size: var(--step-0);
   line-height: 1.6;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-6);
 }
 
 .btn {
   display: inline-block;
   background: var(--gradient-primary);
   color: #FFFFFF;
-  padding: 0.75rem 1.75rem;
+  padding: var(--space-3) var(--space-8);
   border-radius: 0.75rem;
   border: none;
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.938rem;
+  font-size: var(--step-0);
   align-self: flex-start;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 0.25rem 0.938rem rgba(var(--color-brand-primary-rgb), 0.2);
@@ -72,7 +72,7 @@
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(1.25rem);
   -webkit-backdrop-filter: blur(1.25rem);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: thin solid rgba(255, 255, 255, 0.6);
   box-shadow: var(--shadow-medium);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -97,13 +97,13 @@
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(0.5rem);
   -webkit-backdrop-filter: blur(0.5rem);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: thin solid rgba(255, 255, 255, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: var(--step-3);
   cursor: pointer;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-6);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   color: #FFFFFF;
   box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1);
@@ -117,15 +117,15 @@
 }
 
 .videoTitle h3 {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-family: var(--font-display);
+  font-size: var(--step-3);
   color: var(--color-text-primary);
   text-align: center;
 }
 
 .videoTitle p {
   font-family: var(--font-body);
-  font-size: 0.875rem;
+  font-size: var(--step--1);
   color: var(--color-gold);
   text-align: center;
   letter-spacing: 0.125rem;
@@ -133,10 +133,10 @@
 
 .quoteWrapper {
   background-color: var(--color-card);
-  padding: 1.25rem;
+  padding: var(--space-5);
   border-radius: var(--radius-md);
   position: relative;
-  border: 1px solid rgba(var(--color-brand-primary-rgb), 0.2);
+  border: thin solid rgba(var(--color-brand-primary-rgb), 0.2);
 }
 
 .quoteMarkLeft, .quoteMarkRight {
@@ -160,18 +160,18 @@
 
 .quoteText {
   font-family: var(--font-body);
-  font-size: 1.125rem;
+  font-size: var(--step-1);
   color: #FFFFFF;
   text-align: left;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-6);
   position: relative;
   z-index: 2;
   font-weight: 500;
 }
 
 .quoteAuthor {
-  font-size: 0.875rem;
+  font-size: var(--step--1);
   color: #FFFFFF;
   text-align: left;
   font-weight: 600;
@@ -180,9 +180,9 @@
 .quoteCard {
   width: 100%;
   background: var(--gradient-primary);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: thin solid rgba(255, 255, 255, 0.2);
   border-radius: 1.5rem;
-  padding: 2.5rem;
+  padding: var(--space-10);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -215,7 +215,7 @@
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  padding: 1.25rem;
+  padding: var(--space-5);
 }
 
 .videoOverlay {
@@ -229,17 +229,17 @@
 }
 
 .videoTitle {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-family: var(--font-display);
+  font-size: var(--step-2);
   font-weight: 800;
   color: var(--color-brand-primary);
-  margin-top: 1rem;
+  margin-top: var(--space-4);
   text-align: center;
 }
 
 .videoSubtitle {
   font-family: var(--font-heading);
-  font-size: 0.875rem;
+  font-size: var(--step--1);
   color: #D8B4E2;
   letter-spacing: 0.125rem;
   text-align: center;
@@ -251,7 +251,7 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 0.5rem;
+  gap: var(--space-2);
 }
 
 .dot {
@@ -263,4 +263,12 @@
 
 .dotActive {
   background: var(--color-brand-primary);
+}
+
+.videoFrame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
 }
