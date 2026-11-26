@@ -1,3 +1,6 @@
+import { contacts } from '../../data/contacts';
+import { isBlocked } from './security';
+
 export type Intent =
   | 'SMALL_TALK'
   | 'FAQ'
@@ -25,61 +28,34 @@ export interface ConversationTurn {
   text: string;
 }
 
-const FACULTIES = ['FIP', 'FBS', 'FMIPA', 'FT', 'FEB', 'FISIPOL', 'FIKK', 'FV', 'FH', 'FPSI', 'FK', 'FKP'];
+// Kode fakultas diambil dari data kontak (ejaan aslinya, mis. "FPsi"), dicocokkan per kata.
+const FACULTY_CODES = new Map(contacts.map((c) => [c.faculty.toUpperCase(), c.faculty]));
 
-const FACULTY_ALIASES: Record<string, string> = {
-  'teknik': 'FT',
-  'ekonomi': 'FEB',
-  'bisnis': 'FEB',
-  'bahasa': 'FBS',
-  'sastra': 'FBS',
-  'ilmu pendidikan': 'FIP',
-  'pendidikan': 'FIP',
-  'mipa': 'FMIPA',
-  'matematika': 'FMIPA',
-  'sains': 'FMIPA',
-  'ilmu sosial': 'FISIPOL',
-  'sosial': 'FISIPOL',
-  'politik': 'FISIPOL',
-  'keolahragaan': 'FIKK',
-  'olahraga': 'FIKK',
-  'vokasi': 'FV',
-  'hukum': 'FH',
-  'hkm': 'FH',
-  'psikologi': 'FPSI',
-  'psi': 'FPSI',
-  'kedokteran': 'FK',
-  'keperawatan': 'FKP',
-  'perawatan': 'FKP',
-};
-
-const SECURITY_PATTERNS: RegExp[] = [
-  /ignore\s+(previous|all|your)\s+instructions?/i,
-  /forget\s+(everything|all|your|previous)/i,
-  /developer\s+mode/i,
-  /jailbreak/i,
-  /reveal\s+(your\s+)?(prompt|instruction|system)/i,
-  /what\s+(is\s+)?your\s+(system\s+)?prompt/i,
-  /show\s+(me\s+)?(your\s+)?(system\s+)?prompt/i,
-  /api[\s_-]?key/i,
-  /\.env/i,
-  /database\s+dump/i,
-  /internal\s+config/i,
-  /secret\s+token/i,
-  /override\s+(your\s+)?(rules|instruction)/i,
-  /pretend\s+(you\s+are|to\s+be)/i,
-  /act\s+as\s+(if\s+you\s+are|a\s+different)/i,
-  /new\s+persona/i,
-  /bypass\s+(safety|filter|restriction)/i,
+// Dicocokkan sebagai kata utuh. Alias ambigu ("pendidikan", "bahasa") sengaja tidak dipakai
+// karena muncul di pertanyaan lain ("pendidikan berkualitas", "bahasa isyarat").
+const FACULTY_ALIASES: Array<[RegExp, string]> = [
+  [/\bteknik\b/, 'FT'],
+  [/\b(ekonomi|bisnis)\b/, 'FEB'],
+  [/\b(bahasa\s+dan\s+seni|sastra|seni)\b/, 'FBS'],
+  [/\bilmu\s+pendidikan\b/, 'FIP'],
+  [/\b(mipa|matematika|sains)\b/, 'FMIPA'],
+  [/\b(ilmu\s+sosial|sosial|politik|fisip)\b/, 'FISIPOL'],
+  [/\b(keolahragaan|olahraga|fik)\b/, 'FIKK'],
+  [/\bvokasi\b/, 'FV'],
+  [/\b(hukum|hkm)\b/, 'FH'],
+  [/\b(psikologi|psiko|psi)\b/, 'FPsi'],
+  [/\bkedokteran\b/, 'FK'],
+  [/\b(keperawatan|perawat)\b/, 'FKP'],
+  [/\b(psdku|magetan)\b/, 'PSDKU'],
 ];
 
 const PATTERNS: Record<Intent, RegExp[]> = {
-  // Small Talk
+  // Small Talk: dicek SETELAH intent spesifik, jadi "halo, cp ft siapa?" tetap CONTACT.
   SMALL_TALK: [
-    /^(halo|hai|hi|hello|hey|p+|hei)\b/i,
-    /^(makasih|terima\s*kasih|thanks?|thx|tks|mksh)\b/i,
-    /^(oke|ok|okey|sip|siap|noted|noted\s+ya|udah\s+paham)\b/i,
-    /^(mantap|keren|good|bagus|nice|asyik|asik)\b/i,
+    /^(halo|hallo|hai|hi|hello|hey|p+|hei|assalamu'?alaikum|permisi)\b/i,
+    /^(makasih|terima\s*kasih|thanks?|thx|tks|mksh|suwun|matur\s+nuwun)\b/i,
+    /^(oke|ok|okey|sip|siap|noted|noted\s+ya|udah\s+paham|paham|baik)\b/i,
+    /^(mantap|keren|good|bagus|nice|asyik|asik|wkwk|haha)/i,
     /^(sampai\s+jumpa|bye|dadah|selamat\s+tinggal)\b/i,
     /^(selamat\s+(pagi|siang|sore|malam))\b/i,
     /^(gara|gara!|gara\?)\s*$/i,
@@ -103,74 +79,76 @@ const PATTERNS: Record<Intent, RegExp[]> = {
   ],
 
   TODAY: [
-    /hari\s+ini\s+(ngapain|harus\s+ngapain|ada\s+apa|kegiatan)/i,
-    /kegiatan\s+hari\s+ini/i,
-    /jadwal\s+(hari\s+ini|sekarang|malam|sore|pagi)/i,
+    /hari\s+ini\b.*\b(ngapain|ada\s+apa|kegiatan|acara)/i,
+    /\b(ngapain|kegiatan|acara)\b.*\bhari\s+ini/i,
+    /kegiatan\s+(hari\s+ini|besok|sekarang)/i,
+    /jadwal\s+(hari\s+ini|sekarang|besok|malam|sore|pagi)/i,
     /apa\s+yang\s+harus\s+(aku|saya|kita)\s+(lakukan|kerjakan)\s+hari\s+ini/i,
-    /agenda\s+hari\s+ini/i,
-    /hari\s+ini\s+ada\s+apa/i,
+    /agenda\s+(hari\s+ini|besok)/i,
+    /(hari\s+ini|besok|sekarang)\s+(ada\s+apa|ngapain)/i,
+    /\bbesok\s+(ada\s+)?(kegiatan|acara)/i,
   ],
   SCHEDULE: [
-    /jadwal\s+(pkkmb|garda|acara|kegiatan)/i,
-    /kapan\s+(pkkmb|garda|acara|upacara|pra.pkkmb)/i,
+    /\bjadwal\b/i,
+    /kapan\s+(pkkmb|garda|acara|upacara|pra.?pkkmb|d.?day|pembukaan|opening|welcoming|kegiatan|dimulai|mulai)/i,
     /tanggal\s+berapa/i,
     /timeline/i,
-    /rangkaian\s+acara/i,
+    /rangkaian\s+(acara|kegiatan)/i,
     /pra.?pkkmb/i,
     /pkkmb\s+(universitas|fakultas)/i,
     /upacara\s+kemerdekaan/i,
+    /\b(opening\s+ceremony|welcoming\s+party)\b/i,
+    /\bd.?day\b/i,
+    /\b(online|offline|daring|luring|hybrid|zoom|youtube)\b/i,
+    /\b(lokasi|tempat)(nya)?\s+(acara|kegiatan|pkkmb)/i,
   ],
   CONTACT: [
-    /c\s*p\b/i,
-    /kontak\s+(person|panitia|koordinator)/i,
-    /siapa\s+cp/i,
-    /nomor\s+(hp|wa|whatsapp|telp|telepon)/i,
+    /\bc\s?p\b/i,
+    /\bkontak\b/i,
     /contact\s+person/i,
-    /hubungi\s+(siapa|cp)/i,
-    /cp\s+(saya|ku|aku|kita)/i,
+    /nomor\s+(hp|wa|whatsapp|telp|telepon)/i,
+    /\bno\.?\s*(hp|wa)\b/i,
+    /hubungi\s+(siapa|cp|panitia)/i,
     /koordinator/i,
-    /hubungi/i,
-    /\bwa\s+(fakultas|ft|fip|fbs|fmipa|feb|fisipol|fikk|fv|fh|fpsi|fkp|fk|hkm)/i,
-    /nomor\s+wa/i,
+    /\bwa\s+(panitia|fakultas)/i,
     /whatsapp/i,
+  ],
+  PERIZINAN: [
+    /perizinan/i,
+    /\bizin(nya)?\b/i,
+    /\bijin\b/i,
+    /berhalangan/i,
+    /(tidak|ga|gak|nggak|ngga|enggak|gabisa|gbs)\s*(bisa\s+)?(hadir|datang|ikut)/i,
+    /\bsakit\b/i,
+    /dispensasi/i,
   ],
   PRESENSI: [
     /presensi/i,
     /absen(si)?/i,
     /daftar\s+hadir/i,
+    /kehadiran/i,
     /\bhadir\b/i,
     /keterlambatan/i,
-    /telat\s+(presensi|absen)/i,
-    /kapan\s+(presensi|absen)\s+dibuka/i,
-    /cara\s+(isi|mengisi)\s+(presensi|absen)/i,
   ],
   DRESSCODE: [
-    /dresscode/i,
-    /dress\s+code/i,
+    /dress\s?code/i,
     /pakaian/i,
     /\bbaju\b/i,
     /seragam/i,
     /outfit/i,
     /wajib\s+pakai/i,
+    /\b(pake|pakai)\s+apa\b/i,
     /atribut/i,
+    /\b(sepatu|celana|rok|kemeja|hijab|jilbab|kerudung|scarf|dasi|almamater|topi|kaos\s+kaki|hair.?net|ikat\s+pinggang)\b/i,
   ],
   PENUGASAN: [
     /penugasan/i,
     /\btugas\b/i,
-    /kumpul(kan)?\s+tugas/i,
-    /submit\s+tugas/i,
-    /link\s+tugas/i,
-    /deadline\s+tugas/i,
-    /form\s+penugasan/i,
-  ],
-  PERIZINAN: [
-    /perizinan/i,
-    /\bizin\b/i,
-    /berhalangan/i,
-    /tidak\s+bisa\s+hadir/i,
-    /form\s+izin/i,
-    /cara\s+izin/i,
-    /dispensasi/i,
+    /\b(esai|essay|resume)\b/i,
+    /\bdeadline\b/i,
+    /plagia/i,
+    /turnitin/i,
+    /\bnama\s+file\b/i,
   ],
   ANNOUNCEMENT: [
     /pengumuman/i,
@@ -179,7 +157,7 @@ const PATTERNS: Record<Intent, RegExp[]> = {
     /berita\s+terbaru/i,
     /apa\s+yang\s+baru/i,
     /infonya\s+apa/i,
-    /ada\s+pengumuman/i,
+    /sosialisasi/i,
   ],
   FAQ: [
     /apa\s+itu\s+(pkkmb|garda)/i,
@@ -187,47 +165,62 @@ const PATTERNS: Record<Intent, RegExp[]> = {
     /syarat/i,
     /ketentuan/i,
     /peraturan/i,
+    /\baturan\b/i,
     /sanksi/i,
-    /apa\s+yang\s+dibawa/i,
+    /melanggar|pelanggaran/i,
+    /\b(bawa|dibawa|bawaan|membawa)\b/i,
+    /\b(dilarang|larangan|terlarang)\b/i,
+    /\b(kendaraan|motor|mobil|parkir)\b/i,
+    /\b(hp|handphone|ponsel|gadget)\b/i,
+    /\b(makanan|makan|minum|tumbler)\b/i,
+    /\b(bisindo|bahasa\s+isyarat)\b/i,
+    /\b(keluar|meninggalkan)\s+(lokasi|tempat|area)/i,
+    /\b(konten|upload|unggah|posting|sosmed)\b/i,
+    /\b(harus|wajib)\s+datang|datang\s+jam|jam\s+berapa\s+(harus\s+)?datang/i,
+    /\b(telat|terlambat)\b/i,
+    /\bkendala\b/i,
     /tema\s+(pkkmb|garda)/i,
     /jayantara\s+nuswantara/i,
   ],
   // GENERAL: only if no other intent matches
-  // Note: /\?/ removed as trigger - too broad
-  GENERAL: [
-    /bantuan/i,
-    /\btolong\b/i,
-    /cerita(kan)?/i,
-    /jelaskan/i,
-    /maksud(nya)?/i,
-    /gimana\s+(cara|kalau|jika)/i,
-    /bagaimana\s+cara/i,
-    /apa\s+(saja|aja)\s+yang/i,
-    /boleh\s+(tanya|nanya)/i,
-    /bisa\s+(apa|bantu|kasih\s+info)/i,
-    /kamu\s+(bisa|tau|tahu)/i,
-    /gara\s+(bisa|tau|tahu)/i,
-    /tolong\s+(bantu|jelaskan|cerita)/i,
-  ],
+  GENERAL: [],
   SECURITY_THREAT: [],
 };
 
-function extractFaculty(text: string): string | undefined {
-  const cleanStr = text.toUpperCase().replace(/[^A-Z]/g, '');
-  for (const fac of FACULTIES) {
-    if (cleanStr.includes(fac)) return fac;
+// Urutan prioritas: intent spesifik dulu, small talk setelahnya, GENERAL terakhir.
+// PERIZINAN sebelum PRESENSI ("ga bisa hadir" = izin). PENUGASAN sebelum SCHEDULE
+// ("deadline resume d-day" = tugas). DRESSCODE sebelum SCHEDULE ("dresscode opening ceremony").
+const PRIORITY: Intent[] = [
+  'OFF_TOPIC',
+  'TODAY',
+  'CONTACT',
+  'PERIZINAN',
+  'PENUGASAN',
+  'PRESENSI',
+  'DRESSCODE',
+  'ANNOUNCEMENT',
+  'SCHEDULE',
+  'FAQ',
+  'SMALL_TALK',
+];
+
+function matchIntent(text: string): Intent {
+  return PRIORITY.find((intent) => PATTERNS[intent].some((p) => p.test(text))) ?? 'GENERAL';
+}
+
+export function extractFaculty(text: string): string | undefined {
+  for (const word of text.toUpperCase().split(/[^A-Z]+/)) {
+    const code = FACULTY_CODES.get(word);
+    if (code) return code;
   }
   const lower = text.toLowerCase();
-  for (const [alias, fac] of Object.entries(FACULTY_ALIASES)) {
-    if (lower.includes(alias)) return fac;
-  }
-  return undefined;
+  return FACULTY_ALIASES.find(([pattern]) => pattern.test(lower))?.[1];
 }
 
 function detectMood(text: string): 'CONFUSED' | 'PANIC' | 'LATE' | 'NEUTRAL' {
   const lower = text.toLowerCase();
-  if (/bingung|nggak\s+ngerti|ga\s+ngerti|paham|gimana\s+sih|pusing|bantu/i.test(lower)) return 'CONFUSED';
-  if (/panik|takut|gawat|tolong|mati/i.test(lower)) return 'PANIC';
+  if (/panik|takut|gawat|tolong|darurat/i.test(lower)) return 'PANIC';
+  if (/bingung|(nggak|ga|gak|tidak|belum)\s+(ngerti|paham)|gimana\s+sih|pusing/i.test(lower)) return 'CONFUSED';
   if (/telat|terlambat|ketinggalan/i.test(lower)) return 'LATE';
   return 'NEUTRAL';
 }
@@ -235,82 +228,40 @@ function detectMood(text: string): 'CONFUSED' | 'PANIC' | 'LATE' | 'NEUTRAL' {
 export function detectIntent(userMessage: string, history: ConversationTurn[] = []): DetectedIntent {
   const mood = detectMood(userMessage);
 
-  // Security check first
-  for (const pattern of SECURITY_PATTERNS) {
-    if (pattern.test(userMessage)) {
-      return { intent: 'SECURITY_THREAT', confidence: 'HIGH', mood };
-    }
+  if (isBlocked(userMessage)) {
+    return { intent: 'SECURITY_THREAT', confidence: 'HIGH', mood };
   }
 
-  const faculty = extractFaculty(userMessage);
+  let intent = matchIntent(userMessage);
+  let confidence: DetectedIntent['confidence'] = intent === 'GENERAL' ? 'LOW' : 'HIGH';
+  let faculty = extractFaculty(userMessage);
+  const shortMessage = userMessage.trim().split(/\s+/).length <= 4;
 
-  // Short faculty-only message → contact intent
-  if (faculty && userMessage.trim().length <= 15 && !userMessage.includes('apa')) {
-    return { intent: 'CONTACT', confidence: 'HIGH', faculty, mood };
-  }
-
-  // Priority order: SMALL_TALK first (fastest path), then specific, then general
-  const priorityOrder: Intent[] = [
-    'SMALL_TALK',
-    'OFF_TOPIC',
-    'TODAY',
-    'CONTACT',
-    'PRESENSI',
-    'DRESSCODE',
-    'PENUGASAN',
-    'PERIZINAN',
-    'ANNOUNCEMENT',
-    'SCHEDULE',
-    'FAQ',
-    'GENERAL',
-  ];
-
-  let detectedIntent: Intent = 'GENERAL';
-  let confidence: 'HIGH' | 'MEDIUM' | 'LOW' = 'LOW';
-
-  for (const intent of priorityOrder) {
-    const intentPatterns = PATTERNS[intent];
-    for (const pattern of intentPatterns) {
-      if (pattern.test(userMessage)) {
-        detectedIntent = intent;
-        confidence = intent === 'GENERAL' ? 'LOW' : 'HIGH';
+  // Contextual memory: hanya untuk pertanyaan lanjutan yang tidak punya intent sendiri
+  // ("kalau fbs?", "yang putri?"). Ambil dari pesan user terbaru yang punya intent spesifik.
+  if (intent === 'GENERAL' && history.length > 0) {
+    for (let i = history.length - 1; i >= Math.max(0, history.length - 4); i--) {
+      const turn = history[i];
+      if (turn.role !== 'user') continue;
+      const past = matchIntent(turn.text);
+      if (past !== 'GENERAL' && past !== 'SMALL_TALK' && past !== 'OFF_TOPIC') {
+        intent = past;
+        confidence = 'MEDIUM'; // inherited
         break;
       }
     }
-    if (detectedIntent !== 'GENERAL') break;
   }
 
-  let finalFaculty = faculty;
-  let finalIntent = detectedIntent;
-
-  // Contextual Memory Inheritance
-  if (history.length > 0) {
-    // Look back at the last 2 user messages to inherit faculty or intent
-    for (let i = history.length - 1; i >= Math.max(0, history.length - 4); i--) {
-      const turn = history[i];
-      if (turn.role === 'user') {
-        if (!finalFaculty) {
-          const pastFaculty = extractFaculty(turn.text);
-          if (pastFaculty) finalFaculty = pastFaculty;
-        }
-        
-        // If current message is too short or GENERAL, inherit intent
-        if (finalIntent === 'GENERAL' || userMessage.split(/\s+/).length <= 2) {
-           for (const pIntent of priorityOrder) {
-             if (pIntent === 'SMALL_TALK' || pIntent === 'GENERAL' || pIntent === 'OFF_TOPIC') continue;
-             for (const pattern of PATTERNS[pIntent]) {
-               if (pattern.test(turn.text)) {
-                 finalIntent = pIntent;
-                 confidence = 'MEDIUM'; // Downgrade confidence because it's inherited
-                 break;
-               }
-             }
-             if (finalIntent !== 'GENERAL' && finalIntent !== detectedIntent) break;
-           }
-        }
-      }
-    }
+  // Fakultas saja ("fikk", "kalau fbs?") → kontak
+  if (faculty && shortMessage && (intent === 'GENERAL' || intent === 'SMALL_TALK')) {
+    intent = 'CONTACT';
+    confidence = 'HIGH';
   }
 
-  return { intent: finalIntent, confidence, faculty: finalFaculty, mood };
+  // Fakultas diwarisi dari pesan sebelumnya hanya untuk pertanyaan yang bergantung fakultas
+  if (!faculty && intent === 'CONTACT') {
+    faculty = history.filter((t) => t.role === 'user').map((t) => extractFaculty(t.text)).filter(Boolean).at(-1);
+  }
+
+  return { intent, confidence, faculty, mood };
 }

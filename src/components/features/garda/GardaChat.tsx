@@ -189,7 +189,8 @@ export const GardaChat: React.FC<GardaChatProps> = ({
         throw new Error('Invalid JSON response');
       }
 
-      if (!response.ok || !data || !data.answer) {
+      // 429/400 tetap membawa `answer` yang ramah (mis. rate limit); tampilkan itu, bukan pesan error umum
+      if (!data?.answer) {
         throw new Error(data?.message || data?.error || 'API Request failed');
       }
 
@@ -197,7 +198,7 @@ export const GardaChat: React.FC<GardaChatProps> = ({
       if (data.intent === 'CONTACT' && faculty) {
         trackContactLookup(faculty);
       }
-      if (data.intent && data.intent !== 'ERROR') {
+      if (response.ok && data.intent && data.intent !== 'ERROR') {
         trackTopicView(data.intent);
       }
 
