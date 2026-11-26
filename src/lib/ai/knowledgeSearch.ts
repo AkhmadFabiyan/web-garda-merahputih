@@ -132,6 +132,18 @@ function makeDoc(source: string, title: string, body: string, content: string, a
   return { source, title: tokenize(title), body: tokenize(body), titleText: title.toLowerCase(), content, answer };
 }
 
+// Extra search words per stage, so matching does not depend on the exact wording of titles in data/schedule.ts.
+const EVENT_KEYWORDS: [RegExp, string][] = [
+  [/pra/i, 'pra online daring zoom youtube'],
+  [/opening|pembukaan/i, 'opening pembukaan upacara'],
+  [/welcoming/i, 'welcoming party'],
+  [/pelaksanaan|blended|hybrid/i, 'pkkmb fakultas pelaksanaan blended hybrid'],
+];
+
+function eventKeywords(title: string): string {
+  return EVENT_KEYWORDS.filter(([re]) => re.test(title)).map(([, words]) => words).join(' ');
+}
+
 function formatEvent(e: typeof timelineData[number]): string {
   const d = e.details;
   return [
@@ -157,7 +169,7 @@ const DOCS: Doc[] = [
   ),
   ...timelineData.map((e) => {
     const text = formatEvent(e);
-    return makeDoc('JADWAL', `jadwal ${e.title} ${e.date} ${(e.details?.activities ?? []).join(' ')}`,
+    return makeDoc('JADWAL', `jadwal ${e.title} ${eventKeywords(e.title)} ${e.date} ${(e.details?.activities ?? []).join(' ')}`,
       `${e.details?.location ?? ''} ${e.details?.dresscode ?? ''} ${e.details?.notes ?? ''}`, text, text);
   }),
   makeDoc('JADWAL', 'jadwal rangkaian kegiatan timeline tanggal kapan pkkmb garda', timelineData.map((e) => e.date).join(' '),

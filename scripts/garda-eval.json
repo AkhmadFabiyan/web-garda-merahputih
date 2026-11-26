@@ -27,7 +27,7 @@
   { "q": "jadwal pkkmb fakultas", "intent": "SCHEDULE", "expect": ["18 - 21 agustus"] },
   { "q": "opening ceremony jam berapa?", "intent": "SCHEDULE", "expect": ["06.00"] },
   { "q": "welcoming party dimana?", "intent": "SCHEDULE", "expect": ["graha sawunggaling"] },
-  { "q": "pra pkkmb online atau offline?", "intent": "SCHEDULE", "expect": ["online"] },
+  { "q": "pra pkkmb online atau offline?", "intent": "SCHEDULE", "expect": ["daring"] },
   { "q": "jadwal", "intent": "SCHEDULE", "expect": ["agustus"] },
 
   { "q": "hari ini ngapain?", "intent": "TODAY" },
