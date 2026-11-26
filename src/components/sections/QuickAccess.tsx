@@ -2,6 +2,7 @@ import React from 'react';
 import { Container } from '../ui/Container';
 import { quickAccessData } from '../../data/quickAccess';
 import styles from './QuickAccess.module.css';
+import { SectionTitle } from '../ui/SectionTitle';
 
 export const QuickAccess = () => {
   return (
@@ -16,7 +17,7 @@ export const QuickAccess = () => {
       </svg>
       <Container>
         <div className={styles.masterBox}>
-          <h2 className={styles.title} data-reveal>QUICK ACCESS</h2>
+          <SectionTitle variant="label" title="QUICK ACCESS" />
           <div className={styles.grid}>
             {quickAccessData.map(item => {
               const Icon = item.icon;

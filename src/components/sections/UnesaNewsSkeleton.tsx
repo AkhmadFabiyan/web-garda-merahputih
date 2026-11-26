@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container } from '../ui/Container';
 import styles from './UnesaNewsSkeleton.module.css';
+import { SectionTitle } from '../ui/SectionTitle';
 import baseStyles from './UnesaNews.module.css';
 
 export const UnesaNewsSkeleton = () => {
@@ -11,9 +12,7 @@ export const UnesaNewsSkeleton = () => {
     <section className={baseStyles.section} id="berita-unesa-skeleton">
       <Container>
         <div className={baseStyles.masterBox}>
-          <div className={baseStyles.headerRow}>
-            <h2 className={baseStyles.sectionTitle}>Berita Terbaru Unesa</h2>
-          </div>
+          <SectionTitle variant="section" title="Berita Terbaru Unesa" />
 
           <div className={baseStyles.grid}>
             {skeletonCards.map((_, index) => (

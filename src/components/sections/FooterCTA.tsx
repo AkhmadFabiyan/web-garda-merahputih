@@ -1,7 +1,7 @@
 import React from 'react';
-import Link from 'next/link';
 import { Container } from '../ui/Container';
 import styles from './FooterCTA.module.css';
+import { Button } from '../ui/Button';
 
 export const FooterCTA = () => {
   return (
@@ -17,12 +17,12 @@ export const FooterCTA = () => {
             Akses seluruh informasi PKKMB, jadwal kegiatan, panduan peserta, dan informasi penting dalam satu tempat.
           </p>
           <div className={styles.actionWrap}>
-            <Link href="/jadwal" className={styles.primaryBtn}>
+            <Button href="/jadwal" className={styles.ctaBtn}>
               Lihat Jadwal
-            </Link>
-            <Link href="/#info-garda" className={styles.secondaryBtn}>
+            </Button>
+            <Button href="/#info-garda" variant="secondary" className={styles.ctaBtn}>
               Info Garda
-            </Link>
+            </Button>
           </div>
         </div>
       </Container>

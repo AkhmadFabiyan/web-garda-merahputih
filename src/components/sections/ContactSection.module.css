@@ -3,22 +3,6 @@
   flex-direction: column;
 }
 
-.sectionTitle {
-  font-family: var(--font-heading);
-  font-size: var(--step-1);
-  font-weight: 800;
-  color: var(--color-brand-primary);
-  margin-bottom: var(--space-1);
-}
-
-.sectionSubtitle {
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: var(--step--1);
-  color: #6B7280;
-  margin-bottom: var(--space-4);
-}
-
 /* Desktop: 3 cols, 2 rows = 6 cards */
 .grid {
   display: grid;
@@ -31,26 +15,6 @@
   margin-top: var(--space-3);
   display: flex;
   justify-content: center;
-}
-
-.btn {
-  display: inline-block;
-  padding: var(--space-2) var(--space-6);
-  border: thin solid var(--color-brand-primary);
-  border-radius: 0.5rem;
-  color: var(--color-brand-primary);
-  font-size: var(--step--1);
-  text-decoration: none;
-  transition: all 0.3s;
-  background: transparent;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.btn:hover {
-  background: var(--gradient-primary);
-  color: #FFFFFF;
-  border-color: transparent;
 }
 
 /* ── MOBILE ─────────────────────────────── */

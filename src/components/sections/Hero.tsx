@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { Container } from '../ui/Container';
 import { Countdown } from '../ui/Countdown';
 import { FaCalendarAlt, FaInfoCircle } from 'react-icons/fa';
-import Link from 'next/link';
 import styles from './Hero.module.css';
+import { Button } from '../ui/Button';
 import heroEmblem from '../../../public/assets/hero-emblem.png';
 
 export const Hero = ({ children }: { children?: React.ReactNode }) => {
@@ -36,12 +36,12 @@ export const Hero = ({ children }: { children?: React.ReactNode }) => {
               <h2 className={styles.subHeadline}>JAYANTARA NUSWANTARA</h2>
               <p className={styles.description}>Pelopor Pendidikan, Pilar Kemajuan Bangsa</p>
               <div className={styles.actionWrap}>
-                <Link href="/jadwal" className={`${styles.primaryBtn} ${styles.sheen}`}>
+                <Button href="/jadwal" size="lg" className={`${styles.heroBtn} ${styles.sheen}`}>
                   Lihat Jadwal <FaCalendarAlt />
-                </Link>
-                <Link href="/#info-garda" className={styles.secondaryBtn}>
+                </Button>
+                <Button href="/#info-garda" variant="secondary" size="lg" className={styles.heroBtn}>
                   Info Garda <FaInfoCircle />
-                </Link>
+                </Button>
               </div>
             </div>
 

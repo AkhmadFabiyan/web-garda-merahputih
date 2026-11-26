@@ -1,11 +1,12 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { FaCheck, FaMapMarkedAlt, FaMapMarkerAlt, FaTshirt, FaExclamationTriangle } from 'react-icons/fa';
 import { Container } from '../ui/Container';
 import { timelineData, type TimelineItem } from '../../data/schedule';
 import { stageStatus, currentStageIndex, type StageStatus } from '../../lib/schedule';
 import styles from './Schedule.module.css';
+import { Button } from '../ui/Button';
+import { SectionTitle } from '../ui/SectionTitle';
 
 const STATUS_TEXT: Record<StageStatus, string> = {
   Done: 'Selesai',
@@ -105,10 +106,7 @@ export const Schedule = ({ full = false }: { full?: boolean }) => {
     <section className={`${styles.section} ${full ? styles.full : ''}`} id={full ? undefined : 'jadwal'}>
       <Container>
         {!full && (
-          <div className={styles.centeredHeader}>
-            <h2 className={styles.sectionTitle} data-reveal>PETA PERJALANAN PKKMB</h2>
-            <p className={styles.hint}>Pilih tahap untuk melihat detailnya.</p>
-          </div>
+          <SectionTitle variant="section" align="center" title="PETA PERJALANAN PKKMB" description="Pilih tahap untuk melihat detailnya." />
         )}
 
         <div className={styles.route} style={{ '--progress': progress } as React.CSSProperties}>
@@ -167,9 +165,9 @@ export const Schedule = ({ full = false }: { full?: boolean }) => {
 
         {!full && (
           <div className={styles.actionWrap}>
-            <Link href="/jadwal" className={styles.linkFull}>
+            <Button href="/jadwal" variant="outline" className={styles.moreBtn}>
               <FaMapMarkedAlt /> Lihat Jadwal Lengkap
-            </Link>
+            </Button>
           </div>
         )}
       </Container>

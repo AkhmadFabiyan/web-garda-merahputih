@@ -1,8 +1,8 @@
 import React from 'react';
-import Link from 'next/link';
 import { Container } from '../ui/Container';
 import { SectionTitle } from '../ui/SectionTitle';
 import styles from './About.module.css';
+import { Button } from '../ui/Button';
 
 export const About = () => {
 
@@ -26,7 +26,7 @@ export const About = () => {
               <p key={idx} className={styles.description}>{text}</p>
             ))}
             {hasHiddenContent && (
-              <Link href="/#info-garda" className={styles.btn}>Selengkapnya →</Link>
+              <Button href="/#info-garda" size="lg" className={styles.moreBtn}>Selengkapnya →</Button>
             )}
           </div>
           

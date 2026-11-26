@@ -2,7 +2,7 @@
   min-height: 100svh;
   padding: var(--space-section) var(--space-5) var(--space-20);
   background-color: var(--color-bg);
-  color: #1F2937;
+  color: var(--color-text-primary);
   font-family: var(--font-body);
 }
 

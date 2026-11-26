@@ -2,60 +2,83 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-3) var(--space-6);
-  border-radius: var(--radius-md);
+  gap: var(--space-2);
+  min-block-size: 2.75rem;
+  padding: 0 var(--space-6);
+  border: thin solid transparent;
+  border-radius: 0.5rem;
   font-family: var(--font-heading);
-  font-weight: 500;
   font-size: var(--step--1);
+  font-weight: 600;
+  text-decoration: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
-  outline: none;
+  transition:
+    transform var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out),
+    background var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+}
+
+.button:focus-visible {
+  outline: medium solid var(--color-brand-primary);
+  outline-offset: 0.125rem;
+}
+
+.lg {
+  min-block-size: 3.25rem;
+  padding: 0 var(--space-8);
+  border-radius: 0.75rem;
+  font-size: var(--step-0);
+  gap: var(--space-3);
 }
 
 .fullWidth {
-  width: 100%;
+  inline-size: 100%;
 }
 
 .primary {
   background: var(--gradient-primary);
   color: #FFFFFF;
+  box-shadow: 0 0.5rem 1.25rem rgba(var(--color-brand-primary-rgb), 0.25);
 }
 
 .primary:hover {
   background: var(--gradient-hover);
-  transform: translateY(-0.125rem);
-  box-shadow: 0 0.625rem 1.875rem rgba(var(--color-brand-primary-rgb), 0.25);
+  color: #FFFFFF;
+  transform: translateY(-0.25rem);
+  box-shadow: 0 0.75rem 1.75rem rgba(var(--color-brand-primary-rgb), 0.35);
 }
 
 .secondary {
-  background-color: #FFFFFF;
-  color: var(--color-brand-primary);
-  border: thin solid var(--color-brand-primary);
+  background: #FFFFFF;
+  color: var(--color-text-primary);
+  border-color: rgba(15, 23, 42, 0.1);
+  box-shadow: var(--shadow-soft);
 }
 
 .secondary:hover {
-  background-color: var(--color-brand-primary);
-  color: #FFFFFF;
-  transform: translateY(-0.125rem);
-  box-shadow: 0 0.625rem 1.875rem rgba(var(--color-brand-primary-rgb), 0.15);
+  border-color: var(--color-brand-primary);
+  color: var(--color-brand-primary);
+  transform: translateY(-0.25rem);
+  box-shadow: 0 0.75rem 1.75rem rgba(15, 23, 42, 0.08);
 }
 
 .outline {
-  background-color: transparent;
-  color: var(--color-text-primary);
-  border: thin solid var(--color-text-secondary);
+  background: transparent;
+  color: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
 }
 
 .outline:hover {
-  border-color: var(--color-gold);
-  color: var(--color-gold);
+  background: var(--gradient-primary);
+  color: #FFFFFF;
+  border-color: transparent;
 }
 
 .ghost {
-  background-color: transparent;
+  background: transparent;
   color: var(--color-text-secondary);
-  padding: var(--space-2) var(--space-4);
 }
 
 .ghost:hover {

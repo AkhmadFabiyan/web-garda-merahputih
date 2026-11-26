@@ -97,11 +97,9 @@ export const Navbar = () => {
         </nav>
 
         <div className={styles.actions}>
-          <Link href="/#quick-access" style={{ textDecoration: 'none' }} className={styles.desktopBtn}>
-            <Button variant="secondary" className={styles.qaBtn}>
-              <span className={styles.qaIcon} aria-hidden="true"><FaBolt /></span> Quick Access
-            </Button>
-          </Link>
+          <Button href="/#quick-access" className={`${styles.desktopBtn} ${styles.qaBtn}`}>
+            <span className={styles.qaIcon} aria-hidden="true"><FaBolt /></span> Quick Access
+          </Button>
           <button 
             className={styles.mobileMenuBtn} 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -121,11 +119,9 @@ export const Navbar = () => {
           <Link href="/faq" onClick={() => setIsMobileMenuOpen(false)}>FAQ</Link>
           <Link href="/kontak" onClick={() => setIsMobileMenuOpen(false)}>Kontak</Link>
           <a href="https://www.unesa.ac.id/berita-unesa/" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>Berita</a>
-          <Link href="/#quick-access" onClick={() => setIsMobileMenuOpen(false)}>
-            <Button variant="secondary" className={styles.qaBtnMobile}>
-              <span className={styles.qaIcon} aria-hidden="true"><FaBolt /></span> Quick Access
-            </Button>
-          </Link>
+          <Button href="/#quick-access" variant="secondary" className={styles.qaBtnMobile} onClick={() => setIsMobileMenuOpen(false)}>
+            <span className={styles.qaIcon} aria-hidden="true"><FaBolt /></span> Quick Access
+          </Button>
         </nav>
       </div>
     </header>

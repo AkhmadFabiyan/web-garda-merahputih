@@ -51,7 +51,7 @@
   background: #F7F8FA;
   border: thin solid #EAEAEA;
   border-radius: 0.25rem 1.125rem 1.125rem 1.125rem;
-  color: #111827;
+  color: var(--color-text-primary);
 }
 
 .message.user .bubble {
@@ -182,7 +182,7 @@
 .suggestionChip:hover {
   background: #E5E7EB;
   border-color: #D1D5DB;
-  color: #111827;
+  color: var(--color-text-primary);
 }
 
 .suggestionChip:active {

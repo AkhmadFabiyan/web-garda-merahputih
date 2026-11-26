@@ -1,11 +1,12 @@
 "use client";
 import React from 'react';
-import Link from 'next/link';
 import { contacts } from '../../data/contacts';
 import { sortByPopularity } from '../../lib/popularity';
 import { trackClick } from '../../lib/services/analytics';
 import { ContactCard } from '../ui/ContactCard';
 import styles from './ContactSection.module.css';
+import { Button } from '../ui/Button';
+import { SectionTitle } from '../ui/SectionTitle';
 
 export const ContactSection = ({ contactOrder = [] }: { contactOrder?: string[] }) => {
   const sortedContacts = sortByPopularity(contacts, contactOrder, (c) => c.faculty);
@@ -24,8 +25,7 @@ export const ContactSection = ({ contactOrder = [] }: { contactOrder?: string[] 
 
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.sectionTitle} data-reveal>CONTACT PERSON</h2>
-      <h3 className={styles.sectionSubtitle}>Hubungi Narahubung Fakultasmu</h3>
+      <SectionTitle variant="label" title="CONTACT PERSON" description="Hubungi Narahubung Fakultasmu" />
       <div className={styles.grid}>
         {sortedContacts.slice(0, 6).map((contact, idx) => (
           <ContactCard
@@ -39,7 +39,7 @@ export const ContactSection = ({ contactOrder = [] }: { contactOrder?: string[] 
         ))}
       </div>
       <div className={styles.actionWrap}>
-        <Link href="/kontak" className={styles.btn}>Lihat Semua Fakultas ➔</Link>
+        <Button href="/kontak" variant="outline">Lihat Semua Fakultas ➔</Button>
       </div>
     </div>
   );

@@ -38,5 +38,5 @@
 
 .backBtn:hover {
   background: rgba(0, 0, 0, 0.1);
-  color: #1F2937;
+  color: var(--color-text-primary);
 }

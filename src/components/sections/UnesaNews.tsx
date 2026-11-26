@@ -3,6 +3,7 @@ import * as cheerio from 'cheerio';
 import Image from 'next/image';
 import { Container } from '../ui/Container';
 import styles from './UnesaNews.module.css';
+import { SectionTitle } from '../ui/SectionTitle';
 
 // Tipe data untuk berita
 type NewsItem = {
@@ -65,9 +66,7 @@ export const UnesaNews = async () => {
     <section className={styles.section} id="berita-unesa">
       <Container>
         <div className={styles.masterBox}>
-          <div className={styles.headerRow}>
-            <h2 className={styles.sectionTitle} data-reveal>Berita Terbaru Unesa</h2>
-          </div>
+          <SectionTitle variant="section" title="Berita Terbaru Unesa" />
 
           <div className={styles.grid}>
             {news.slice(0, 6).map((item, index) => (

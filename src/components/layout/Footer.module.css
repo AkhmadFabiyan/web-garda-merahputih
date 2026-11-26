@@ -1,7 +1,7 @@
 .footer {
-  background: #111827;
+  background: var(--color-text-primary);
   padding: var(--space-12) 0 var(--space-6) 0;
-  border-top: thin solid #1F2937;
+  border-top: thin solid var(--color-text-primary);
   position: relative;
   overflow: hidden;
   z-index: 10;

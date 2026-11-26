@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { FaInstagram, FaYoutube, FaWhatsapp, FaTiktok, FaTelegram } from 'react-icons/fa';
 import styles from './SocialGallery.module.css';
+import { SectionTitle } from '../ui/SectionTitle';
 
 const socialData = [
   { id: 'yt', platform: 'youtube', url: 'https://youtube.com/@username', icon: FaYoutube, color: 'var(--color-brand-primary)' },
@@ -20,8 +21,7 @@ const galleryImages = [
 export const SocialGallery = () => {
   return (
     <div className={styles.wrapper} id="galeri">
-      <h2 className={styles.sectionTitle} data-reveal>IKUTI KAMI</h2>
-      <h3 className={styles.sectionSubtitle}>Follow Social Media Garda</h3>
+      <SectionTitle variant="label" title="IKUTI KAMI" description="Follow Social Media Garda" />
       <div className={styles.socialGrid}>
         {socialData.map(item => (
           <a 

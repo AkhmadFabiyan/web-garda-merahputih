@@ -9,14 +9,6 @@
   padding: var(--space-4) 0;
 }
 
-.title {
-  color: #1F2937;
-  font-family: var(--font-heading);
-  font-size: var(--step-1);
-  font-weight: 800;
-  margin-bottom: var(--space-6);
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(8, minmax(0, 1fr));
@@ -98,9 +90,6 @@
   }
   .grid {
     gap: var(--space-2);
-  }
-  .title {
-    font-size: var(--step-1);
   }
 }
 

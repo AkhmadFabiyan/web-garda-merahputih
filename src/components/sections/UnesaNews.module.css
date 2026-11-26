@@ -10,21 +10,6 @@
   box-shadow: 0 0.25rem 1.25rem rgba(0,0,0,0.05);
 }
 
-.headerRow {
-  margin-bottom: var(--space-8);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.sectionTitle {
-  font-size: var(--step-3);
-  font-weight: 700;
-  color: var(--text-primary, #111827);
-  letter-spacing: -0.025em;
-  text-transform: uppercase;
-}
-
 .grid {
   display: flex;
   overflow-x: auto;
@@ -111,7 +96,7 @@
 .title {
   font-size: var(--step-1);
   font-weight: 600;
-  color: var(--text-primary, #111827);
+  color: var(--color-text-primary);
   margin-bottom: var(--space-3);
   line-height: 1.4;
   display: -webkit-box;

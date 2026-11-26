@@ -162,49 +162,6 @@
   gap: var(--space-4);
 }
 
-.primaryBtn, .secondaryBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-3);
-  font-family: var(--font-heading);
-  font-size: var(--step-0);
-  font-weight: 600;
-  padding: 0 var(--space-8);
-  height: 3.25rem;
-  border-radius: 0.75rem;
-  text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-sizing: border-box;
-}
-
-.primaryBtn {
-  background: var(--gradient-primary);
-  color: #FFFFFF;
-  box-shadow: 0 0.5rem 1.25rem rgba(var(--color-brand-primary-rgb), 0.25);
-  border: none;
-}
-
-.primaryBtn:hover {
-  background: var(--gradient-hover);
-  transform: translateY(-0.25rem);
-  box-shadow: 0 0.75rem 1.75rem rgba(var(--color-brand-primary-rgb), 0.35);
-}
-
-.secondaryBtn {
-  background: #FFFFFF;
-  color: var(--color-text-primary);
-  border: thin solid rgba(15, 23, 42, 0.1);
-  box-shadow: var(--shadow-soft);
-}
-
-.secondaryBtn:hover {
-  border-color: var(--color-brand-primary);
-  color: var(--color-brand-primary);
-  transform: translateY(-0.25rem);
-  box-shadow: 0 0.75rem 1.75rem rgba(15, 23, 42, 0.08);
-}
-
 /* Countdown Column */
 .countdownCol {
   display: flex;
@@ -264,11 +221,8 @@
     width: 100%;
     gap: var(--space-3);
   }
-  .primaryBtn, .secondaryBtn {
+  .heroBtn {
     width: 100%;
-    justify-content: center;
-    height: 3.25rem;
-    font-size: var(--step-0);
   }
 }
 

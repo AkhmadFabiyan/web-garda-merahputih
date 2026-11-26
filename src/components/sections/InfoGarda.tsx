@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { Container } from '../ui/Container';
 import { infoData } from '../../data/info';
 import styles from './InfoGarda.module.css';
+import { SectionTitle } from '../ui/SectionTitle';
+import { Modal } from '../ui/Modal';
 
 export const InfoGarda = () => {
   const [selectedInfo, setSelectedInfo] = useState<typeof infoData[0] | null>(null);
@@ -24,9 +26,7 @@ export const InfoGarda = () => {
     <section className={styles.section} id="info-garda">
       <Container>
         <div className={styles.masterBox}>
-          <div className={styles.headerRow}>
-            <h2 className={styles.sectionTitle} data-reveal>INFO GARDA</h2>
-          </div>
+          <SectionTitle variant="label" title="INFO GARDA" />
 
           <div className={styles.grid}>
             {infoData.map((info) => (
@@ -48,19 +48,17 @@ export const InfoGarda = () => {
         </div>
       </Container>
 
-      {/* MODAL OVERLAY */}
-      {selectedInfo && (
-        <div className={styles.modalOverlay} onClick={closeModal}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.modalClose} onClick={closeModal}>✕</button>
-            
+      <Modal open={!!selectedInfo} onClose={closeModal} labelledBy="info-modal-title">
+        {selectedInfo && (
+          <>
+          
             <div className={styles.modalHeader}>
               <div className={styles.iconBox}>
                 <Image src={selectedInfo.icon} alt={selectedInfo.title} width={24} height={24} />
               </div>
-              <h3>{selectedInfo.title}</h3>
+              <h3 id="info-modal-title">{selectedInfo.title}</h3>
             </div>
-            
+          
             <div className={styles.modalList}>
               {selectedInfo.subItems?.map((sub, idx) => {
                 // Jika memiliki subLinks (Nested Menu)
@@ -97,9 +95,9 @@ export const InfoGarda = () => {
                 );
               })}
             </div>
-          </div>
-        </div>
-      )}
+          </>
+        )}
+      </Modal>
     </section>
   );
 };

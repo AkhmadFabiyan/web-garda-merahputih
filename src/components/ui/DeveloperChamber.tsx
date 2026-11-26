@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { getSystemDiagnostics, SystemDiagnostic } from "../../lib/diagnostics";
+import { Modal } from "./Modal";
 import styles from "./DeveloperChamber.module.css";
 
 export const DeveloperChamber = () => {
@@ -20,13 +21,11 @@ export const DeveloperChamber = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  if (!show || !diagnostics) return null;
+  if (!diagnostics) return null;
 
   return (
-    <div className={styles.overlay} onClick={() => setShow(false)}>
-      <div className={styles.chamber} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.closeBtn} onClick={() => setShow(false)}>✕</button>
-        <h2 className={styles.title}>Developer Chamber</h2>
+    <Modal open={show} onClose={() => setShow(false)} labelledBy="dev-chamber-title" className={styles.chamber} closeClassName={styles.closeBtn}>
+        <h2 id="dev-chamber-title" className={styles.title}>Developer Chamber</h2>
         <div className={styles.content}>
           <div className={styles.row}>
             <span className={styles.label}>Architect:</span>
@@ -58,7 +57,6 @@ export const DeveloperChamber = () => {
             <span className={styles.value}>{diagnostics.buildSignature}</span>
           </div>
         </div>
-      </div>
-    </div>
+    </Modal>
   );
 };

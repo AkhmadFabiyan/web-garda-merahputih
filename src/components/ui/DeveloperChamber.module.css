@@ -1,25 +1,11 @@
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(0.5rem);
-  z-index: 999999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: fadeIn 0.3s ease;
-}
 
 .chamber {
   background: #110d21;
   border: thin solid #332d4b;
   border-radius: 0.75rem;
   padding: var(--space-8);
-  width: 90%;
-  max-width: 25rem;
-  position: relative;
-  box-shadow: 0 0.625rem 2.5rem rgba(0,0,0,0.5), inset 0 0 0 0.0625rem rgba(0, 0, 0,0.05);
-  animation: slideUp 0.3s ease;
+  max-inline-size: 25rem;
+  margin-inline: auto;
   font-family: var(--font-body), sans-serif;
 }
 
@@ -36,7 +22,7 @@
 }
 
 .closeBtn:hover {
-  color: #1F2937;
+  color: var(--color-text-primary);
 }
 
 .title {
@@ -73,12 +59,3 @@
   text-align: right;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(1.25rem); }
-  to { opacity: 1; transform: translateY(0); }
-}

@@ -13,7 +13,7 @@
   --color-surface: #FFFFFF;
   --color-surface-hover: #F1F5F9;
   
-  --color-text-primary: #0F172A; /* Slate 900 */
+  --color-text-primary: #1F2937; /* the one text colour; modules use this token */
   --color-text-secondary: #475569; /* Slate 600 */
   --color-text-muted: #94A3B8; /* Slate 400 */
   
@@ -309,4 +309,9 @@ html.a11y-text-large {
   html {
     scroll-behavior: auto;
   }
+}
+
+/* A native <dialog> (components/ui/Modal) is open: stop the page behind from scrolling */
+html:has(dialog[open]) {
+  overflow: hidden;
 }

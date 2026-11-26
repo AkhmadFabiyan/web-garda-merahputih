@@ -98,7 +98,7 @@
 
 .actionBtn:hover {
   background: var(--color-brand-primary);
-  color: #1F2937;
+  color: var(--color-text-primary);
 }
 
 @keyframes glitch {

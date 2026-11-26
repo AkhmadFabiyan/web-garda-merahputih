@@ -9,7 +9,7 @@
   background: #FAFAFA;
   border: thin solid #EAEAEA;
   border-radius: 0.5rem;
-  color: #1F2937;
+  color: var(--color-text-primary);
   font-family: inherit;
   font-size: var(--step-0); /* 1rem: below this iOS Safari zooms in on focus */
   outline: none;

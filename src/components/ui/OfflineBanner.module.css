@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   background: rgba(var(--color-brand-primary-rgb), 0.95);
-  color: #1F2937;
+  color: var(--color-text-primary);
   text-align: center;
   padding: var(--space-2) var(--space-4);
   font-size: var(--step--1);
