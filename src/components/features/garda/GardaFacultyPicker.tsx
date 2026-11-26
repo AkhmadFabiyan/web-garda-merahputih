@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styles from './GardaFacultyPicker.module.css';
+import { MdWavingHand } from 'react-icons/md';
 
 const FACULTIES = ['FIP', 'FBS', 'FMIPA', 'FT', 'FEB', 'FISIPOL', 'FIKK', 'FV', 'FH', 'FPsi', 'FK', 'FKP', 'PSDKU'];
 
@@ -25,7 +26,7 @@ export const GardaFacultyPicker: React.FC<GardaFacultyPickerProps> = ({ onSelect
   return (
     <div className={styles.overlay} role="dialog" aria-label="Pilih fakultas">
       <div className={styles.card}>
-        <div className={styles.title}>👋 Halo!</div>
+        <div className={styles.title}><MdWavingHand aria-hidden="true" style={{ verticalAlign: '-0.125em' }} /> Halo!</div>
         <p className={styles.subtitle}>
           Kamu dari fakultas mana? Aku bisa memberikan informasi yang lebih personal untukmu.
         </p>

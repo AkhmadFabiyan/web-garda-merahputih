@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaBolt, FaTimes } from 'react-icons/fa';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -99,7 +99,7 @@ export const Navbar = () => {
         <div className={styles.actions}>
           <Link href="/#quick-access" style={{ textDecoration: 'none' }} className={styles.desktopBtn}>
             <Button variant="secondary" className={styles.qaBtn}>
-              <span className={styles.qaIcon}>⚡</span> Quick Access
+              <span className={styles.qaIcon} aria-hidden="true"><FaBolt /></span> Quick Access
             </Button>
           </Link>
           <button 
@@ -123,7 +123,7 @@ export const Navbar = () => {
           <a href="https://www.unesa.ac.id/berita-unesa/" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>Berita</a>
           <Link href="/#quick-access" onClick={() => setIsMobileMenuOpen(false)}>
             <Button variant="secondary" className={styles.qaBtnMobile}>
-              <span className={styles.qaIcon}>⚡</span> Quick Access
+              <span className={styles.qaIcon} aria-hidden="true"><FaBolt /></span> Quick Access
             </Button>
           </Link>
         </nav>

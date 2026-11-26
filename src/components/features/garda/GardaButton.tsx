@@ -2,6 +2,7 @@
 
 import React, { forwardRef } from 'react';
 import styles from './GardaButton.module.css';
+import { HiSparkles } from 'react-icons/hi';
 
 interface GardaButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isOpen: boolean;
@@ -21,7 +22,7 @@ export const GardaButton = forwardRef<HTMLButtonElement, GardaButtonProps>(
         aria-haspopup="dialog"
         {...props}
       >
-        <span className={styles.sparkle} aria-hidden="true">✨</span>
+        <span className={styles.sparkle} aria-hidden="true"><HiSparkles /></span>
         <span className={styles.label}>Tanya Gara</span>
         <span className={styles.pulse} aria-hidden="true" />
       </button>

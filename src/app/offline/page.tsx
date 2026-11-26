@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import styles from './page.module.css';
+import { FaSatelliteDish } from 'react-icons/fa';
 import { timelineData } from '../../data/schedule';
 
 export default function OfflinePage() {
@@ -9,7 +10,7 @@ export default function OfflinePage() {
 
   return (
     <div className={styles.offlineContainer}>
-      <div className={styles.glitchIcon}>📡</div>
+      <div className={styles.glitchIcon} aria-hidden="true"><FaSatelliteDish /></div>
       <h1 className={styles.title}>Koneksi Terputus</h1>
       <p className={styles.desc}>
         Anda saat ini berada dalam Mode Offline karena kehilangan sinyal internet. 

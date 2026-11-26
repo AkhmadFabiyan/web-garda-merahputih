@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import styles from './GardaModal.module.css';
+import { FaRobot } from 'react-icons/fa';
 import dynamic from 'next/dynamic';
 
 const GardaChat = dynamic(() => import('./GardaChat').then(mod => mod.GardaChat), {
@@ -56,7 +57,7 @@ export const GardaModal: React.FC<GardaModalProps> = ({ isOpen, onClose }) => {
         {/* Header */}
         <div className={styles.header}>
           <div className={styles.headerLeft}>
-            <div className={styles.avatar} aria-hidden="true">🤖</div>
+            <div className={styles.avatar} aria-hidden="true"><FaRobot /></div>
             <div className={styles.headerInfo}>
               <div className={styles.headerTitle}>Gara</div>
               <div className={styles.headerSubtitle}>Asisten Resmi Garda UNESA 2026</div>

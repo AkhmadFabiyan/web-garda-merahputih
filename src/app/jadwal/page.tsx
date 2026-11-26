@@ -6,11 +6,12 @@ import { PageHeader } from '../../components/layout/PageHeader';
 import { Container } from '../../components/ui/Container';
 import { timelineData } from '../../data/schedule';
 import styles from './page.module.css';
+import { FaCheck, FaExclamationTriangle, FaMapMarkerAlt, FaPlay, FaRegCircle, FaTshirt } from 'react-icons/fa';
 
 function getNodeIcon(status: string) {
-  if (status === 'statusDone') return '✓';
-  if (status === 'statusOngoing') return '▶';
-  return '○';
+  if (status === 'statusDone') return <FaCheck aria-hidden="true" />;
+  if (status === 'statusOngoing') return <FaPlay aria-hidden="true" />;
+  return <FaRegCircle aria-hidden="true" />;
 }
 
 function getStatusLabel(status: string) {
@@ -86,19 +87,19 @@ export default function JadwalPage() {
                       <div className={styles.infoGrid}>
                         {item.details?.location && (
                           <div className={styles.infoRow}>
-                            <span>📍</span>
+                            <span><FaMapMarkerAlt aria-hidden="true" /></span>
                             <span><strong>Lokasi:</strong> {item.details.location}</span>
                           </div>
                         )}
                         {item.details?.dresscode && (
                           <div className={styles.infoRow}>
-                            <span>👕</span>
+                            <span><FaTshirt aria-hidden="true" /></span>
                             <span><strong>Dresscode:</strong> {item.details.dresscode}</span>
                           </div>
                         )}
                         {item.details?.notes && (
                           <div className={`${styles.infoRow} ${styles.infoRowNote}`}>
-                            <span>⚠️</span>
+                            <span><FaExclamationTriangle aria-hidden="true" /></span>
                             <span>{item.details.notes}</span>
                           </div>
                         )}

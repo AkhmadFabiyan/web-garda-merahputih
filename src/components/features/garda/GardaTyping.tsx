@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import styles from './GardaTyping.module.css';
+import { FaRobot } from 'react-icons/fa';
+import { iconize } from '../../ui/Iconize';
 
 interface GardaTypingProps {
   elapsedSeconds: number;
@@ -26,7 +28,7 @@ export const GardaTyping: React.FC<GardaTypingProps> = () => {
 
   return (
     <div className={styles.wrap} aria-live="polite" aria-label="Garda sedang mengetik">
-      <div className={styles.avatar} aria-hidden="true">🤖</div>
+      <div className={styles.avatar} aria-hidden="true"><FaRobot /></div>
       <div className={styles.bubble}>
         <div className={styles.dots} aria-hidden="true">
           <span className={styles.dot} />
@@ -34,7 +36,7 @@ export const GardaTyping: React.FC<GardaTypingProps> = () => {
           <span className={styles.dot} />
         </div>
         <div className={styles.status}>
-          {msg}
+          {iconize(msg)}
         </div>
       </div>
     </div>

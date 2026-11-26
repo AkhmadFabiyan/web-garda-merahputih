@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './GardaMessage.module.css';
 import { FiCopy, FiCheck } from 'react-icons/fi';
+import { FaRobot, FaWhatsapp } from 'react-icons/fa';
+import { iconize } from '../../ui/Iconize';
 
 export interface WaContact {
   name: string;
@@ -61,12 +63,12 @@ function renderText(text: string): React.ReactNode {
       const parts = linkPart.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
       return parts.map((part, k) => {
         if (part.startsWith('**') && part.endsWith('**')) {
-          return <strong key={`${lineKey}-bold-${k}`}>{part.slice(2, -2)}</strong>;
+          return <strong key={`${lineKey}-bold-${k}`}>{iconize(part.slice(2, -2), `${lineKey}-b-${k}`)}</strong>;
         }
         if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
-          return <em key={`${lineKey}-italic-${k}`}>{part.slice(1, -1)}</em>;
+          return <em key={`${lineKey}-italic-${k}`}>{iconize(part.slice(1, -1), `${lineKey}-i-${k}`)}</em>;
         }
-        return part;
+        return iconize(part, `${lineKey}-${j}-${k}`);
       });
     });
   };
@@ -147,7 +149,7 @@ export const GardaMessage: React.FC<GardaMessageProps> = ({ message, onSuggestio
   return (
     <div className={`${styles.message} ${isBot ? styles.bot : styles.user}`}>
       {isBot && (
-        <div className={styles.botAvatar} aria-hidden="true">🤖</div>
+        <div className={styles.botAvatar} aria-hidden="true"><FaRobot /></div>
       )}
       <div>
         <div
@@ -168,7 +170,7 @@ export const GardaMessage: React.FC<GardaMessageProps> = ({ message, onSuggestio
                   className={styles.waBtn}
                   aria-label={`Hubungi ${contact.name} via WhatsApp`}
                 >
-                  <span className={styles.waIcon} aria-hidden="true">💬</span>
+                  <span className={styles.waIcon} aria-hidden="true"><FaWhatsapp /></span>
                   <div className={styles.waMeta}>
                     <span className={styles.waName}>{contact.name}</span>
                     <span className={styles.waPhone}>+62{contact.phone.replace(/^0/, '')}</span>

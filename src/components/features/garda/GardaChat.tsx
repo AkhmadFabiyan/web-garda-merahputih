@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { GardaMessage, Message, WaContact } from './GardaMessage';
 import { GardaTyping } from './GardaTyping';
+import { FaBolt, FaGraduationCap } from 'react-icons/fa';
 import { GardaSuggestions } from './GardaSuggestions';
 import { GardaFacultyPicker, getSavedFaculty } from './GardaFacultyPicker';
 import { trackQuestion, trackContactLookup, trackTopicView } from '../../../lib/services/analytics';
@@ -300,7 +301,7 @@ export const GardaChat: React.FC<GardaChatProps> = ({
             alignItems: 'center',
             gap: '4px'
           }}>
-            <span>🎓</span>
+            <FaGraduationCap aria-hidden="true" />
             <span>{faculty}</span>
             <button
               onClick={() => setShowFacultyPicker(true)}
@@ -328,7 +329,7 @@ export const GardaChat: React.FC<GardaChatProps> = ({
                  color: 'var(--color-brand-primary)', fontSize: '11px', cursor: (isTyping || isResetting) ? 'not-allowed' : 'pointer',
                  flexShrink: 0
                }}>
-               ⚡ {act}
+               <FaBolt aria-hidden="true" style={{ verticalAlign: '-0.125em' }} /> {act}
              </button>
            ))}
         </div>
