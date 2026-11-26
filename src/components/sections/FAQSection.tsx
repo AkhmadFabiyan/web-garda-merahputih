@@ -3,19 +3,14 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Accordion } from '../ui/Accordion';
 import { faqData } from '../../data/faq';
+import { sortByPopularity } from '../../lib/popularity';
+import { trackClick } from '../../lib/services/analytics';
 import styles from './FAQSection.module.css';
 
 export const FAQSection = ({ faqOrder = [] }: { faqOrder?: string[] }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const sortedFaqData = [...faqData].sort((a, b) => {
-    const indexA = faqOrder.indexOf(a.id);
-    const indexB = faqOrder.indexOf(b.id);
-    if (indexA === -1 && indexB === -1) return 0;
-    if (indexA === -1) return 1;
-    if (indexB === -1) return -1;
-    return indexA - indexB;
-  });
+  const sortedFaqData = sortByPopularity(faqData, faqOrder, (f) => f.id);
 
   const filteredFaq = sortedFaqData.filter(item => 
     item.question.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -24,13 +19,7 @@ export const FAQSection = ({ faqOrder = [] }: { faqOrder?: string[] }) => {
 
   const displayData = searchTerm ? filteredFaq : sortedFaqData.slice(0, 4);
 
-  const handleToggle = (id: string) => {
-    fetch('/api/click', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'faq', id })
-    }).catch(e => console.error('Error tracking click:', e));
-  };
+  const handleToggle = (id: string) => trackClick('faq', id);
 
   return (
     <div className={styles.wrapper}>

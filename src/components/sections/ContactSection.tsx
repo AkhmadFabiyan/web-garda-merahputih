@@ -3,30 +3,15 @@ import React from 'react';
 import Link from 'next/link';
 import { FaWhatsapp } from 'react-icons/fa';
 import { contacts } from '../../data/contacts';
+import { waLink } from '../../lib/links';
+import { sortByPopularity } from '../../lib/popularity';
+import { trackClick } from '../../lib/services/analytics';
 import styles from './ContactSection.module.css';
 
-const getWaLink = (phone: string) => {
-  const cleanPhone = phone.replace(/\D/g, '');
-  return `https://wa.me/62${cleanPhone.substring(1)}`;
-};
-
 export const ContactSection = ({ contactOrder = [] }: { contactOrder?: string[] }) => {
-  const sortedContacts = [...contacts].sort((a, b) => {
-    const indexA = contactOrder.indexOf(a.faculty);
-    const indexB = contactOrder.indexOf(b.faculty);
-    if (indexA === -1 && indexB === -1) return 0;
-    if (indexA === -1) return 1;
-    if (indexB === -1) return -1;
-    return indexA - indexB;
-  });
+  const sortedContacts = sortByPopularity(contacts, contactOrder, (c) => c.faculty);
 
-  const handleTrackClick = (faculty: string) => {
-    fetch('/api/click', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'contact', id: faculty })
-    }).catch(e => console.error('Error tracking contact click:', e));
-  };
+  const handleTrackClick = (faculty: string) => trackClick('contact', faculty);
   const [openIndex, setOpenIndex] = React.useState<number | null>(null);
 
   const handleToggle = (idx: number, faculty: string) => {
@@ -57,14 +42,14 @@ export const ContactSection = ({ contactOrder = [] }: { contactOrder?: string[] 
               {/* CP 1 */}
               <div className={styles.personItem}>
                 <span className={styles.personName}>{contact.cp1.name}</span>
-                <a href={getWaLink(contact.cp1.phone)} target="_blank" rel="noopener noreferrer" className={styles.waBtn} onClick={() => handleTrackClick(contact.faculty)}>
+                <a href={waLink(contact.cp1.phone)} target="_blank" rel="noopener noreferrer" className={styles.waBtn} onClick={() => handleTrackClick(contact.faculty)}>
                   <FaWhatsapp size={16} /> {contact.cp1.phone}
                 </a>
               </div>
               {/* CP 2 */}
               <div className={styles.personItem}>
                 <span className={styles.personName}>{contact.cp2.name}</span>
-                <a href={getWaLink(contact.cp2.phone)} target="_blank" rel="noopener noreferrer" className={styles.waBtn} onClick={() => handleTrackClick(contact.faculty)}>
+                <a href={waLink(contact.cp2.phone)} target="_blank" rel="noopener noreferrer" className={styles.waBtn} onClick={() => handleTrackClick(contact.faculty)}>
                   <FaWhatsapp size={16} /> {contact.cp2.phone}
                 </a>
               </div>

@@ -54,3 +54,12 @@ export function trackTopicView(topic: string): void {
   saveEvents(events);
 }
 
+
+/** Counts a FAQ open or contact click on the server, which drives the "most popular first" order. */
+export function trackClick(type: 'faq' | 'contact', id: string): void {
+  fetch('/api/click', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type, id }),
+  }).catch((e) => console.error(`Error tracking ${type} click:`, e));
+}

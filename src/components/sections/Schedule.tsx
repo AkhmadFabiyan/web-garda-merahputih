@@ -4,31 +4,14 @@ import Link from 'next/link';
 import { FaCheck, FaMapMarkedAlt, FaMapMarkerAlt, FaTshirt, FaExclamationTriangle } from 'react-icons/fa';
 import { Container } from '../ui/Container';
 import { timelineData } from '../../data/schedule';
+import { stageStatus, currentStageIndex, type StageStatus } from '../../lib/schedule';
 import styles from './Schedule.module.css';
 
-type Status = 'Done' | 'Ongoing' | 'Upcoming';
-
-const STATUS_TEXT: Record<Status, string> = {
+const STATUS_TEXT: Record<StageStatus, string> = {
   Done: 'Selesai',
   Ongoing: 'Sedang berlangsung',
   Upcoming: 'Akan datang',
 };
-
-function getStatus(now: number, startStr: string, endStr: string): Status {
-  if (now === 0) return 'Upcoming';
-  if (now > new Date(endStr).getTime()) return 'Done';
-  if (now >= new Date(startStr).getTime()) return 'Ongoing';
-  return 'Upcoming';
-}
-
-// Index of the stage the journey is currently at: the last one that has started (0 before anything starts).
-function currentIndex(now: number): number {
-  if (now === 0) return 0;
-  for (let i = timelineData.length - 1; i >= 0; i--) {
-    if (now >= new Date(timelineData[i].startDate).getTime()) return i;
-  }
-  return 0;
-}
 
 export const Schedule = () => {
   const [now, setNow] = useState(0);
@@ -43,7 +26,7 @@ export const Schedule = () => {
     };
   }, []);
 
-  const current = currentIndex(now);
+  const current = now === 0 ? 0 : currentStageIndex(timelineData, now);
   const active = selected ?? current;
   const lastEnd = new Date(timelineData[timelineData.length - 1].endDate).getTime();
   const allDone = now !== 0 && now > lastEnd;
@@ -76,7 +59,7 @@ export const Schedule = () => {
 
           <div className={styles.stations} role="tablist" aria-label="Tahapan PKKMB">
             {timelineData.map((stage, idx) => {
-              const status = getStatus(now, stage.startDate, stage.endDate);
+              const status: StageStatus = now === 0 ? 'Upcoming' : stageStatus(stage, now);
               const isActive = idx === active;
               return (
                 <button

@@ -1,5 +1,6 @@
 import { timelineData } from '../../data/schedule';
 import { announcements } from '../../data/announcements';
+import { activeAndUpcoming } from '../schedule';
 
 export interface TodayResult {
   date: string;
@@ -7,10 +8,6 @@ export interface TodayResult {
   upcomingEvent: typeof timelineData[0] | null;
   activeAnnouncements: typeof announcements;
   message: string;
-}
-
-function parseDate(iso: string): Date {
-  return new Date(iso);
 }
 
 export function getTodayInfo(): TodayResult {
@@ -25,23 +22,8 @@ export function getTodayInfo(): TodayResult {
 
   const activeAnnouncements = announcements.filter((a) => a.isActive);
 
-  // Find active event
-  let activeEvent: typeof timelineData[0] | null = null;
-  let upcomingEvent: typeof timelineData[0] | null = null;
-
-  for (const event of timelineData) {
-    const start = parseDate(event.startDate);
-    const end = parseDate(event.endDate);
-
-    if (now >= start && now <= end) {
-      activeEvent = event;
-      break;
-    }
-
-    if (now < start && !upcomingEvent) {
-      upcomingEvent = event;
-    }
-  }
+  // Same stage logic as the website (Peta Perjalanan, /jadwal)
+  const { active: activeEvent, upcoming: upcomingEvent } = activeAndUpcoming(timelineData, now.getTime());
 
   const message = buildTodayMessage(todayStr, activeEvent, upcomingEvent, activeAnnouncements);
 

@@ -5,6 +5,7 @@ import styles from './GardaMessage.module.css';
 import { FiCopy, FiCheck } from 'react-icons/fi';
 import { FaRobot, FaWhatsapp } from 'react-icons/fa';
 import { iconize } from '../../ui/Iconize';
+import { waLink } from '../../../lib/links';
 
 export interface WaContact {
   name: string;
@@ -164,7 +165,7 @@ export const GardaMessage: React.FC<GardaMessageProps> = ({ message, onSuggestio
               {message.contacts.map((contact, idx) => (
                 <a
                   key={idx}
-                  href={`https://wa.me/62${contact.phone.replace(/^0/, '')}`}
+                  href={waLink(contact.phone)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.waBtn}

@@ -4,7 +4,8 @@ import { Navbar } from '../../components/layout/Navbar';
 import { Footer } from '../../components/layout/Footer';
 import { PageHeader } from '../../components/layout/PageHeader';
 import { Container } from '../../components/ui/Container';
-import { timelineData } from '../../data/schedule';
+import { timelineData, type TimelineItem } from '../../data/schedule';
+import { stageStatus } from '../../lib/schedule';
 import styles from './page.module.css';
 import { FaCheck, FaExclamationTriangle, FaMapMarkerAlt, FaPlay, FaRegCircle, FaTshirt } from 'react-icons/fa';
 
@@ -32,14 +33,7 @@ export default function JadwalPage() {
     };
   }, []);
 
-  const getStatus = (startStr: string, endStr: string) => {
-    if (now === 0) return 'statusUpcoming';
-    const start = new Date(startStr).getTime();
-    const end = new Date(endStr).getTime();
-    if (now > end) return 'statusDone';
-    if (now >= start && now <= end) return 'statusOngoing';
-    return 'statusUpcoming';
-  };
+  const getStatus = (stage: TimelineItem) => (now === 0 ? 'statusUpcoming' : `status${stageStatus(stage, now)}`);
 
   return (
     <>
@@ -52,7 +46,7 @@ export default function JadwalPage() {
         <Container>
           <div className={styles.timelineList}>
             {timelineData.map((item, idx) => {
-              const status = getStatus(item.startDate, item.endDate);
+              const status = getStatus(item);
               const nodeClass = status === 'statusDone' ? styles.nodeDone : status === 'statusUpcoming' ? styles.nodeUpcoming : '';
               const cardClass = status === 'statusOngoing' ? styles.cardOngoing : status === 'statusDone' ? styles.cardDone : '';
               const hasInfo = item.details?.location || item.details?.dresscode || item.details?.notes;
