@@ -1,4 +1,5 @@
 import { GARDA_CONFIG } from './gardaConfig';
+import { infoData } from './info';
 
 export interface LinkMatch {
   name: string;
@@ -6,30 +7,47 @@ export interface LinkMatch {
   message: string;
 }
 
+// Pertanyaan yang memang meminta link/tempat/cara, bukan "kapan deadline" atau "kalau telat".
+const ASKS_FOR_LINK = /\b(link|form|formulir|portal|url|web|website|dimana|di\s+mana|mana|buka|dibuka|kumpul|dikumpul|pengumpulan|submit|upload|unggah)\b/;
+
+function infoLinks(id: string): string {
+  const item = infoData.find((i) => i.id === id);
+  return item ? item.subItems.filter((s) => s.link).map((s) => `• [${s.label}](${s.link})`).join('\n') : '';
+}
+
 export function findLinkByKeyword(message: string): LinkMatch | null {
   const msg = message.toLowerCase();
+  const asksLink = ASKS_FOR_LINK.test(msg);
 
-  // Presensi / absen
-  if (/presensi|absen/.test(msg)) {
+  // Presensi / absen — link form resmi dari info.ts
+  if (/presensi|absen|daftar\s+hadir/.test(msg) && (asksLink || /\b(cara|isi|ngisi|mengisi)\b/.test(msg)) && !/telat|terlambat/.test(msg)) {
     return {
-      name: 'Portal Presensi Garda',
-      url: GARDA_CONFIG.LINKS.PRESENSI,
-      message: 'Kamu bisa melakukan presensi melalui portal resmi berikut:'
+      name: 'Info Garda',
+      url: '/#info-garda',
+      message: `Presensi diisi setiap hari kegiatan. Ada form Awal dan Akhir untuk Pra-PKKMB dan PKKMB 📝\n\n${infoLinks('presensi')}`,
     };
   }
 
-
-  // Penugasan / tugas
-  if (/penugasan|kumpul.*tugas|submit.*tugas|form.*tugas/.test(msg)) {
+  // Penugasan / tugas — link pengumpulan dari info.ts + folder panduan tugas
+  if (/penugasan|tugas|esai|essay|resume/.test(msg) && asksLink && !/deadline|kapan/.test(msg)) {
     return {
-      name: 'Portal Penugasan',
+      name: 'Folder Penugasan',
       url: GARDA_CONFIG.LINKS.PENUGASAN,
-      message: 'Detail penugasan dan form pengumpulan tugas ada di sini:'
+      message: `Ini link pengumpulan tugas Garda 2026 (wajib pakai email UNESA) 📚\n\n${infoLinks('penugasan')}\n\nDetail ketentuan tugas ada di folder penugasan:`,
+    };
+  }
+
+  // Pendataan / survei kesehatan mental
+  if (/pendataan|survei|survey|kesehatan\s+mental/.test(msg)) {
+    return {
+      name: 'Info Garda',
+      url: '/#info-garda',
+      message: `Ini form pendataan mahasiswa baru:\n\n${infoLinks('pendataan')}`,
     };
   }
 
   // Panduan / buku / peraturan
-  if (/panduan|buku\s+panduan|peraturan\s+lengkap/.test(msg)) {
+  if (/panduan|guide\s?book|buku\s+panduan|peraturan\s+lengkap/.test(msg)) {
     return {
       name: 'Buku Panduan PKKMB',
       url: GARDA_CONFIG.LINKS.PANDUAN,
@@ -46,21 +64,12 @@ export function findLinkByKeyword(message: string): LinkMatch | null {
     };
   }
 
-  // Pengumuman
-  if (/pengumuman\s+terbaru|info\s+terbaru|update\s+terbaru/.test(msg)) {
-    return {
-      name: 'Halaman Pengumuman',
-      url: '/pengumuman',
-      message: 'Cek pengumuman terbaru dari panitia di sini:'
-    };
-  }
-
   // Perizinan / izin
-  if (/form\s+izin|link\s+izin|perizinan/.test(msg)) {
+  if (/(form|link|formulir)\s+(izin|perizinan)|perizinan/.test(msg) && asksLink) {
     return {
       name: 'Form Perizinan',
-      url: '/info',
-      message: 'Untuk mengisi form perizinan, gunakan link resmi berikut:'
+      url: '/#info-garda',
+      message: 'Form dan panduan perizinan ada di bagian Info Garda. Kalau perlu izin saat kegiatan berlangsung, tetap lapor ke fasilitator kelompokmu ya:'
     };
   }
 
@@ -74,10 +83,10 @@ export function findLinkByKeyword(message: string): LinkMatch | null {
   }
 
   // FAQ / pertanyaan umum
-  if (/faq|pertanyaan\s+umum|pertanyaan\s+yang\s+sering/.test(msg)) {
+  if (/\bfaq\b|pertanyaan\s+umum|pertanyaan\s+yang\s+sering/.test(msg)) {
     return {
-      name: 'Halaman Info Garda',
-      url: '/#info-garda',
+      name: 'Halaman FAQ',
+      url: '/faq',
       message: 'Kamu bisa cek pertanyaan umum seputar Garda di halaman ini:'
     };
   }

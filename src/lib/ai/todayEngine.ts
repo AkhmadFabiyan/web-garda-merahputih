@@ -83,7 +83,7 @@ function buildTodayMessage(
   if (activeAnnouncements.length > 0) {
     lines.push('\n📢 **Pengumuman Aktif:**');
     activeAnnouncements.slice(0, 2).forEach((ann) => {
-      lines.push(`• **${ann.title}**: ${ann.content.substring(0, 100)}...`);
+      lines.push(`• **${ann.title}**: ${ann.content.length > 100 ? `${ann.content.slice(0, 100)}...` : ann.content}`);
     });
   }
 

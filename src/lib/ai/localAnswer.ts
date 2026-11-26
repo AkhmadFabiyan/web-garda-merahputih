@@ -65,17 +65,17 @@ function isCreativeRequest(msg: string): boolean {
   return CREATIVE_PATTERNS.some((p) => p.test(msg));
 }
 
-// Follow-up Suggestions
-const SUGGESTIONS_BY_INTENT: Record<string, string[]> = {
-  SCHEDULE:     ['Apa dresscode kegiatan ini?', 'Siapa CP untuk fakultasku?', 'Jadwal hari ini?'],
-  PRESENSI:     ['Bagaimana cara mengisi presensi?', 'Kapan batas waktu presensi?', 'Gimana kalau telat presensi?'],
-  PENUGASAN:    ['Kapan deadline penugasan?', 'Di mana link pengumpulan tugas?', 'Apa saja syarat penugasan?'],
-  DRESSCODE:    ['Apa yang perlu dibawa?', 'Ada sanksi kalau salah dresscode?', 'Jadwal kegiatan besok?'],
+// Follow-up Suggestions — hanya pertanyaan yang bisa dijawab dari data lokal (ikut dicek di scripts/garda-eval.mjs)
+export const SUGGESTIONS_BY_INTENT: Record<string, string[]> = {
+  SCHEDULE:     ['Apa dresscode Opening Ceremony?', 'Siapa CP untuk fakultasku?', 'Jadwal hari ini?'],
+  PRESENSI:     ['Di mana link presensi?', 'Berapa minimal kehadiran?', 'Gimana kalau telat?'],
+  PENUGASAN:    ['Kapan deadline esai?', 'Di mana link pengumpulan tugas?', 'Berapa batas plagiarisme tugas?'],
+  DRESSCODE:    ['Apa saja barang yang perlu dibawa?', 'Apakah warna scarf tiap fakultas beda?', 'Jadwal kegiatan besok?'],
 
-  ANNOUNCEMENT: ['Ada pengumuman tentang jadwal?', 'Siapa CP fakultasku?', 'Apa penugasan terbaru?'],
-  FAQ:          ['Apa yang perlu dibawa?', 'Siapa CP untuk fakultasku?', 'Jadwal Pra-PKKMB kapan?'],
-  PERIZINAN:    ['Bagaimana prosedur izin?', 'Siapa yang menerima form izin?', 'Kapan batas submit izin?'],
-  CONTACT:      ['Jadwal hari ini?', 'Apa penugasan terbaru?', 'Dresscode kegiatan ini?'],
+  ANNOUNCEMENT: ['Jadwal PKKMB kapan?', 'Siapa CP fakultasku?', 'Apa tugas Pra-PKKMB?'],
+  FAQ:          ['Apa saja barang yang perlu dibawa?', 'Siapa CP untuk fakultasku?', 'Jadwal Pra-PKKMB kapan?'],
+  PERIZINAN:    ['Di mana form perizinan?', 'Bolehkah meninggalkan lokasi kegiatan?', 'Gimana kalau telat?'],
+  CONTACT:      ['Jadwal hari ini?', 'Apa tugas Pra-PKKMB?', 'Apa dresscode Opening Ceremony?'],
 };
 
 export function getSuggestions(intent: string, faculty?: string): string[] | undefined {
@@ -86,12 +86,6 @@ export function getSuggestions(intent: string, faculty?: string): string[] | und
 }
 
 // Helpers
-function extractFaqAnswer(content: string): string {
-  const aIdx = content.indexOf('\nA: ');
-  if (aIdx !== -1) return content.slice(aIdx + 4).trim();
-  return content.trim();
-}
-
 function findContact(faculty?: string) {
   return faculty ? contacts.find((c) => c.faculty.toUpperCase() === faculty.toUpperCase()) : undefined;
 }
@@ -109,9 +103,8 @@ function contactList(contact: ReturnType<typeof findContact>) {
 export function chunkAnswer(chunks: KnowledgeChunk[], intent: string, faculty?: string): GardaResponse | null {
   if (chunks.length === 0) return null;
   const top = chunks[0];
-  const raw = top.content.includes('Q:') ? extractFaqAnswer(top.content) : top.content;
   return {
-    answer: filterOutput(raw).filtered,
+    answer: filterOutput(top.answer ?? top.content).filtered,
     intent,
     usedGemini: false,
     suggestions: getSuggestions(intent, faculty),
@@ -203,23 +196,21 @@ export function answerLocally(
   }
 
   const searchResult = searchKnowledge(message, detected.intent, faculty);
+  const creative = isCreativeRequest(message);
+  const needsAI: LocalResult = { kind: 'needs_ai', message, detected, faculty, chunks: searchResult.chunks, creative };
 
-  // High-confidence local answer (score ≥ 3, non-GENERAL)
-  if (detected.intent !== 'GENERAL' && searchResult.chunks.length > 0 && searchResult.chunks[0].score >= 3) {
+  // Pantun/humor selalu ke AI (tidak ada jawaban lokalnya)
+  if (creative) return needsAI;
+
+  // Relevant local answer (chunks are already filtered by MIN_RELEVANT_SCORE), non-GENERAL
+  if (searchResult.hasLocalAnswer) {
     return done(chunkAnswer(searchResult.chunks, detected.intent, faculty)!);
   }
 
-  // GENERAL with no context → fallback, no Gemini
-  if (detected.intent === 'GENERAL' && searchResult.chunks.length === 0) {
+  // No relevant context → CP fallback, no AI (AI would only answer "belum ada info")
+  if (searchResult.chunks.length === 0) {
     return done(finalFallback(faculty));
   }
 
-  return {
-    kind: 'needs_ai',
-    message,
-    detected,
-    faculty,
-    chunks: searchResult.chunks,
-    creative: isCreativeRequest(message),
-  };
+  return needsAI;
 }

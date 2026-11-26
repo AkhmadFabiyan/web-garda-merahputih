@@ -5,6 +5,9 @@
   { "q": "p", "intent": "SMALL_TALK" },
   { "q": "ok siap", "intent": "SMALL_TALK" },
 
+  { "q": "halo kak, cp ft siapa ya?", "intent": "CONTACT", "expect": ["082329267650"] },
+  { "q": "Hari ini saya harus ngapain?", "intent": "TODAY" },
+  { "q": "Siapa CP FT?", "intent": "CONTACT", "expect": ["082329267650"] },
   { "q": "cp ft", "intent": "CONTACT", "expect": ["082329267650"] },
   { "q": "siapa cp fip?", "intent": "CONTACT", "expect": ["085649272426"] },
   { "q": "nomor wa panitia feb", "intent": "CONTACT", "expect": ["081284435163"] },

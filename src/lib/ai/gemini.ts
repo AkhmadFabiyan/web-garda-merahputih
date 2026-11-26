@@ -23,18 +23,18 @@ export function isCircuitBreakerTripped(): boolean {
 // OpenRouter
 let currentOpenRouterKeyIndex = 0;
 
-export function getGeminiKeys(): string[] {
+export function getOpenRouterKeys(): string[] {
   const keysString = process.env.OPENROUTER_API_KEY;
   if (!keysString) return [];
   return keysString.split(',').map((k) => k.trim()).filter(Boolean);
 }
 
 export function hasGeminiKey(): boolean {
-  return getGeminiKeys().length > 0 || hasDirectGeminiKey();
+  return getOpenRouterKeys().length > 0 || hasDirectGeminiKey();
 }
 
 function getNextOpenRouterKey(): string | null {
-  const keys = getGeminiKeys();
+  const keys = getOpenRouterKeys();
   if (keys.length === 0) return null;
   const key = keys[currentOpenRouterKeyIndex % keys.length];
   currentOpenRouterKeyIndex = (currentOpenRouterKeyIndex + 1) % keys.length;
@@ -47,7 +47,8 @@ export function hasDirectGeminiKey(): boolean {
 }
 
 const GEMINI_OPENAI_BASE = 'https://generativelanguage.googleapis.com/v1beta/openai';
-const GEMINI_DIRECT_MODELS = ['gemini-2.0-flash', 'gemini-1.5-flash'];
+// gemini-1.5-flash sudah dipensiunkan Google (selalu gagal dan membuang satu request).
+const GEMINI_DIRECT_MODELS = ['gemini-2.5-flash', 'gemini-2.0-flash'];
 
 async function callGeminiDirect(
   messages: Array<{ role: string; content: string }>,
@@ -144,7 +145,7 @@ export async function callGemini(
   messages.push({ role: 'user', content: prompt });
 
   // Strategy: OpenRouter first, then Gemini Direct as fallback (or vice versa)
-  const hasOR = getGeminiKeys().length > 0;
+  const hasOR = getOpenRouterKeys().length > 0;
   const hasGD = hasDirectGeminiKey();
 
   if (!hasOR && !hasGD) throw new Error('No AI API key configured');
@@ -186,5 +187,3 @@ export async function callGemini(
   throw new Error('All AI providers failed');
 }
 
-// Keep for legacy compatibility
-export function getGeminiKeys_legacy() { return getGeminiKeys(); }

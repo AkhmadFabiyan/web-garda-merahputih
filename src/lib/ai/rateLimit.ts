@@ -17,7 +17,7 @@ setInterval(() => {
       store.delete(key);
     }
   }
-}, 5 * 60 * 1000);
+}, 5 * 60 * 1000).unref?.(); // jangan menahan proses tetap hidup (skrip/self-check, shutdown)
 
 export interface RateLimitResult {
   allowed: boolean;
@@ -25,8 +25,15 @@ export interface RateLimitResult {
   resetInMs: number;
 }
 
+const MAX_KEYS = 10000;
+
 export function checkRateLimit(ip: string): RateLimitResult {
   const now = Date.now();
+  // Batasi memori bila banyak IP berbeda datang sekaligus.
+  if (store.size >= MAX_KEYS) {
+    for (const [key, e] of store) if (now - e.windowStart > WINDOW_MS) store.delete(key);
+    if (store.size >= MAX_KEYS) store.clear();
+  }
   const entry = store.get(ip);
 
   if (!entry || now - entry.windowStart > WINDOW_MS) {
@@ -48,12 +55,14 @@ export function checkRateLimit(ip: string): RateLimitResult {
   };
 }
 
+// Entri PERTAMA x-forwarded-for diisi klien, jadi bisa dipalsukan untuk lolos rate limit.
+// Entri TERAKHIR ditambahkan oleh proxy terdekat (Vercel bahkan menimpa seluruh header),
+// jadi itu yang dipakai.
+// shortcut: mengandalkan satu proxy tepercaya di depan app; bila ada lebih dari satu hop
+// (mis. Cloudflare -> nginx -> app), ambil entri ke-N dari belakang atau pakai header khusus platform.
 export function getIP(request: Request): string {
-  return (
-    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
-    request.headers.get('x-real-ip') ??
-    'unknown'
-  );
+  const forwarded = request.headers.get('x-forwarded-for')?.split(',').map((s) => s.trim()).filter(Boolean);
+  return forwarded?.at(-1) ?? request.headers.get('x-real-ip')?.trim() ?? 'unknown';
 }
 
 export const RATE_LIMIT_RESPONSE =

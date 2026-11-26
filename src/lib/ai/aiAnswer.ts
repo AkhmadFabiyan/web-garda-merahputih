@@ -51,8 +51,7 @@ function aiFailure(answer: string): GardaResponse | null {
 
 export async function answerWithAI(
   local: Extract<LocalResult, { kind: 'needs_ai' }>,
-  history: ConversationTurn[],
-  bodyFaculty?: string
+  history: ConversationTurn[]
 ): Promise<GardaResponse> {
   const { message, detected, faculty, chunks, creative } = local;
   const intent = detected.intent;
@@ -67,15 +66,18 @@ export async function answerWithAI(
       if (failure) return failure;
     }
 
-    const cacheKey = getCacheKey(message, intent, bodyFaculty);
-    const cached = getCachedResponse(cacheKey);
+    // Pertanyaan lanjutan pendek ("kalau yang putri?") bergantung pada riwayat → jangan pakai cache,
+    // kalau tidak, jawaban percakapan lain ikut tersaji.
+    const followUp = history.length > 0 && message.trim().split(/\s+/).length <= 4;
+    const cacheKey = followUp ? null : getCacheKey(message, intent, faculty);
+    const cached = cacheKey ? getCachedResponse(cacheKey) : null;
     if (cached) {
       return { answer: cached, intent, usedGemini: true, suggestions: getSuggestions(intent, faculty) };
     }
 
     const { answer, usedGemini } = await callGeminiWithFallback(message, chunks, intent, mood, history, 0.1, false);
     if (usedGemini && answer) {
-      setCachedResponse(cacheKey, answer);
+      if (cacheKey) setCachedResponse(cacheKey, answer);
       return { answer, intent, usedGemini: true, suggestions: getSuggestions(intent, faculty) };
     }
     const failure = aiFailure(answer);
