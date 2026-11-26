@@ -1,36 +1,33 @@
 import { NextResponse } from 'next/server';
-import { Redis } from '@upstash/redis';
+import { redis } from '@/lib/redis';
+import { checkRateLimit, getIP } from '@/lib/ai/rateLimit';
+import { faqData } from '@/data/faq';
+import { contacts } from '@/data/contacts';
 
-// Initialize Redis only if keys are present (prevents crash on build without env vars)
-const redis = (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN)
-  ? new Redis({
-      url: process.env.UPSTASH_REDIS_REST_URL,
-      token: process.env.UPSTASH_REDIS_REST_TOKEN,
-    })
-  : null;
+// Only known ids may be counted, so clients cannot stuff arbitrary members into the sorted sets.
+const ALLOWED: Record<string, { key: string; ids: Set<string> }> = {
+  faq: { key: 'faq_clicks', ids: new Set(faqData.map(f => f.id)) },
+  contact: { key: 'contact_clicks', ids: new Set(contacts.map(c => c.faculty)) },
+};
 
 export async function POST(req: Request) {
   try {
+    if (!checkRateLimit(`click:${getIP(req)}`).allowed) {
+      return NextResponse.json({ success: false, message: 'Too many requests' }, { status: 429 });
+    }
+
+    const body = await req.json().catch(() => null);
+    const target = typeof body?.type === 'string' && Object.hasOwn(ALLOWED, body.type) ? ALLOWED[body.type] : undefined;
+
+    if (!target || typeof body.id !== 'string' || !target.ids.has(body.id)) {
+      return NextResponse.json({ success: false, message: 'Invalid type or id' }, { status: 400 });
+    }
+
     if (!redis) {
       return NextResponse.json({ success: false, message: 'Redis not configured' }, { status: 500 });
     }
 
-    const body = await req.json();
-    const { type, id } = body;
-
-    if (!type || !id) {
-      return NextResponse.json({ success: false, message: 'Missing type or id' }, { status: 400 });
-    }
-
-    // Determine the Redis sorted set key
-    const redisKey = type === 'faq' ? 'faq_clicks' : type === 'contact' ? 'contact_clicks' : null;
-
-    if (!redisKey) {
-      return NextResponse.json({ success: false, message: 'Invalid type' }, { status: 400 });
-    }
-
-    // Increment the score of the specific ID by 1
-    await redis.zincrby(redisKey, 1, id);
+    await redis.zincrby(target.key, 1, body.id);
 
     return NextResponse.json({ success: true });
   } catch (error) {

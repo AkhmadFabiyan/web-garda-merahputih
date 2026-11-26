@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { checkRateLimit, RATE_LIMIT_RESPONSE } from '../../../lib/ai/rateLimit';
+import { checkRateLimit, getIP, RATE_LIMIT_RESPONSE } from '../../../lib/ai/rateLimit';
 import { sanitizeInput, SECURITY_RESPONSE, OFF_TOPIC_RESPONSE } from '../../../lib/ai/security';
 import { detectIntent } from '../../../lib/ai/intentDetector';
 import { searchKnowledge, buildContext } from '../../../lib/ai/knowledgeSearch';
@@ -86,14 +86,6 @@ function getSuggestions(intent: string, faculty?: string): string[] | undefined 
 }
 
 // Helpers
-function getIP(request: NextRequest): string {
-  return (
-    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
-    request.headers.get('x-real-ip') ??
-    'unknown'
-  );
-}
-
 function extractFaqAnswer(content: string): string {
   const aIdx = content.indexOf('\nA: ');
   if (aIdx !== -1) return content.slice(aIdx + 4).trim();

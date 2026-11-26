@@ -48,5 +48,13 @@ export function checkRateLimit(ip: string): RateLimitResult {
   };
 }
 
+export function getIP(request: Request): string {
+  return (
+    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
+    request.headers.get('x-real-ip') ??
+    'unknown'
+  );
+}
+
 export const RATE_LIMIT_RESPONSE =
   '😅 Gara sedang melayani banyak mahasiswa saat ini. Silakan coba beberapa saat lagi ya.';
