@@ -7,6 +7,7 @@
 | 2026-11-26 | Seluruh CSS: `UI_UX_RULES.md` (tanpa px, token tipe/spasi, responsif) | sebagian | Breakpoint belum mobile-first 5 titik; container query belum dipakai; warna hex mentah belum jadi token. Lihat `UI_UX_RULES.md` Lampiran A |
 | 2026-11-26 | Perbaikan tata letak pasca-konversi + arah visual Prasasti Nuswantara | selesai | Galeri "Ikuti Kami" masih rusak (gambar unesa.ac.id 403); kartu jadwal berstatus selesai masih bernuansa hijau penuh; foto kegiatan asli belum ada |
 | 2026-11-26 | Arah "Garda Bergerak": palet & hero asli, Fraunces + Plus Jakarta Sans, sistem gerak (reveal, hero, ✦), Peta Perjalanan baru | selesai | Prasasti dibatalkan atas permintaan pengguna. Galeri "Ikuti Kami" masih rusak (gambar unesa.ac.id 403) |
+| 2026-11-26 | Duplikasi: logika bersama (jadwal, WA, klik), halaman kembar (kontak/FAQ/jadwal), komponen dasar (SectionTitle, Button, Modal), token warna | selesai | Kartu putih (13 blok) belum jadi komponen; chat Gara masih panel sendiri (bukan Modal); `SocialGallery` berisi nomor WA placeholder 628000000000 |
 
 Self-check `/api/click`: `scripts/check-click-api.mjs` (cara pakai di kepala file).
 Sweep responsif: `scripts/responsive-sweep.js` (tempel di console browser, lihat `UI_UX_RULES.md` 2.6).

@@ -255,6 +255,26 @@ Iterasi setelah uji coba "Prasasti Nuswantara" ditolak, karena animasinya dikura
 - **Kurangi gerakan:** di `prefers-reduced-motion: reduce`, token `--motion` bernilai 0. Setiap pergeseran animasi baru ditulis `calc(<jarak> * var(--motion))`, sehingga fade, kelip, dan warna tetap jalan tetapi gerakan geser, skala, dan putar hilang. **Jangan memakai aturan global yang mematikan semua animasi.**
 - **Keyframes di CSS Modules di-hash per file.** Definisikan `@keyframes` di modul yang memakainya. Hanya keyframes untuk selector global (`[data-reveal]`) yang boleh tinggal di `globals.css`.
 
+
+### 3.7 Komponen dan logika bersama: pakai ulang, jangan buat baru
+
+Sebelum membuat elemen baru, cek dulu apakah salah satu dari ini sudah cukup:
+
+| Kebutuhan | Pakai | Catatan |
+|---|---|---|
+| Judul section | `components/ui/SectionTitle` | `variant`: `display` (serif besar + eyebrow ✦), `section` (rata tengah dengan garis), `label` (judul kolom merah). Teks di bawah judul memakai `description` |
+| Tombol atau tautan berbentuk tombol | `components/ui/Button` | `href` → tautan. `variant`: primary, secondary, outline, ghost. `size`: md, lg. Section hanya menambah kelas tata letak (mis. lebar 100% di HP) |
+| Dialog di tengah layar | `components/ui/Modal` | `<dialog>` native: Esc, fokus, latar inert, kunci scroll. Tema lewat `className` (gaya dasarnya memakai `:where()`) |
+| Kartu kontak fakultas | `components/ui/ContactCard` | `compact` dan `collapsible` (accordion ≤ 64em) |
+| Daftar FAQ yang bisa dicari | `components/ui/FaqList` | `limit` untuk versi ringkas |
+| Peta Perjalanan / jadwal | `components/sections/Schedule` | `full` untuk halaman /jadwal |
+| Status tahap jadwal | `lib/schedule.ts` | Dipakai situs dan chatbot (todayEngine) |
+| Link WhatsApp | `lib/links.ts` → `waLink()` | |
+| Urutan terpopuler, catat klik | `lib/popularity.ts`, `trackClick()` di `lib/services/analytics.ts` | |
+| Warna teks | `var(--color-text-primary)` | Jangan menulis `#1F2937` langsung |
+
+Self-check helper: `node scripts/check-shared-helpers.mjs`.
+
 ---
 
 ## 4. Sumber
